@@ -1,22 +1,57 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap");
 
 :root {
-  --md-primary-fg-color: #0b6e6b;
-  --md-accent-fg-color: #f59e0b;
-  --md-default-bg-color: #f6f2ea;
-  --md-default-fg-color: #0b1f22;
-  --md-typeset-a-color: #0b6e6b;
+  --book-ink: #0b1f22;
+  --book-ink-soft: rgba(11, 31, 34, 0.7);
+  --book-paper: #f6f2ea;
+  --book-paper-strong: #efe2d2;
+  --book-contrast: #0b6e6b;
+  --book-contrast-strong: #0f7f76;
+  --book-accent: #f59e0b;
+  --book-shadow: 0 24px 50px rgba(11, 31, 34, 0.12);
+  --book-shadow-soft: 0 12px 26px rgba(11, 31, 34, 0.12);
+
+  --md-primary-fg-color: var(--book-contrast);
+  --md-accent-fg-color: var(--book-accent);
+  --md-default-bg-color: var(--book-paper);
+  --md-default-fg-color: var(--book-ink);
+  --md-typeset-a-color: var(--book-contrast);
+  --md-code-bg-color: rgba(11, 31, 34, 0.06);
+  --md-code-fg-color: #102a2e;
 }
 
 .md-header {
-  background: linear-gradient(90deg, #0b6e6b, #0f766e);
+  background: linear-gradient(90deg, #0b6e6b, #0f7f76 60%, #2ca58d);
   box-shadow: 0 10px 30px rgba(11, 31, 34, 0.18);
 }
 
+.md-header__title {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
 .md-main {
-  background: radial-gradient(circle at 10% 10%, rgba(11, 110, 107, 0.08), transparent 45%),
-              radial-gradient(circle at 90% 20%, rgba(245, 158, 11, 0.12), transparent 40%),
-              var(--md-default-bg-color);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(11, 110, 107, 0.09), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(245, 158, 11, 0.14), transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(13, 79, 76, 0.08), transparent 35%),
+    var(--md-default-bg-color);
+}
+
+.md-content__inner {
+  background: #fbf7f0;
+  border: 1px solid rgba(11, 31, 34, 0.12);
+  border-radius: 26px;
+  box-shadow: var(--book-shadow);
+  padding: 2.6rem 2.9rem 3.2rem;
+  margin-top: 1.8rem;
+  margin-bottom: 3.2rem;
+  animation: page-rise 0.6s ease-out both;
+}
+
+.md-content__inner > h1:first-child {
+  margin-top: 0;
 }
 
 .md-typeset h1,
@@ -30,6 +65,56 @@
 .md-typeset a {
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.md-typeset a:hover {
+  color: #0f7f76;
+}
+
+.md-typeset blockquote {
+  border-left: 4px solid var(--book-contrast);
+  background: rgba(11, 110, 107, 0.08);
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  color: var(--book-ink-soft);
+}
+
+.md-typeset table:not([class]) {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--book-shadow-soft);
+}
+
+.md-typeset table:not([class]) th {
+  background: rgba(11, 110, 107, 0.12);
+  color: var(--book-ink);
+  font-weight: 600;
+}
+
+.md-typeset table:not([class]) td {
+  background: #fffaf2;
+}
+
+.md-typeset pre {
+  border-radius: 14px;
+  box-shadow: var(--book-shadow-soft);
+}
+
+.md-typeset code {
+  border-radius: 6px;
+  padding: 0.1em 0.3em;
+}
+
+.md-nav__title,
+.md-nav__link {
+  letter-spacing: 0.01em;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
 }
 
 .book-hero {
@@ -39,6 +124,7 @@
   background: linear-gradient(135deg, rgba(11, 110, 107, 0.1), rgba(245, 158, 11, 0.12));
   border: 1px solid rgba(11, 31, 34, 0.12);
   box-shadow: 0 20px 40px rgba(11, 31, 34, 0.12);
+  animation: hero-rise 0.7s ease-out both;
 }
 
 .book-hero__eyebrow {
@@ -67,6 +153,51 @@
   color: #5c6b6e;
 }
 
+.md-sidebar--primary .md-sidebar__inner {
+  background: linear-gradient(180deg, rgba(11, 110, 107, 0.08), rgba(245, 158, 11, 0.06));
+  border-right: 1px solid rgba(11, 31, 34, 0.12);
+  padding-top: 1.2rem;
+}
+
+.md-sidebar--secondary .md-sidebar__inner {
+  border-left: 1px solid rgba(11, 31, 34, 0.1);
+}
+
+mjx-container[display="true"] {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-content__inner,
+  .book-hero {
+    animation: none;
+  }
+}
+
 @media screen and (max-width: 44rem) {
   .book-hero {
     padding: 1.6rem;
@@ -74,5 +205,10 @@
 
   .book-hero__title {
     font-size: 2.1rem;
+  }
+
+  .md-content__inner {
+    padding: 1.6rem;
+    border-radius: 18px;
   }
 }
