@@ -1,8 +1,9 @@
-﻿# Linke's Notes
+---
+title: Home
+---
 
+﻿
 <div class="book-hero">
-  <div class="book-hero__eyebrow">Field Notes</div>
-  <div class="book-hero__title">Linke's Notes</div>
   <div class="book-hero__tagline">A growing, searchable notebook organized by date.</div>
   <div class="book-hero__meta">Browse by year in the sidebar or use search to jump straight in.</div>
 </div>

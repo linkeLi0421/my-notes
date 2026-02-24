@@ -2,50 +2,62 @@
 
 :root {
   --book-ink: #0f172a;
-  --book-ink-soft: rgba(15, 23, 42, 0.68);
+  --book-ink-soft: #475569;
   --book-paper: #ffffff;
-  --book-paper-strong: #f5f7fb;
-  --book-contrast: #1e3a8a;
-  --book-contrast-strong: #1d4ed8;
-  --book-accent: #f59e0b;
-  --book-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
-  --book-shadow-soft: 0 12px 26px rgba(15, 23, 42, 0.12);
+  --book-muted: #f1f5f9;
+  --book-border: #e2e8f0;
+  --book-accent: #2563eb;
+  --book-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  --book-shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
 
-  --md-primary-fg-color: var(--book-contrast);
-  --md-accent-fg-color: var(--book-contrast-strong);
+  --md-primary-fg-color: var(--book-ink);
+  --md-accent-fg-color: var(--book-accent);
   --md-default-bg-color: var(--book-paper);
   --md-default-fg-color: var(--book-ink);
-  --md-typeset-a-color: var(--book-contrast-strong);
+  --md-typeset-a-color: var(--book-accent);
   --md-code-bg-color: rgba(15, 23, 42, 0.06);
   --md-code-fg-color: #111827;
 }
 
-.md-header {
-  background: linear-gradient(90deg, #111827, #1f2937 60%, #334155);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+body {
+  background: var(--book-paper);
 }
 
-.md-header__title {
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 600;
+.md-header {
+  background: var(--book-paper);
+  border-bottom: 1px solid var(--book-border);
+  box-shadow: none;
+}
+
+.md-header__title,
+.md-header__button,
+.md-header__button .md-icon,
+.md-icon {
+  color: var(--book-ink);
+}
+
+.md-search__input {
+  background: var(--book-muted);
+  color: var(--book-ink);
+}
+
+.md-search__icon,
+.md-search__input::placeholder {
+  color: rgba(15, 23, 42, 0.6);
 }
 
 .md-main {
-  background:
-    radial-gradient(circle at 12% 15%, rgba(59, 130, 246, 0.08), transparent 40%),
-    radial-gradient(circle at 88% 18%, rgba(148, 163, 184, 0.22), transparent 45%),
-    var(--md-default-bg-color);
+  background: var(--book-paper);
 }
 
 .md-content__inner {
   background: var(--book-paper);
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 26px;
+  border: 1px solid var(--book-border);
+  border-radius: 22px;
   box-shadow: var(--book-shadow);
-  padding: 2.6rem 2.9rem 3.2rem;
-  margin-top: 1.8rem;
-  margin-bottom: 3.2rem;
+  padding: 2.4rem 2.8rem 3rem;
+  margin-top: 1.6rem;
+  margin-bottom: 3rem;
   animation: page-rise 0.6s ease-out both;
 }
 
@@ -68,12 +80,12 @@
 }
 
 .md-typeset a:hover {
-  color: #1e40af;
+  color: #1d4ed8;
 }
 
 .md-typeset blockquote {
-  border-left: 4px solid var(--book-contrast-strong);
-  background: #f1f5f9;
+  border-left: 4px solid var(--book-accent);
+  background: var(--book-muted);
   padding: 0.9rem 1.2rem;
   border-radius: 12px;
   color: var(--book-ink-soft);
@@ -82,13 +94,13 @@
 .md-typeset table:not([class]) {
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--book-shadow-soft);
 }
 
 .md-typeset table:not([class]) th {
-  background: #e2e8f0;
+  background: var(--book-muted);
   color: var(--book-ink);
   font-weight: 600;
 }
@@ -98,7 +110,7 @@
 }
 
 .md-typeset pre {
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: var(--book-shadow-soft);
 }
 
@@ -114,15 +126,16 @@
 
 .md-nav__link--active {
   font-weight: 600;
+  color: var(--book-accent);
 }
 
 .book-hero {
-  margin: 1.5rem 0 2.5rem;
-  padding: 2.2rem;
-  border-radius: 24px;
-  background: linear-gradient(140deg, #f8fafc, #eef2ff);
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  margin: 1.4rem 0 2.4rem;
+  padding: 2.1rem;
+  border-radius: 22px;
+  background: var(--book-muted);
+  border: 1px solid var(--book-border);
+  box-shadow: var(--book-shadow-soft);
   animation: hero-rise 0.7s ease-out both;
 }
 
@@ -131,7 +144,7 @@
   letter-spacing: 0.25em;
   font-size: 0.65rem;
   font-weight: 600;
-  color: var(--book-contrast);
+  color: var(--book-accent);
 }
 
 .book-hero__title {
@@ -149,17 +162,17 @@
 
 .book-hero__meta {
   font-size: 0.95rem;
-  color: #4b5563;
+  color: var(--book-ink-soft);
 }
 
 .md-sidebar--primary .md-sidebar__inner {
-  background: linear-gradient(180deg, #f8fafc, #eef2f7);
-  border-right: 1px solid rgba(15, 23, 42, 0.12);
+  background: var(--book-paper);
+  border-right: 1px solid var(--book-border);
   padding-top: 1.2rem;
 }
 
 .md-sidebar--secondary .md-sidebar__inner {
-  border-left: 1px solid rgba(15, 23, 42, 0.1);
+  border-left: 1px solid var(--book-border);
 }
 
 mjx-container[display="true"] {
