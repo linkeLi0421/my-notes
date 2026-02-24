@@ -1,28 +1,28 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap");
 
 :root {
-  --book-ink: #0b1f22;
-  --book-ink-soft: rgba(11, 31, 34, 0.7);
-  --book-paper: #f6f2ea;
-  --book-paper-strong: #efe2d2;
-  --book-contrast: #0b6e6b;
-  --book-contrast-strong: #0f7f76;
+  --book-ink: #0f172a;
+  --book-ink-soft: rgba(15, 23, 42, 0.68);
+  --book-paper: #ffffff;
+  --book-paper-strong: #f5f7fb;
+  --book-contrast: #1e3a8a;
+  --book-contrast-strong: #1d4ed8;
   --book-accent: #f59e0b;
-  --book-shadow: 0 24px 50px rgba(11, 31, 34, 0.12);
-  --book-shadow-soft: 0 12px 26px rgba(11, 31, 34, 0.12);
+  --book-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
+  --book-shadow-soft: 0 12px 26px rgba(15, 23, 42, 0.12);
 
   --md-primary-fg-color: var(--book-contrast);
-  --md-accent-fg-color: var(--book-accent);
+  --md-accent-fg-color: var(--book-contrast-strong);
   --md-default-bg-color: var(--book-paper);
   --md-default-fg-color: var(--book-ink);
-  --md-typeset-a-color: var(--book-contrast);
-  --md-code-bg-color: rgba(11, 31, 34, 0.06);
-  --md-code-fg-color: #102a2e;
+  --md-typeset-a-color: var(--book-contrast-strong);
+  --md-code-bg-color: rgba(15, 23, 42, 0.06);
+  --md-code-fg-color: #111827;
 }
 
 .md-header {
-  background: linear-gradient(90deg, #0b6e6b, #0f7f76 60%, #2ca58d);
-  box-shadow: 0 10px 30px rgba(11, 31, 34, 0.18);
+  background: linear-gradient(90deg, #111827, #1f2937 60%, #334155);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
 }
 
 .md-header__title {
@@ -33,15 +33,14 @@
 
 .md-main {
   background:
-    radial-gradient(circle at 10% 10%, rgba(11, 110, 107, 0.09), transparent 45%),
-    radial-gradient(circle at 90% 15%, rgba(245, 158, 11, 0.14), transparent 40%),
-    radial-gradient(circle at 20% 80%, rgba(13, 79, 76, 0.08), transparent 35%),
+    radial-gradient(circle at 12% 15%, rgba(59, 130, 246, 0.08), transparent 40%),
+    radial-gradient(circle at 88% 18%, rgba(148, 163, 184, 0.22), transparent 45%),
     var(--md-default-bg-color);
 }
 
 .md-content__inner {
-  background: #fbf7f0;
-  border: 1px solid rgba(11, 31, 34, 0.12);
+  background: var(--book-paper);
+  border: 1px solid rgba(15, 23, 42, 0.12);
   border-radius: 26px;
   box-shadow: var(--book-shadow);
   padding: 2.6rem 2.9rem 3.2rem;
@@ -69,12 +68,12 @@
 }
 
 .md-typeset a:hover {
-  color: #0f7f76;
+  color: #1e40af;
 }
 
 .md-typeset blockquote {
-  border-left: 4px solid var(--book-contrast);
-  background: rgba(11, 110, 107, 0.08);
+  border-left: 4px solid var(--book-contrast-strong);
+  background: #f1f5f9;
   padding: 0.9rem 1.2rem;
   border-radius: 12px;
   color: var(--book-ink-soft);
@@ -89,13 +88,13 @@
 }
 
 .md-typeset table:not([class]) th {
-  background: rgba(11, 110, 107, 0.12);
+  background: #e2e8f0;
   color: var(--book-ink);
   font-weight: 600;
 }
 
 .md-typeset table:not([class]) td {
-  background: #fffaf2;
+  background: #ffffff;
 }
 
 .md-typeset pre {
@@ -121,9 +120,9 @@
   margin: 1.5rem 0 2.5rem;
   padding: 2.2rem;
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(11, 110, 107, 0.1), rgba(245, 158, 11, 0.12));
-  border: 1px solid rgba(11, 31, 34, 0.12);
-  box-shadow: 0 20px 40px rgba(11, 31, 34, 0.12);
+  background: linear-gradient(140deg, #f8fafc, #eef2ff);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
   animation: hero-rise 0.7s ease-out both;
 }
 
@@ -132,7 +131,7 @@
   letter-spacing: 0.25em;
   font-size: 0.65rem;
   font-weight: 600;
-  color: #0b6e6b;
+  color: var(--book-contrast);
 }
 
 .book-hero__title {
@@ -150,17 +149,17 @@
 
 .book-hero__meta {
   font-size: 0.95rem;
-  color: #5c6b6e;
+  color: #4b5563;
 }
 
 .md-sidebar--primary .md-sidebar__inner {
-  background: linear-gradient(180deg, rgba(11, 110, 107, 0.08), rgba(245, 158, 11, 0.06));
-  border-right: 1px solid rgba(11, 31, 34, 0.12);
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+  border-right: 1px solid rgba(15, 23, 42, 0.12);
   padding-top: 1.2rem;
 }
 
 .md-sidebar--secondary .md-sidebar__inner {
-  border-left: 1px solid rgba(11, 31, 34, 0.1);
+  border-left: 1px solid rgba(15, 23, 42, 0.1);
 }
 
 mjx-container[display="true"] {

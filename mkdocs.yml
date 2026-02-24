@@ -1,4 +1,4 @@
-﻿site_name: My Notes
+﻿site_name: Linke's Notes
 site_description: A growing, searchable notebook.
 site_url: https://linkeLi0421.github.io/my-notes/
 repo_url: https://github.com/linkeLi0421/my-notes
@@ -15,8 +15,8 @@ theme:
     code: IBM Plex Mono
   palette:
     - scheme: default
-      primary: teal
-      accent: amber
+      primary: blue grey
+      accent: indigo
   features:
     - navigation.instant
     - navigation.tracking
