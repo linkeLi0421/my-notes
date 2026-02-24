@@ -249,7 +249,7 @@ class RAGEngine:
   - 数据库不会因巨大向量而爆炸
 ```
 
-结构（[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L57-L88)）：
+结构（[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L57-L88)）：
 ```python
 _chunk_text() 返回：
 [
@@ -311,7 +311,7 @@ ChromaDB (localhost:8000)
 
 ### 索引流程（建库）
 
-[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L91-L115)：
+[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L91-L115)：
 
 ```
 index_folder()
@@ -337,7 +337,7 @@ index_folder()
 
 ### 查询流程（检索）
 
-[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L151-L188)：
+[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L151-L188)：
 
 ```
 query("who visited the island?", top_k=5)
@@ -431,9 +431,9 @@ SentenceTransformer 负责把文本编码成向量（embedding），用于：
 - **查询**：对 query 调用 `model.encode([query_text])` → 用向量近邻搜索找到最相似 chunk
 
 对应代码：
-- 模型加载：[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L42-L53)
-- 建库向量化：[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L104-L105)
-- 查询向量化：[mcp_server/rag_engine.py](mcp_server/rag_engine.py#L155-L157)
+- 模型加载：[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L42-L53)
+- 建库向量化：[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L104-L105)
+- 查询向量化：[mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L155-L157)
 
 ### 结构（Structure）：模块化流水线
 
@@ -528,7 +528,7 @@ HNSW 在高维空间里通常能提供很好的速度/召回折中。
 HNSW 本身是索引/搜索结构；“相似/距离怎么计算”由度量决定。
 本项目在创建 collection 时指定：
 
-- `metadata={"hnsw:space": "cosine"}`（见 [mcp_server/rag_engine.py](mcp_server/rag_engine.py#L35-L41)）
+- `metadata={"hnsw:space": "cosine"}`（见 [mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L35-L41)）
 
 这意味着 ChromaDB 在 HNSW 里用 cosine 空间进行距离计算。
 
@@ -552,7 +552,7 @@ ChromaDB 会：
 2. 计算 cosine 距离并排序
 3. 返回 `ids/documents/metadatas/distances`
 
-然后应用层把 `distance` 转成 `similarity = 1 - distance`（见 [mcp_server/rag_engine.py](mcp_server/rag_engine.py#L176-L183)）。
+然后应用层把 `distance` 转成 `similarity = 1 - distance`（见 [mcp_server/rag_engine.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L176-L183)）。
 
 ---
 
@@ -565,7 +565,7 @@ ChromaDB 会：
 - **读数据库（stats 聚合）**：提供一些汇总统计给 MCP 资源（`stats://...`）
 - **非数据库**：也包含即时采样的系统状态（psutil）和计时工具
 
-它依赖的表结构来自 [mcp_server/models.py](mcp_server/models.py)。
+它依赖的表结构来自 [mcp_server/models.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/models.py)。
 
 补充：`mcp_server/models.py` 本身就是 **PostgreSQL schema 定义**，在代码里定义了三张表：
 - `query_logs`
@@ -577,7 +577,7 @@ ChromaDB 会：
 ### 写数据库：把运行事件落到 PostgreSQL
 
 - `log_query(...)` → 插入一条 `query_logs`
-  - 由 MCP 工具 `query_documents` / `search_similar` 调用（见 [mcp_server/server.py](mcp_server/server.py)）
+  - 由 MCP 工具 `query_documents` / `search_similar` 调用（见 [mcp_server/server.py](https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/server.py)）
   - 保存：query_text、response_text、sources(JSONB)、response_time_ms、client_type、session_id
 
 - `create_indexing_job(...)` → 插入一条 `indexing_jobs`
