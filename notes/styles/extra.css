@@ -1,0 +1,78 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap");
+
+:root {
+  --md-primary-fg-color: #0b6e6b;
+  --md-accent-fg-color: #f59e0b;
+  --md-default-bg-color: #f6f2ea;
+  --md-default-fg-color: #0b1f22;
+  --md-typeset-a-color: #0b6e6b;
+}
+
+.md-header {
+  background: linear-gradient(90deg, #0b6e6b, #0f766e);
+  box-shadow: 0 10px 30px rgba(11, 31, 34, 0.18);
+}
+
+.md-main {
+  background: radial-gradient(circle at 10% 10%, rgba(11, 110, 107, 0.08), transparent 45%),
+              radial-gradient(circle at 90% 20%, rgba(245, 158, 11, 0.12), transparent 40%),
+              var(--md-default-bg-color);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: "Playfair Display", serif;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset a {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.book-hero {
+  margin: 1.5rem 0 2.5rem;
+  padding: 2.2rem;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(11, 110, 107, 0.1), rgba(245, 158, 11, 0.12));
+  border: 1px solid rgba(11, 31, 34, 0.12);
+  box-shadow: 0 20px 40px rgba(11, 31, 34, 0.12);
+}
+
+.book-hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #0b6e6b;
+}
+
+.book-hero__title {
+  font-family: "Playfair Display", serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.book-hero__tagline {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+  max-width: 42rem;
+}
+
+.book-hero__meta {
+  font-size: 0.95rem;
+  color: #5c6b6e;
+}
+
+@media screen and (max-width: 44rem) {
+  .book-hero {
+    padding: 1.6rem;
+  }
+
+  .book-hero__title {
+    font-size: 2.1rem;
+  }
+}
