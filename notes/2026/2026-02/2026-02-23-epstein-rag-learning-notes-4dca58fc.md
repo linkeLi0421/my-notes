@@ -620,6 +620,7 @@ async with async_session() as session:
 ## 下一步学习方向
 
 推荐按以下顺序深入学习：
+
 1. ✅ **server.py** - MCP 服务结构（已完成）
 2. ✅ **rag_engine.py** - RAG 核心逻辑 + ChromaDB（已完成）
 3. ⏭️ **logging_utils.py & models.py** - 数据落库
