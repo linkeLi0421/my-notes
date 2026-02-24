@@ -9,3 +9,13 @@
     skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
   }
 };
+
+if (window.document$) {
+  document$.subscribe(() => {
+    MathJax.typesetPromise();
+  });
+} else {
+  window.addEventListener('load', () => {
+    MathJax.typesetPromise();
+  });
+}
