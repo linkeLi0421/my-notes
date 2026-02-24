@@ -1,4 +1,4 @@
-﻿# My Notes
+﻿# Linke's Notes
 
 <div class="book-hero">
   <div class="book-hero__eyebrow">Field Notes</div>

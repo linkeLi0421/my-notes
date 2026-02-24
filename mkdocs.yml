@@ -47,6 +47,8 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
   - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
@@ -55,3 +57,7 @@ markdown_extensions:
 
 extra_css:
   - styles/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
