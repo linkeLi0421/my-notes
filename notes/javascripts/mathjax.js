@@ -7,15 +7,17 @@
   },
   options: {
     skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  startup: {
+    typeset: false,
+    ready: () => {
+      MathJax.startup.defaultReady();
+      const typeset = () => MathJax.typesetPromise();
+      if (window.document$) {
+        document$.subscribe(typeset);
+      } else {
+        typeset();
+      }
+    }
   }
 };
-
-if (window.document$) {
-  document$.subscribe(() => {
-    MathJax.typesetPromise();
-  });
-} else {
-  window.addEventListener('load', () => {
-    MathJax.typesetPromise();
-  });
-}
