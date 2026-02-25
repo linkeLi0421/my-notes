@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap");
 
 :root {
   --book-ink: #0f172a;
@@ -17,10 +17,15 @@
   --md-typeset-a-color: var(--book-accent);
   --md-code-bg-color: rgba(15, 23, 42, 0.06);
   --md-code-fg-color: #111827;
+  --md-text-font: "Noto Sans SC", "Noto Sans", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --md-code-font: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, "Liberation Mono", monospace;
 }
 
 body {
   background: var(--book-paper);
+  text-rendering: optimizeLegibility;
 }
 
 .md-header {
@@ -69,8 +74,19 @@ body {
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4 {
-  font-family: "Playfair Display", serif;
-  letter-spacing: -0.01em;
+  font-family: "Noto Serif SC", "Noto Serif", serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.md-typeset {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.md-typeset p,
+.md-typeset li {
+  line-height: 1.75;
 }
 
 .md-typeset a {
@@ -148,7 +164,7 @@ body {
 }
 
 .book-hero__title {
-  font-family: "Playfair Display", serif;
+  font-family: "Noto Serif SC", "Noto Serif", serif;
   font-size: 2.6rem;
   font-weight: 700;
   margin: 0.4rem 0 0.6rem;

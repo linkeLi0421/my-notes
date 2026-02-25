@@ -11,7 +11,7 @@ theme:
   name: material
   language: en
   font:
-    text: Work Sans
+    text: Noto Sans SC
     code: IBM Plex Mono
   palette:
     - scheme: default
