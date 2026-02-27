@@ -1,0 +1,1463 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/">
+      
+      
+        <link rel="prev" href="../2026-02-25-git-apply-failure-behavior/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multiplivault-echidna-fuzzing-rounding-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-23-epstein-rag-learning-notes-4dca58fc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-24-lora-fine-tuning-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-git-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#multiplivault-echidna-fuzzing-rounding-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MultipliVault Echidna Fuzzing &amp; Rounding Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MultipliVault Echidna Fuzzing &amp; Rounding Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-scope-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Scope Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echidna-setup-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Echidna Setup Journey
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Echidna Setup Journey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-invalid-b16-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: "invalid b16 decoding"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-runtime-vs-creation-bytecode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Runtime vs Creation Bytecode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-balanceaddrbalancecontract-crash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: balanceAddr/balanceContract Crash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-4-ownership-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4: Ownership Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-5-testlimit-0-unlimited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5: testLimit: 0 ≠ Unlimited
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-6-deployer-must-be-a-sender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6: Deployer Must Be a Sender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-working-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final Working Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuzzing-round-1-strict-properties-6-properties-false-positives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuzzing Round 1: Strict Properties (6 Properties, False Positives)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuzzing-round-2-realistic-properties-13-properties-500k-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuzzing Round 2: Realistic Properties (13 Properties, 500K Calls)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuzzing Round 2: Realistic Properties (13 Properties, 500K Calls)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#action-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ghost-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ghost Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results-9-passing-4-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results: 9 Passing, 4 Failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rounding-analysis-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rounding Analysis (Deep Dive)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rounding Analysis (Deep Dive)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-1-exchange-rate-off-by-1-after-oracle-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 1: Exchange Rate Off-by-1 After Oracle Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-2-previewmint-vs-previewdeposit-asymmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 2: previewMint vs previewDeposit Asymmetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-3-donation-inflation-zero-share-deposit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 3: Donation Inflation (Zero-Share Deposit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Command
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#multiplivault-echidna-fuzzing-rounding-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MultipliVault Echidna Fuzzing &amp; Rounding Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MultipliVault Echidna Fuzzing &amp; Rounding Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-scope-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Scope Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echidna-setup-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Echidna Setup Journey
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Echidna Setup Journey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-invalid-b16-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: "invalid b16 decoding"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-runtime-vs-creation-bytecode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Runtime vs Creation Bytecode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-balanceaddrbalancecontract-crash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: balanceAddr/balanceContract Crash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-4-ownership-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4: Ownership Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-5-testlimit-0-unlimited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5: testLimit: 0 ≠ Unlimited
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-6-deployer-must-be-a-sender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6: Deployer Must Be a Sender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-working-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final Working Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuzzing-round-1-strict-properties-6-properties-false-positives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuzzing Round 1: Strict Properties (6 Properties, False Positives)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuzzing-round-2-realistic-properties-13-properties-500k-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuzzing Round 2: Realistic Properties (13 Properties, 500K Calls)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuzzing Round 2: Realistic Properties (13 Properties, 500K Calls)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#action-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ghost-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ghost Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results-9-passing-4-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results: 9 Passing, 4 Failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rounding-analysis-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rounding Analysis (Deep Dive)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rounding Analysis (Deep Dive)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-1-exchange-rate-off-by-1-after-oracle-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 1: Exchange Rate Off-by-1 After Oracle Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-2-previewmint-vs-previewdeposit-asymmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 2: previewMint vs previewDeposit Asymmetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-3-donation-inflation-zero-share-deposit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding 3: Donation Inflation (Zero-Share Deposit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Command
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad</h1>
+
+<h2 id="multiplivault-echidna-fuzzing-rounding-analysis">MultipliVault Echidna Fuzzing &amp; Rounding Analysis<a class="headerlink" href="#multiplivault-echidna-fuzzing-rounding-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h3>
+<p>Bug bounty on HackenProof targeting Multipli smart contracts on Avalanche C-Chain. Rewards: Critical <span class="arithmatex">\(5k-\)</span>10k, High <span class="arithmatex">\(2k-\)</span>5k, Medium <span class="arithmatex">\(750-\)</span>2k, Low <span class="arithmatex">\(0-\)</span>750. PoC required (Foundry preferred).</p>
+<h4 id="in-scope-contracts">In-Scope Contracts<a class="headerlink" href="#in-scope-contracts" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Contract</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MultipliVault (impl)</td>
+<td><code>0xb63601A11c5bDC79D511B8F73871d7C0d8B57AE9</code></td>
+</tr>
+<tr>
+<td>ERC1967Proxy (xUSDC)</td>
+<td><code>0xCF0Eb4ac018C06a16ED5c63484823C7805e7599D</code></td>
+</tr>
+<tr>
+<td>VariableVaultFee</td>
+<td><code>0x4E5FEa916ef8458b8D877BD760B6930Fb4f28B72</code></td>
+</tr>
+<tr>
+<td>VaultFundManager</td>
+<td><code>0x01e676EAA0C9780A88395c651349Cf08Fe52368e</code></td>
+</tr>
+<tr>
+<td>RolesAuthority</td>
+<td><code>0xf580B985e2Fd8A8b0e4a56C2a7E24bC28e872609</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="echidna-setup-journey">Echidna Setup Journey<a class="headerlink" href="#echidna-setup-journey" title="Permanent link">&para;</a></h3>
+<p>Getting Echidna to deploy MultipliVault (a UUPS upgradeable ERC4626 vault with async redeem) required solving several non-obvious issues:</p>
+<h4 id="problem-1-invalid-b16-decoding">Problem 1: "invalid b16 decoding"<a class="headerlink" href="#problem-1-invalid-b16-decoding" title="Permanent link">&para;</a></h4>
+<p>Echidna's <code>deployBytecodes</code> expects raw hex <strong>without</strong> the <code>0x</code> prefix. Forge outputs bytecode with <code>0x</code>.
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Fix: strip the prefix</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>forge<span class="w"> </span>inspect<span class="w"> </span>TestableVault<span class="w"> </span>bytecode<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^0x//&#39;</span>
+</span></code></pre></div></p>
+<h4 id="problem-2-runtime-vs-creation-bytecode">Problem 2: Runtime vs Creation Bytecode<a class="headerlink" href="#problem-2-runtime-vs-creation-bytecode" title="Permanent link">&para;</a></h4>
+<p><code>forge inspect TestableVault deployedBytecode</code> gives runtime bytecode — but Echidna's <code>deployBytecodes</code> needs <strong>creation bytecode</strong> (the constructor-bearing version) so it can actually deploy.
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Correct: use creation bytecode</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>forge<span class="w"> </span>inspect<span class="w"> </span>TestableVault<span class="w"> </span>bytecode<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^0x//&#39;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Wrong: runtime bytecode</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>forge<span class="w"> </span>inspect<span class="w"> </span>TestableVault<span class="w"> </span>deployedBytecode<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^0x//&#39;</span>
+</span></code></pre></div></p>
+<h4 id="problem-3-balanceaddrbalancecontract-crash">Problem 3: balanceAddr/balanceContract Crash<a class="headerlink" href="#problem-3-balanceaddrbalancecontract-crash" title="Permanent link">&para;</a></h4>
+<p><code>balanceAddr: 0xFFFFFFFFFFFFFFFF</code> and <code>balanceContract: 0xFFFFFFFFFFFFFFFF</code> in <code>echidna.yaml</code> caused <strong>silent deployment failure</strong> — the contract at the target address just didn't exist. Found via incremental config testing (adding one YAML option at a time). Solution: remove both options entirely.</p>
+<h4 id="problem-4-ownership-chain">Problem 4: Ownership Chain<a class="headerlink" href="#problem-4-ownership-chain" title="Permanent link">&para;</a></h4>
+<p><code>EchidnaSetupLight</code> (the helper contract deployed via <code>deployContracts</code>) needs to:
+1. Deploy <code>VariableVaultFee</code> with <code>address(this)</code> as owner (so it can call <code>registerAsset()</code>)
+2. Call <code>registerAsset()</code> to configure the fee contract
+3. Transfer ownership to the actual deployer (<code>0x10000</code>)
+4. Same pattern for <code>MockERC20</code> — deploy, then <code>transferOwnership(owner)</code></p>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// In EchidnaSetup constructor:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>asset<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span>MockERC20<span class="p">(</span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;USDC&quot;</span><span class="p">,</span><span class="w"> </span><span class="m m-Decimal">6</span><span class="p">);</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>asset<span class="p">.</span>transferOwnership<span class="p">(</span>owner<span class="p">);</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>feeContract<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span>VariableVaultFee<span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span><span class="w"> </span><span class="c1">// self-owned temporarily</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>feeContract<span class="p">.</span>registerAsset<span class="p">(...);</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>feeContract<span class="p">.</span>transferOwnership<span class="p">(</span>owner<span class="p">);</span><span class="w"> </span><span class="c1">// hand off</span>
+</span></code></pre></div>
+<h4 id="problem-5-testlimit-0-unlimited">Problem 5: testLimit: 0 ≠ Unlimited<a class="headerlink" href="#problem-5-testlimit-0-unlimited" title="Permanent link">&para;</a></h4>
+<p>Setting <code>testLimit: 0</code> means zero tests, not infinite. Echidna workers immediately stop with <code>fuzzing: 1304/0</code>. Use a large number like <code>testLimit: 999999999</code> or a reasonable <code>500000</code>.</p>
+<h4 id="problem-6-deployer-must-be-a-sender">Problem 6: Deployer Must Be a Sender<a class="headerlink" href="#problem-6-deployer-must-be-a-sender" title="Permanent link">&para;</a></h4>
+<p>If the deployer address (<code>0x10000</code>) isn't in the <code>sender</code> list, Echidna can't call setup functions. Always include the deployer in senders.</p>
+<h4 id="final-working-config">Final Working Config<a class="headerlink" href="#final-working-config" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">testMode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;property&quot;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">testLimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">shrinkLimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nt">seqLen</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nt">deployer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0x10000&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nt">sender</span><span class="p">:</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;0x10000&quot;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;0x20000&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;0x30000&quot;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nt">corpusDir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;echidna-corpus&quot;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nt">codeSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xFFFFFF</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nt">deployContracts</span><span class="p">:</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;0x00000000000000000000000000000000000AAAAA&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;EchidnaSetupLight&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nt">deployBytecodes</span><span class="p">:</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;0x00000000000000000000000000000000000BBBBB&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;&lt;creation</span><span class="nv"> </span><span class="s">bytecode&gt;&quot;</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+<hr />
+<h3 id="fuzzing-round-1-strict-properties-6-properties-false-positives">Fuzzing Round 1: Strict Properties (6 Properties, False Positives)<a class="headerlink" href="#fuzzing-round-1-strict-properties-6-properties-false-positives" title="Permanent link">&para;</a></h3>
+<p>First attempt used 6 strict invariants. 5 of 6 failed — <strong>all false positives</strong> caused by <code>adminMint()</code> creating unbacked shares:</p>
+<ol>
+<li><code>echidna_share_price_gte_one</code> — FAILED: adminMint inflates supply without backing</li>
+<li><code>echidna_no_free_shares</code> — FAILED: adminMint gives shares for free by design</li>
+<li><code>echidna_conversion_rounding_favors_vault</code> — PASSED</li>
+<li><code>echidna_solvency</code> — FAILED: adminMint makes vault insolvent for existing holders</li>
+<li><code>echidna_no_zero_share_deposit</code> — FAILED: after adminMint inflates supply, small deposits round to 0 shares</li>
+<li><code>echidna_total_supply_consistency</code> — FAILED: ghost tracking didn't account for admin operations</li>
+</ol>
+<p><strong>Lesson:</strong> <code>adminMint</code>/<code>adminBurn</code> are intentional privileged operations that break naive accounting invariants. They should be excluded from fuzzer actions when testing economic properties.</p>
+<hr />
+<h3 id="fuzzing-round-2-realistic-properties-13-properties-500k-calls">Fuzzing Round 2: Realistic Properties (13 Properties, 500K Calls)<a class="headerlink" href="#fuzzing-round-2-realistic-properties-13-properties-500k-calls" title="Permanent link">&para;</a></h3>
+<p>Rewrote the harness excluding <code>adminMint</code>/<code>adminBurn</code> from action functions. Added ghost variable tracking. Used minimum deposit of <code>1e6</code> (1 USDC) instead of <code>1</code> wei.</p>
+<h4 id="action-functions">Action Functions<a class="headerlink" href="#action-functions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>action_deposit(uint256)</code> — deposit as msg.sender, clamp to [1e6, balance]</li>
+<li><code>action_deposit_for_user(uint256)</code> — deposit for address <code>0x20000</code></li>
+<li><code>action_mint_shares(uint256)</code> — mint shares as msg.sender</li>
+<li><code>action_request_redeem(uint256)</code> — request async redeem</li>
+<li><code>action_fulfill_redeem(uint256)</code> — admin fulfills pending redeem</li>
+<li><code>action_cancel_redeem(uint256)</code> — admin cancels pending redeem</li>
+<li><code>action_update_balance(uint256)</code> — oracle updates underlying balance (±20%)</li>
+<li><code>action_donate_to_vault(uint256)</code> — direct ERC20 transfer to vault (inflation attack vector)</li>
+</ul>
+<h4 id="ghost-variables">Ghost Variables<a class="headerlink" href="#ghost-variables" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalDeposited</span><span class="p">;</span><span class="w">       </span><span class="c1">// cumulative assets deposited</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalSharesMinted</span><span class="p">;</span><span class="w">     </span><span class="c1">// cumulative shares received from deposits</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalAssetsWithdrawn</span><span class="p">;</span><span class="w">  </span><span class="c1">// cumulative assets from fulfilled redeems</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalSharesBurned</span><span class="p">;</span><span class="w">     </span><span class="c1">// cumulative shares burned in redeems</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalSharesCancelled</span><span class="p">;</span><span class="w">  </span><span class="c1">// cumulative shares returned from cancelled redeems</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">ghostPendingShares</span><span class="p">;</span><span class="w">    </span><span class="c1">// running total of pending redeem shares</span>
+</span></code></pre></div>
+<h4 id="results-9-passing-4-failed">Results: 9 Passing, 4 Failed<a class="headerlink" href="#results-9-passing-4-failed" title="Permanent link">&para;</a></h4>
+<p><strong>PASSING (9):</strong>
+1. <code>echidna_roundtrip_rounding</code> — convertToAssets(convertToShares(x)) &lt;= x ✓
+2. <code>echidna_deposit_preview_ge_convert</code> — previewDeposit(x) &gt;= convertToShares(x) ✓
+3. <code>echidna_vault_holds_pending</code> — vault's own share balance &gt;= ghostPendingShares ✓
+4. <code>echidna_supply_conservation</code> — totalSupply changes only through deposit/mint/redeem/cancel ✓
+5. <code>echidna_pending_consistency</code> — totalPendingAssets only increases on requestRedeem, decreases on fulfill/cancel ✓
+6. <code>echidna_no_deposit_redeem_profit</code> — no instant deposit→requestRedeem profit ✓
+7. <code>echidna_total_assets_ge_balance</code> — totalAssets() &gt;= asset.balanceOf(vault) ✓ (with oracle)
+8. <code>echidna_pending_assets_nonneg</code> — totalPendingAssets &gt;= 0 (can't underflow) ✓
+9. <code>echidna_pause_consistency</code> — paused state correctly blocks operations ✓</p>
+<p><strong>FAILED (4) — All Explained:</strong></p>
+<ol>
+<li>
+<p><code>echidna_share_accounting</code> — <strong>Harness bug</strong>, not protocol bug. Ghost variable <code>totalSharesMinted</code> was incremented for <code>address(this)</code> but deposits went to <code>0x20000</code>. Fix: track per-recipient.</p>
+</li>
+<li>
+<p><code>echidna_no_zero_share_for_real_deposit</code> — Donation inflation attack. Attacker donates tokens directly to vault, inflating share price so victim's deposit rounds to 0 shares. <strong>Requires ~10 billion USDC</strong> to steal meaningful amounts from a 1 USDC deposit. Not practical.</p>
+</li>
+<li>
+<p><code>echidna_exchange_rate_ge_one</code> — Off-by-1 after oracle update. See rounding analysis below.</p>
+</li>
+<li>
+<p><code>echidna_mint_deposit_inverse</code> — previewMint/previewDeposit asymmetry. See rounding analysis below.</p>
+</li>
+</ol>
+<hr />
+<h3 id="rounding-analysis-deep-dive">Rounding Analysis (Deep Dive)<a class="headerlink" href="#rounding-analysis-deep-dive" title="Permanent link">&para;</a></h3>
+<p>All three rounding findings are <strong>expected ERC4626 behavior</strong>, not bugs.</p>
+<h4 id="finding-1-exchange-rate-off-by-1-after-oracle-update">Finding 1: Exchange Rate Off-by-1 After Oracle Update<a class="headerlink" href="#finding-1-exchange-rate-off-by-1-after-oracle-update" title="Permanent link">&para;</a></h4>
+<p><strong>What happens:</strong> After <code>onUnderlyingBalanceUpdate()</code> changes <code>totalAssets</code>, the invariant <code>convertToAssets(totalSupply) &gt;= totalSupply</code> can fail by exactly 1 wei.</p>
+<p><strong>Math trace:</strong>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>State: totalAssets = 1000007, totalSupply = 1000000
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>convertToAssets(totalSupply) = totalSupply * totalAssets / totalSupply
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                              = 1000000 * 1000007 / 1000000
+</span></code></pre></div></p>
+<p>In Solidity integer division:
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>1000000 * 1000007 = 1000007000000
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>1000007000000 / 1000000 = 1000007  (exact, no remainder)
+</span></code></pre></div></p>
+<p>But with non-round numbers like <code>totalAssets = 1000003, totalSupply = 999997</code>:
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>convertToAssets(999997) = 999997 * 1000003 / 999997 = 1000003 (exact here)
+</span></code></pre></div></p>
+<p>The failure happens when oracle updates create a <code>totalAssets</code> that doesn't divide evenly:
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>totalAssets = 2000001, totalSupply = 2000000
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>convertToAssets(2000000) = 2000000 * 2000001 / 2000000 = 2000001 ✓
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>But after fee + rounding chain:
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>actualAssets stored = 1999999 (due to fee rounding)
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>totalSupply still = 2000000
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>convertToAssets(2000000) = 2000000 * 1999999 / 2000000 = 1999999 &lt; 2000000 ✗
+</span></code></pre></div></p>
+<p><strong>Verdict:</strong> This is inherent to integer math. The vault's <code>totalAssets</code> after oracle updates doesn't guarantee exact divisibility with <code>totalSupply</code>. The 1 wei discrepancy is economically meaningless and is standard ERC4626 behavior.</p>
+<p><strong>Severity:</strong> Informational / Not a bug.</p>
+<h4 id="finding-2-previewmint-vs-previewdeposit-asymmetry">Finding 2: previewMint vs previewDeposit Asymmetry<a class="headerlink" href="#finding-2-previewmint-vs-previewdeposit-asymmetry" title="Permanent link">&para;</a></h4>
+<p><strong>What happens:</strong> <code>previewMint(convertToShares(assets))</code> can return <code>assets + 1</code>, violating a naive "roundtrip" expectation.</p>
+<p><strong>Math trace:</strong>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>State: totalAssets = 1000003, totalSupply = 1000000
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Step 1: convertToShares(1000) = 1000 * 1000000 / 1000003
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        = 1000000000 / 1000003
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        = 999 (truncated — rounds DOWN, fewer shares, favors vault)
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>Step 2: previewMint(999) = 999 * 1000003 / 1000000 (rounds UP via mulDivUp)
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        = 999002997 / 1000000
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        = 999.002997 → rounds UP to 1000
+</span></code></pre></div></p>
+<p>So depositing 1000 assets gets you 999 shares, but minting 999 shares costs 1000 assets.</p>
+<p><strong>Why this is correct:</strong>
+- <code>previewDeposit</code> / <code>convertToShares</code>: rounds <strong>DOWN</strong> (you get fewer shares → vault keeps dust)
+- <code>previewMint</code> / <code>convertToAssets</code>: rounds <strong>UP</strong> (you pay more assets → vault keeps dust)
+- Both directions favor the vault, preventing share dilution attacks
+- This is the <strong>OpenZeppelin ERC4626 standard implementation</strong></p>
+<p><strong>Severity:</strong> Informational / By design.</p>
+<h4 id="finding-3-donation-inflation-zero-share-deposit">Finding 3: Donation Inflation (Zero-Share Deposit)<a class="headerlink" href="#finding-3-donation-inflation-zero-share-deposit" title="Permanent link">&para;</a></h4>
+<p><strong>What happens:</strong> An attacker can:
+1. Deposit 1 wei to get 1 share
+2. Donate a huge amount of tokens directly to the vault via <code>ERC20.transfer()</code>
+3. This inflates <code>totalAssets</code> without increasing <code>totalSupply</code>
+4. A victim's subsequent deposit gets <code>amount * 1 / (1 + huge_donation)</code> → rounds to 0 shares</p>
+<p><strong>Math trace:</strong>
+<div class="highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Attacker deposits 1 wei → gets 1 share
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Attacker donates 10,000,000,000e6 USDC to vault
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>State: totalAssets = 10_000_000_001e6, totalSupply = 1
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Victim deposits 1e6 (1 USDC):
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>shares = 1e6 * 1 / 10_000_000_001e6 = 0 (truncated)
+</span></code></pre></div></p>
+<p><strong>Why it's not practical:</strong>
+- Requires mass of ~$10 billion USDC to attack a $1 deposit
+- The attacker loses the donated funds (they're trapped in the vault backing the 1 share)
+- MultipliVault also has admin controls and minimum deposit thresholds that mitigate this
+- OpenZeppelin recommends "virtual shares" (ERC4626 with offset) for vaults that need protection, but the economic cost here makes it irrelevant</p>
+<p><strong>Severity:</strong> Informational / Not practical. Standard known ERC4626 consideration.</p>
+<hr />
+<h3 id="key-files">Key Files<a class="headerlink" href="#key-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>test/echidna/EchidnaMultipliVault.sol</code> — Main fuzzing harness with 13 realistic properties and ghost variable tracking</li>
+<li><code>test/echidna/EchidnaSetup.sol</code> — Setup helper deploying MockERC20, VariableVaultFee, MockAuthority with correct ownership chain</li>
+<li><code>test/echidna/TestableVault.sol</code> — MultipliVault subclass without <code>_disableInitializers()</code> (needed for Echidna deployment)</li>
+<li><code>echidna.yaml</code> — Working Echidna configuration</li>
+<li><code>src/vault/MultipliVault.sol</code> — Main target contract (UUPS upgradeable ERC4626 with async redeem)</li>
+<li><code>src/fees/VariableVaultFee.sol</code> — Fee calculation logic</li>
+</ul>
+<h3 id="run-command">Run Command<a class="headerlink" href="#run-command" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>echidna<span class="w"> </span>test/echidna/EchidnaMultipliVault.sol<span class="w"> </span>--contract<span class="w"> </span>EchidnaMultipliVault<span class="w"> </span>--config<span class="w"> </span>echidna.yaml
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap");
+
+:root {
+  --book-ink: #0f172a;
+  --book-ink-soft: #475569;
+  --book-paper: #ffffff;
+  --book-muted: #f1f5f9;
+  --book-border: #e2e8f0;
+  --book-accent: #2563eb;
+  --book-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  --book-shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+
+  --md-primary-fg-color: var(--book-ink);
+  --md-accent-fg-color: var(--book-accent);
+  --md-default-bg-color: var(--book-paper);
+  --md-default-fg-color: var(--book-ink);
+  --md-typeset-a-color: var(--book-accent);
+  --md-code-bg-color: rgba(15, 23, 42, 0.06);
+  --md-code-fg-color: #111827;
+  --md-text-font: "Noto Sans SC", "Noto Sans", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --md-code-font: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  background: var(--book-paper);
+  text-rendering: optimizeLegibility;
+}
+
+.md-header {
+  background: var(--book-paper);
+  border-bottom: 1px solid var(--book-border);
+  box-shadow: none;
+}
+
+.md-header__title,
+.md-header__button,
+.md-header__button .md-icon,
+.md-icon {
+  color: var(--book-ink);
+}
+
+.md-search__input {
+  background: var(--book-muted);
+  color: var(--book-ink);
+}
+
+.md-search__icon,
+.md-search__input::placeholder {
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.md-main {
+  background: var(--book-paper);
+}
+
+.md-content__inner {
+  background: var(--book-paper);
+  border: 1px solid var(--book-border);
+  border-radius: 22px;
+  box-shadow: var(--book-shadow);
+  padding: 2.4rem 2.8rem 3rem;
+  margin-top: 1.6rem;
+  margin-bottom: 3rem;
+  animation: page-rise 0.6s ease-out both;
+}
+
+.md-content__inner > h1:first-child {
+  margin-top: 0;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: "Noto Serif SC", "Noto Serif", serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.md-typeset {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.md-typeset p,
+.md-typeset li {
+  line-height: 1.75;
+}
+
+.md-typeset a {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.md-typeset a:hover {
+  color: #1d4ed8;
+}
+
+.md-typeset blockquote {
+  border-left: 4px solid var(--book-accent);
+  background: var(--book-muted);
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  color: var(--book-ink-soft);
+}
+
+.md-typeset table:not([class]) {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--book-shadow-soft);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--book-muted);
+  color: var(--book-ink);
+  font-weight: 600;
+}
+
+.md-typeset table:not([class]) td {
+  background: #ffffff;
+}
+
+.md-typeset pre {
+  border-radius: 12px;
+  box-shadow: var(--book-shadow-soft);
+}
+
+.md-typeset code {
+  border-radius: 6px;
+  padding: 0.1em 0.3em;
+}
+
+.md-nav__title,
+.md-nav__link {
+  letter-spacing: 0.01em;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+  color: var(--book-accent);
+}
+
+.book-hero {
+  margin: 1.4rem 0 2.4rem;
+  padding: 2.1rem;
+  border-radius: 22px;
+  background: var(--book-muted);
+  border: 1px solid var(--book-border);
+  box-shadow: var(--book-shadow-soft);
+  animation: hero-rise 0.7s ease-out both;
+}
+
+.book-hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--book-accent);
+}
+
+.book-hero__title {
+  font-family: "Noto Serif SC", "Noto Serif", serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.book-hero__tagline {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+  max-width: 42rem;
+}
+
+.book-hero__meta {
+  font-size: 0.95rem;
+  color: var(--book-ink-soft);
+}
+
+.md-sidebar--primary .md-sidebar__inner {
+  background: var(--book-paper);
+  border-right: 1px solid var(--book-border);
+  padding-top: 1.2rem;
+}
+
+.md-sidebar--secondary .md-sidebar__inner {
+  border-left: 1px solid var(--book-border);
+}
+
+mjx-container[display="true"] {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-content__inner,
+  .book-hero {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 44rem) {
+  .book-hero {
+    padding: 1.6rem;
+  }
+
+  .book-hero__title {
+    font-size: 2.1rem;
+  }
+
+  .md-content__inner {
+    padding: 1.6rem;
+    border-radius: 18px;
+  }
+}

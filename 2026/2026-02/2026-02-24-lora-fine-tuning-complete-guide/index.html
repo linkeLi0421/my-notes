@@ -1,0 +1,3389 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-02/2026-02-24-lora-fine-tuning-complete-guide/">
+      
+      
+        <link rel="prev" href="../2026-02-23-epstein-rag-learning-notes-4dca58fc/">
+      
+      
+        <link rel="next" href="../2026-02-25-dashboard-backend-fastapi/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>LoRA Fine-Tuning Complete Guide - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lora-fine-tuning-complete-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LoRA Fine-Tuning Complete Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-23-epstein-rag-learning-notes-4dca58fc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-lora-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. LoRA Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. LoRA Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rank-r-the-bottleneck-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rank (r) - The bottleneck dimension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-scaling-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alpha - Scaling factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dropout - Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target-modules-which-layers-to-adapt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        target modules - Which layers to adapt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-full-fine-tuning-vs-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison: Full Fine-Tuning vs LoRA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRA Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-qlora-quantized-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. QLoRA (Quantized LoRA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. QLoRA (Quantized LoRA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-lora-didnt-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem LoRA Didn't Solve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qloras-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QLoRA's Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-4-bit-quantization-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How 4-bit Quantization Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qlora-key-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QLoRA Key Techniques
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QLoRA Key Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-nf4-normalfloat-4-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. NF4 (NormalFloat 4-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-double-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Double Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-paged-optimizers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Paged Optimizers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-qlora-in-llama-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use QLoRA in LLaMA-Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora-vs-qlora-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRA vs QLoRA Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-you-need-qlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Need QLoRA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-training-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Training Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Training Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-depth-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Depth Parameters (控制学习深度)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Depth Parameters (控制学习深度)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lora_rank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lora_rank
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning_rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        learning_rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lr_scheduler_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lr_scheduler_type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warmup_ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        warmup_ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_samples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        max_samples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_train_epochs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        num_train_epochs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Parameters (控制测试集)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Parameters (控制测试集)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#val_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        val_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per_device_eval_batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        per_device_eval_batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_best_model_at_end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_best_model_at_end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric_for_best_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric_for_best_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-batch-size-gradient-accumulation-cutoff-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Batch Size, Gradient Accumulation &amp; Cutoff Length
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Batch Size, Gradient Accumulation &amp; Cutoff Length">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cutoff_len-cutoff_length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cutoff_len (cutoff_length)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per_device_train_batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        per_device_train_batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient_accumulation_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient_accumulation_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effective-batch-size-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effective Batch Size Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-these-three-interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How These Three Interact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cutoff_len" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cutoff_len
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient_accumulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient_accumulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-output-logging-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Output &amp; Logging Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Output &amp; Logging Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        output_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overwrite_output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overwrite_output_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_total_limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_total_limit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-training-loss-vs-eval-loss-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Training Loss vs Eval Loss Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Training Loss vs Eval Loss Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-types-of-loss-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Types of Loss Charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Types of Loss Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-training_losspng-training-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. training_loss.png - Training Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-training_eval_losspng-eval-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. training_eval_loss.png - Eval Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-parameter-update-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Parameter Update Calculations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Parameter Update Calculations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-results-qwen3-06b-with-ruozhiba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Results (Qwen3-0.6B with ruozhiba)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-in-each-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens in Each Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-samples-seen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Total Samples Seen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effective-batch-size-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effective Batch Size Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-experiment-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Experiment Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Experiment Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Findings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-model-exp4-high-capacity-r32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Model: Exp4 High Capacity (r=32)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-git-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-lora-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. LoRA Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. LoRA Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rank-r-the-bottleneck-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rank (r) - The bottleneck dimension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-scaling-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alpha - Scaling factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dropout - Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target-modules-which-layers-to-adapt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        target modules - Which layers to adapt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-full-fine-tuning-vs-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison: Full Fine-Tuning vs LoRA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRA Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-qlora-quantized-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. QLoRA (Quantized LoRA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. QLoRA (Quantized LoRA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-lora-didnt-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem LoRA Didn't Solve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qloras-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QLoRA's Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-4-bit-quantization-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How 4-bit Quantization Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qlora-key-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QLoRA Key Techniques
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QLoRA Key Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-nf4-normalfloat-4-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. NF4 (NormalFloat 4-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-double-quantization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Double Quantization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-paged-optimizers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Paged Optimizers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-qlora-in-llama-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use QLoRA in LLaMA-Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lora-vs-qlora-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoRA vs QLoRA Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-you-need-qlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When You Need QLoRA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-training-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Training Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Training Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-depth-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Depth Parameters (控制学习深度)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Depth Parameters (控制学习深度)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lora_rank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lora_rank
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning_rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        learning_rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lr_scheduler_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lr_scheduler_type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warmup_ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        warmup_ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_samples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        max_samples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_train_epochs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        num_train_epochs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Parameters (控制测试集)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Parameters (控制测试集)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#val_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        val_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per_device_eval_batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        per_device_eval_batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_best_model_at_end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_best_model_at_end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric_for_best_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric_for_best_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-batch-size-gradient-accumulation-cutoff-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Batch Size, Gradient Accumulation &amp; Cutoff Length
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Batch Size, Gradient Accumulation &amp; Cutoff Length">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cutoff_len-cutoff_length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cutoff_len (cutoff_length)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per_device_train_batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        per_device_train_batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient_accumulation_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient_accumulation_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effective-batch-size-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effective Batch Size Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-these-three-interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How These Three Interact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cutoff_len" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cutoff_len
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        batch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient_accumulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient_accumulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-output-logging-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Output &amp; Logging Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Output &amp; Logging Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        output_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overwrite_output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overwrite_output_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save_steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_total_limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_total_limit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-training-loss-vs-eval-loss-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Training Loss vs Eval Loss Curves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Training Loss vs Eval Loss Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-types-of-loss-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Types of Loss Charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Types of Loss Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-training_losspng-training-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. training_loss.png - Training Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-training_eval_losspng-eval-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. training_eval_loss.png - Eval Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-parameter-update-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Parameter Update Calculations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Parameter Update Calculations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-results-qwen3-06b-with-ruozhiba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Results (Qwen3-0.6B with ruozhiba)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-in-each-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens in Each Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-samples-seen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Total Samples Seen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effective-batch-size-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effective Batch Size Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-experiment-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Experiment Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Experiment Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Findings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-model-exp4-high-capacity-r32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Model: Exp4 High Capacity (r=32)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="lora-fine-tuning-complete-guide">LoRA Fine-Tuning Complete Guide<a class="headerlink" href="#lora-fine-tuning-complete-guide" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Learned from fine-tuning Qwen3-0.6B with ruozhiba dataset using LLaMA-Factory.</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-lora-algorithm">LoRA Algorithm</a></li>
+<li><a href="#2-qlora-quantized-lora">QLoRA (Quantized LoRA)</a></li>
+<li><a href="#3-training-parameters">Training Parameters</a></li>
+<li><a href="#4-batch-size-gradient-accumulation--cutoff-length">Batch Size, Gradient Accumulation &amp; Cutoff Length</a></li>
+<li><a href="#5-output--logging-parameters">Output &amp; Logging Parameters</a></li>
+<li><a href="#6-training-loss-vs-eval-loss-curves">Training Loss vs Eval Loss Curves</a></li>
+<li><a href="#7-parameter-update-calculations">Parameter Update Calculations</a></li>
+<li><a href="#8-experiment-results">Experiment Results</a></li>
+</ol>
+<hr />
+<h2 id="1-lora-algorithm">1. LoRA Algorithm<a class="headerlink" href="#1-lora-algorithm" title="Permanent link">&para;</a></h2>
+<h3 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h3>
+<p>A model like Qwen3-0.6B has 600 million parameters. Full fine-tuning means updating all 600M parameters - expensive in GPU memory, storage, and time.</p>
+<h3 id="the-core-idea">The Core Idea<a class="headerlink" href="#the-core-idea" title="Permanent link">&para;</a></h3>
+<p>LoRA's insight: you don't need to change all parameters. The changes during fine-tuning can be represented by much smaller matrices.</p>
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<p>Original weight matrix W (e.g., 1024 x 1024 = 1,048,576 params):</p>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input → [W] → Output
+</span></code></pre></div>
+<p>With LoRA, freeze W and add two small matrices A and B:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Input → [W (frozen)] + [A × B (trainable)] → Output
+</span></code></pre></div>
+<p>Where:</p>
+<ul>
+<li>A is 1024 x r (r = rank, e.g., 8)</li>
+<li>B is r x 1024</li>
+</ul>
+<p>Trainable params: 1024×8 + 8×1024 = 16,384 (vs 1,048,576)</p>
+<p>That's 98.4% fewer parameters!</p>
+<h3 id="key-parameters">Key Parameters<a class="headerlink" href="#key-parameters" title="Permanent link">&para;</a></h3>
+<h4 id="rank-r-the-bottleneck-dimension">rank (r) - The bottleneck dimension<a class="headerlink" href="#rank-r-the-bottleneck-dimension" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>r=4  → Very compressed, fast, may underfit
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>r=8  → Standard, good balance
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>r=16 → More capacity
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>r=32 → High capacity
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>r=64 → Near full fine-tuning quality
+</span></code></pre></div>
+<p>Experiment results on Qwen3-0.6B with ruozhiba dataset:</p>
+<ul>
+<li>rank=8:  Train Loss 1.967</li>
+<li>rank=16: Train Loss 1.905, Eval Loss 1.866</li>
+<li>rank=32: Train Loss 1.827, Eval Loss 1.854 (BEST)</li>
+</ul>
+<h4 id="alpha-scaling-factor">alpha - Scaling factor<a class="headerlink" href="#alpha-scaling-factor" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Actual update = (alpha / rank) × A × B
+</span></code></pre></div>
+<p>Rule of thumb: alpha = 2 × rank</p>
+<p>Examples:</p>
+<ul>
+<li>alpha=16, rank=8 → scale = 2.0</li>
+<li>alpha=64, rank=32 → scale = 2.0</li>
+</ul>
+<h4 id="dropout-regularization">dropout - Regularization<a class="headerlink" href="#dropout-regularization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>dropout=0.0  → No regularization
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>dropout=0.05 → Light (standard)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>dropout=0.1  → Heavy (can hurt performance)
+</span></code></pre></div>
+<p>Experiment showed dropout=0.1 performed WORST (Eval Loss 1.883 vs 1.854 for best).</p>
+<h4 id="target-modules-which-layers-to-adapt">target modules - Which layers to adapt<a class="headerlink" href="#target-modules-which-layers-to-adapt" title="Permanent link">&para;</a></h4>
+<p>lora_target=all applies LoRA to:</p>
+<ul>
+<li>q_proj (query) - Attention</li>
+<li>k_proj (key) - Attention</li>
+<li>v_proj (value) - Attention</li>
+<li>o_proj (output) - Attention</li>
+<li>gate_proj - MLP</li>
+<li>up_proj - MLP</li>
+<li>down_proj - MLP</li>
+</ul>
+<h3 id="comparison-full-fine-tuning-vs-lora">Comparison: Full Fine-Tuning vs LoRA<a class="headerlink" href="#comparison-full-fine-tuning-vs-lora" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Full Fine-Tuning</th>
+<th>LoRA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Params trained</td>
+<td>600M (100%)</td>
+<td>~10-40M (2-7%)</td>
+</tr>
+<tr>
+<td>GPU memory</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Storage per model</td>
+<td>~1.2 GB</td>
+<td>~20 MB adapter</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>Best</td>
+<td>Very close</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Slow</td>
+<td>Fast</td>
+</tr>
+<tr>
+<td>Multiple tasks</td>
+<td>Save full model</td>
+<td>Swap adapters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lora-variants">LoRA Variants<a class="headerlink" href="#lora-variants" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>QLoRA</strong>: LoRA + 4-bit quantization (saves even more memory)</li>
+<li><strong>DoRA</strong>: Weight-decomposed LoRA (newer, sometimes better)</li>
+<li><strong>rsLoRA</strong>: Rank-stabilized LoRA (scales better with high rank)</li>
+<li><strong>PiSSA</strong>: Principal Singular values and Singular vectors Adaptation</li>
+</ul>
+<h3 id="practical-notes">Practical Notes<a class="headerlink" href="#practical-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>LoRA's biggest advantage: keep one base model and swap tiny adapter files for different tasks</li>
+<li>4 adapters ≈ 80 MB total vs ~5 GB for 4 full fine-tuned models</li>
+<li>Always use validation data to detect overfitting</li>
+<li>Best checkpoint is often NOT the final one - use early stopping</li>
+</ul>
+<hr />
+<h2 id="2-qlora-quantized-lora">2. QLoRA (Quantized LoRA)<a class="headerlink" href="#2-qlora-quantized-lora" title="Permanent link">&para;</a></h2>
+<h3 id="the-problem-lora-didnt-solve">The Problem LoRA Didn't Solve<a class="headerlink" href="#the-problem-lora-didnt-solve" title="Permanent link">&para;</a></h3>
+<p>LoRA only trains small adapter matrices (~20MB), but the frozen base model still sits in GPU memory at full precision. For large models this is still too much:</p>
+<ul>
+<li>Qwen3-7B in bf16: ~14 GB GPU memory</li>
+<li>Qwen3-72B in bf16: ~144 GB GPU memory</li>
+</ul>
+<h3 id="qloras-solution">QLoRA's Solution<a class="headerlink" href="#qloras-solution" title="Permanent link">&para;</a></h3>
+<p>Quantize the frozen base model to 4-bit, then apply LoRA adapters on top at full precision.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>LoRA:   Base model (bf16, 16-bit) + LoRA adapters (small)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>QLoRA:  Base model (4-bit)        + LoRA adapters (bf16, full precision)
+</span></code></pre></div>
+<p>The base model is 4x smaller in memory. Only the LoRA adapters (which are being trained) stay at full precision.</p>
+<h3 id="memory-comparison">Memory Comparison<a class="headerlink" href="#memory-comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model Size</th>
+<th>Full Fine-Tune</th>
+<th>LoRA (bf16)</th>
+<th>QLoRA (4-bit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.6B</td>
+<td>~2.4 GB</td>
+<td>~1.2 GB</td>
+<td>~0.4 GB</td>
+</tr>
+<tr>
+<td>7B</td>
+<td>~28 GB</td>
+<td>~14 GB</td>
+<td>~4 GB</td>
+</tr>
+<tr>
+<td>14B</td>
+<td>~56 GB</td>
+<td>~28 GB</td>
+<td>~8 GB</td>
+</tr>
+<tr>
+<td>72B</td>
+<td>~288 GB</td>
+<td>~144 GB</td>
+<td>~36 GB</td>
+</tr>
+</tbody>
+</table>
+<p>QLoRA makes 7B models trainable on a single 8GB consumer GPU.</p>
+<h3 id="how-4-bit-quantization-works">How 4-bit Quantization Works<a class="headerlink" href="#how-4-bit-quantization-works" title="Permanent link">&para;</a></h3>
+<p>Normal bf16: Each weight stored as 16-bit float (65,536 possible values)
+4-bit NF4: Each weight mapped to nearest of 16 values (2^4 = 16)</p>
+<p>Information is lost, but frozen weights don't need full precision. Only the LoRA adapters need full precision for gradient computation.</p>
+<h3 id="qlora-key-techniques">QLoRA Key Techniques<a class="headerlink" href="#qlora-key-techniques" title="Permanent link">&para;</a></h3>
+<h4 id="1-nf4-normalfloat-4-bit">1. NF4 (NormalFloat 4-bit)<a class="headerlink" href="#1-nf4-normalfloat-4-bit" title="Permanent link">&para;</a></h4>
+<p>Quantization format optimized for neural network weight distributions (normally distributed). Less information loss than naive 4-bit.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">quantization_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nf4</span>
+</span></code></pre></div>
+<h4 id="2-double-quantization">2. Double Quantization<a class="headerlink" href="#2-double-quantization" title="Permanent link">&para;</a></h4>
+<p>Quantizes the quantization constants themselves. Saves extra ~0.4 bits per parameter.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">double_quantization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+<h4 id="3-paged-optimizers">3. Paged Optimizers<a class="headerlink" href="#3-paged-optimizers" title="Permanent link">&para;</a></h4>
+<p>Uses CPU RAM as overflow when GPU runs out. Prevents OOM on long sequences.</p>
+<h3 id="how-to-use-qlora-in-llama-factory">How to Use QLoRA in LLaMA-Factory<a class="headerlink" href="#how-to-use-qlora-in-llama-factory" title="Permanent link">&para;</a></h3>
+<p>Add these lines to your training config:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">quantization_bit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">              </span><span class="c1"># 4-bit quantization</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">quantization_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bnb</span><span class="w">         </span><span class="c1"># Use bitsandbytes library</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">quantization_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nf4</span><span class="w">           </span><span class="c1"># NormalFloat4 (best)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nt">double_quantization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">        </span><span class="c1"># Quantize the quantization constants</span>
+</span></code></pre></div>
+<p>Everything else (lora_rank, learning_rate, epochs, etc.) stays the same as regular LoRA.</p>
+<h3 id="lora-vs-qlora-comparison">LoRA vs QLoRA Comparison<a class="headerlink" href="#lora-vs-qlora-comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>LoRA</th>
+<th>QLoRA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base model precision</td>
+<td>bf16 (16-bit)</td>
+<td>4-bit</td>
+</tr>
+<tr>
+<td>GPU memory</td>
+<td>Higher</td>
+<td>~4x less</td>
+</tr>
+<tr>
+<td>Training speed</td>
+<td>Faster</td>
+<td>Slower (dequantize)</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>Best</td>
+<td>~97-99% of LoRA</td>
+</tr>
+<tr>
+<td>When to use</td>
+<td>GPU has enough</td>
+<td>GPU too small</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-you-need-qlora">When You Need QLoRA<a class="headerlink" href="#when-you-need-qlora" title="Permanent link">&para;</a></h3>
+<ul>
+<li>0.6B model: LoRA is fine, model is tiny</li>
+<li>7B model on 8GB GPU: NEED QLoRA</li>
+<li>14B model on 24GB GPU: NEED QLoRA</li>
+<li>72B model: NEED QLoRA + multi-GPU</li>
+</ul>
+<h3 id="quality-impact">Quality Impact<a class="headerlink" href="#quality-impact" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Full fine-tune: 100% quality (reference)</li>
+<li>LoRA: ~99% quality</li>
+<li>QLoRA: ~97-99% quality</li>
+</ul>
+<p>The quality difference is usually negligible in practice.</p>
+<hr />
+<h2 id="3-training-parameters">3. Training Parameters<a class="headerlink" href="#3-training-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="learning-depth-parameters">Learning Depth Parameters (控制学习深度)<a class="headerlink" href="#learning-depth-parameters" title="Permanent link">&para;</a></h3>
+<h4 id="lora_rank">lora_rank<a class="headerlink" href="#lora_rank" title="Permanent link">&para;</a></h4>
+<p>The bottleneck dimension of LoRA matrices. Controls model capacity.</p>
+<ul>
+<li>r=8: Standard, good balance (baseline)</li>
+<li>r=16: More capacity</li>
+<li>r=32: High capacity (best in experiments)</li>
+<li>r=64: Near full fine-tuning quality</li>
+<li>Higher rank = more trainable parameters = better fit but more memory</li>
+</ul>
+<h4 id="learning_rate">learning_rate<a class="headerlink" href="#learning_rate" title="Permanent link">&para;</a></h4>
+<p>How big each update step is. Step size when walking downhill to find the lowest loss.</p>
+<ul>
+<li>1e-3: Too high, overshoots</li>
+<li>5e-5: Standard for LoRA fine-tuning</li>
+<li>1e-5: Conservative, more stable but slower</li>
+<li>1e-6: Too low, may get stuck</li>
+<li>Rule of thumb for LoRA: 1e-5 to 5e-5</li>
+</ul>
+<h4 id="lr_scheduler_type">lr_scheduler_type<a class="headerlink" href="#lr_scheduler_type" title="Permanent link">&para;</a></h4>
+<p>How learning rate changes over training time.</p>
+<ul>
+<li>cosine: Starts high, smoothly decreases like cosine curve (most popular)</li>
+<li>linear: Decreases at constant rate</li>
+<li>constant: Never changes</li>
+<li>Cosine lets model learn fast early, then fine-tune details later</li>
+</ul>
+<h4 id="warmup_ratio">warmup_ratio<a class="headerlink" href="#warmup_ratio" title="Permanent link">&para;</a></h4>
+<p>Gradually increase LR at the start instead of jumping to full speed.</p>
+<ul>
+<li>0.1 = first 10% of steps are warmup</li>
+<li>Prevents instability from large LR on random/early weights</li>
+<li>Training flow: 0 → peak LR (warmup) → cosine decay → ~0</li>
+</ul>
+<h4 id="max_samples">max_samples<a class="headerlink" href="#max_samples" title="Permanent link">&para;</a></h4>
+<p>Limit how many samples from the dataset to use.</p>
+<ul>
+<li>Useful for quick experiments and debugging</li>
+<li>Example: 1500 means only use 1500 samples even if dataset has more</li>
+<li>Omit to use full dataset</li>
+</ul>
+<h4 id="num_train_epochs">num_train_epochs<a class="headerlink" href="#num_train_epochs" title="Permanent link">&para;</a></h4>
+<p>How many times to pass through the entire dataset.</p>
+<ul>
+<li>epoch=1: See each sample once (underfitting risk)</li>
+<li>epoch=3: Standard (good balance)</li>
+<li>epoch=5: More training (overfitting risk)</li>
+<li>More epochs = more training but risk of overfitting</li>
+</ul>
+<h3 id="evaluation-parameters">Evaluation Parameters (控制测试集)<a class="headerlink" href="#evaluation-parameters" title="Permanent link">&para;</a></h3>
+<h4 id="val_size">val_size<a class="headerlink" href="#val_size" title="Permanent link">&para;</a></h4>
+<p>Split portion of training data for validation.</p>
+<ul>
+<li>val_size: 0.1 means 10% of training data becomes validation set</li>
+<li>Range: 0.0 to 1.0 (float) or integer for exact count</li>
+<li>Used to detect overfitting during training</li>
+<li>If train_loss goes down but eval_loss goes up = overfitting</li>
+</ul>
+<h4 id="eval_dataset">eval_dataset<a class="headerlink" href="#eval_dataset" title="Permanent link">&para;</a></h4>
+<p>Specify a separate dataset for evaluation instead of splitting training data.</p>
+<ul>
+<li>Alternative to val_size</li>
+<li>Points to a dataset name defined in dataset_info.json</li>
+<li>Better than val_size because train and eval data are completely separate</li>
+<li>Example: eval_dataset: ruozhiba_test</li>
+</ul>
+<h4 id="per_device_eval_batch_size">per_device_eval_batch_size<a class="headerlink" href="#per_device_eval_batch_size" title="Permanent link">&para;</a></h4>
+<p>How many samples to evaluate at once per GPU.</p>
+<ul>
+<li>Higher = faster evaluation but more GPU memory</li>
+<li>Typical values: 1, 2, 4, 8</li>
+<li>Does NOT affect training quality, only evaluation speed</li>
+<li>Can be larger than training batch size (no gradients needed)</li>
+</ul>
+<h4 id="eval_strategy">eval_strategy<a class="headerlink" href="#eval_strategy" title="Permanent link">&para;</a></h4>
+<p>When to run evaluation.</p>
+<ul>
+<li>steps: Evaluate every N steps (use with eval_steps)</li>
+<li>epoch: Evaluate at end of each epoch</li>
+<li>no: Never evaluate (default)</li>
+</ul>
+<h4 id="eval_steps">eval_steps<a class="headerlink" href="#eval_steps" title="Permanent link">&para;</a></h4>
+<p>How often to evaluate (when eval_strategy=steps).</p>
+<ul>
+<li>eval_steps: 50 means evaluate every 50 training steps</li>
+<li>Lower = more frequent evaluation = slower training but better monitoring</li>
+</ul>
+<h4 id="load_best_model_at_end">load_best_model_at_end<a class="headerlink" href="#load_best_model_at_end" title="Permanent link">&para;</a></h4>
+<p>After training, load the checkpoint with best eval_loss.</p>
+<ul>
+<li>Requires eval_strategy to be set</li>
+<li>Saves the best model, not just the final one</li>
+<li>Critical for preventing overfitting</li>
+</ul>
+<h4 id="metric_for_best_model">metric_for_best_model<a class="headerlink" href="#metric_for_best_model" title="Permanent link">&para;</a></h4>
+<p>Which metric determines the "best" checkpoint.</p>
+<ul>
+<li>eval_loss: Most common, lower is better</li>
+<li>eval_accuracy: If compute_accuracy is enabled</li>
+</ul>
+<hr />
+<h2 id="4-batch-size-gradient-accumulation-cutoff-length">4. Batch Size, Gradient Accumulation &amp; Cutoff Length<a class="headerlink" href="#4-batch-size-gradient-accumulation-cutoff-length" title="Permanent link">&para;</a></h2>
+<h3 id="cutoff_len-cutoff_length">cutoff_len (cutoff_length)<a class="headerlink" href="#cutoff_len-cutoff_length" title="Permanent link">&para;</a></h3>
+<p>Maximum token length for each training sample.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">cutoff_len</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span>
+</span></code></pre></div>
+<p>What happens to samples based on their token count:</p>
+<ul>
+<li>Tokens &lt; cutoff_len: Padded with pad tokens to fill</li>
+<li>Tokens = cutoff_len: Used as-is</li>
+<li>Tokens &gt; cutoff_len: TRUNCATED (tail cut off, data lost!)</li>
+</ul>
+<p>Choosing the right value:</p>
+<ul>
+<li>512: Fast, low memory, but long samples get cut</li>
+<li>1024: Good for short Q&amp;A datasets</li>
+<li>2048: Safe for most datasets (standard)</li>
+<li>4096: Long conversations, requires more GPU memory</li>
+</ul>
+<p>Trade-off: Higher = more GPU memory per sample but preserves long text. Lower = faster training, less memory, but loses long content.</p>
+<p>For short Q&amp;A data like ruozhiba (~30-100 tokens per sample), 2048 is overkill but safe.</p>
+<h3 id="per_device_train_batch_size">per_device_train_batch_size<a class="headerlink" href="#per_device_train_batch_size" title="Permanent link">&para;</a></h3>
+<p>How many samples each GPU processes in one forward pass.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">per_device_train_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span></code></pre></div>
+<p>Effects of batch size:</p>
+<ul>
+<li>Larger batch: Smoother gradients, faster training, but more GPU memory</li>
+<li>Smaller batch: Less GPU memory, can generalize better (noise acts as regularization), but noisier and slower</li>
+</ul>
+<p>If you get OOM (Out of Memory), reduce batch size first, then compensate with gradient_accumulation_steps.</p>
+<h3 id="gradient_accumulation_steps">gradient_accumulation_steps<a class="headerlink" href="#gradient_accumulation_steps" title="Permanent link">&para;</a></h3>
+<p>Simulate a larger batch size without needing more GPU memory.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</span></code></pre></div>
+<p>How it works:</p>
+<ul>
+<li>Normal: Forward N samples → Backward → UPDATE weights immediately</li>
+<li>With accumulation=4: Forward N samples → save gradient, repeat 4 times → AVERAGE all gradients → UPDATE weights once</li>
+</ul>
+<p>This means the model sees 4x more samples before each weight update, but only holds 1 mini-batch in GPU memory at a time.</p>
+<h3 id="effective-batch-size-formula">Effective Batch Size Formula<a class="headerlink" href="#effective-batch-size-formula" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>effective_batch = per_device_batch × grad_accum × num_GPUs
+</span></code></pre></div>
+<p>Examples from experiments:</p>
+<ul>
+<li>Baseline: 4 × 4 × 2 GPUs = 32 effective batch</li>
+<li>Exp4:     2 × 8 × 2 GPUs = 32 effective batch (same result, less memory!)</li>
+</ul>
+<p>Same effective batch size, different memory usage:</p>
+<ul>
+<li>batch=8, accum=1: 8 samples in GPU at once (high memory)</li>
+<li>batch=4, accum=2: 4 samples in GPU at once (medium memory)</li>
+<li>batch=2, accum=4: 2 samples in GPU at once (low memory)</li>
+<li>batch=1, accum=8: 1 sample in GPU at once (minimum memory)</li>
+</ul>
+<p>All produce identical training behavior but use different amounts of GPU memory. This is the key trick for training large models on limited hardware.</p>
+<h3 id="how-these-three-interact">How These Three Interact<a class="headerlink" href="#how-these-three-interact" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Total training steps = (num_samples / effective_batch) × num_epochs
+</span></code></pre></div>
+<p>Example with ruozhiba (5,986 samples), effective_batch=32, 3 epochs:</p>
+<ul>
+<li>Steps = (5986 / 32) × 3 ≈ 141 steps (matches actual training!)</li>
+</ul>
+<p>If cutoff_len is too high and samples are long:</p>
+<ul>
+<li>Each sample uses more GPU memory</li>
+<li>May need to reduce batch_size</li>
+<li>Compensate with higher gradient_accumulation_steps</li>
+</ul>
+<h3 id="practical-guidelines">Practical Guidelines<a class="headerlink" href="#practical-guidelines" title="Permanent link">&para;</a></h3>
+<h4 id="cutoff_len">cutoff_len<a class="headerlink" href="#cutoff_len" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Check your dataset: what's the max token length?</li>
+<li>Set cutoff_len slightly above the 95th percentile</li>
+<li>Don't set unnecessarily high (wastes memory on padding)</li>
+</ul>
+<h4 id="batch_size">batch_size<a class="headerlink" href="#batch_size" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Start with 4, increase if GPU memory allows</li>
+<li>Reduce to 2 or 1 if OOM errors occur</li>
+<li>Typical range: 1-8 for LoRA fine-tuning</li>
+</ul>
+<h4 id="gradient_accumulation">gradient_accumulation<a class="headerlink" href="#gradient_accumulation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Use to reach target effective batch size (16-64 is common)</li>
+<li>Higher accumulation = fewer weight updates per epoch</li>
+<li>No extra GPU memory cost, only slightly slower (more forward passes)</li>
+</ul>
+<hr />
+<h2 id="5-output-logging-parameters">5. Output &amp; Logging Parameters<a class="headerlink" href="#5-output-logging-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="output_dir">output_dir<a class="headerlink" href="#output_dir" title="Permanent link">&para;</a></h3>
+<p>Where all training outputs are saved. Everything goes into this directory.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">saves/qwen3-0.6b/lora/sft</span>
+</span></code></pre></div>
+<p>Contents of output_dir after training:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>saves/qwen3-0.6b/lora/sft/
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>├── adapter_model.safetensors    ← LoRA weights (final model)
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>├── adapter_config.json          ← LoRA configuration
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>├── checkpoint-100/              ← Intermediate checkpoint at step 100
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>├── checkpoint-141/              ← Checkpoint at step 141
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>├── trainer_state.json           ← Training logs, metrics, loss history
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>├── training_loss.png            ← Loss curve visualization
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>├── train_results.json           ← Final summary metrics
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>├── tokenizer.json               ← Tokenizer files
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>├── tokenizer_config.json        ← Tokenizer configuration
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>└── all_results.json             ← Combined results
+</span></code></pre></div>
+<p>Best practice: use different output_dir for each experiment to keep results separate.</p>
+<h3 id="overwrite_output_dir">overwrite_output_dir<a class="headerlink" href="#overwrite_output_dir" title="Permanent link">&para;</a></h3>
+<p>Controls what happens if output_dir already exists from a previous run.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nt">overwrite_output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">    </span><span class="c1"># Delete old files, start fresh</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nt">overwrite_output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># ERROR if directory exists (default, safe)</span>
+</span></code></pre></div>
+<ul>
+<li>true: Convenient for re-running experiments, but LOSES previous results</li>
+<li>false: Safe, prevents accidental deletion of good checkpoints</li>
+<li>Default is false for safety</li>
+</ul>
+<p>Use true during experimentation, false for important/final training runs.</p>
+<h3 id="logging_steps">logging_steps<a class="headerlink" href="#logging_steps" title="Permanent link">&para;</a></h3>
+<p>How often to print and record training metrics during training.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nt">logging_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">    </span><span class="c1"># Log every 10 training steps</span>
+</span></code></pre></div>
+<p>Each log entry records: loss, learning_rate, grad_norm, epoch, step.</p>
+<p>Example output during training:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Step 10:  loss=2.677, lr=3.0e-05, grad_norm=2.05
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Step 20:  loss=2.337, lr=4.9e-05, grad_norm=1.49
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>Step 30:  loss=2.118, lr=4.8e-05, grad_norm=1.33
+</span></code></pre></div>
+<p>Different values and their effects:</p>
+<ul>
+<li>logging_steps: 1   → Every step, very verbose, slightly slower</li>
+<li>logging_steps: 10  → Every 10 steps, good balance (standard)</li>
+<li>logging_steps: 50  → Every 50 steps, less detail</li>
+<li>logging_steps: 100 → Minimal logging, fast but may miss trends</li>
+</ul>
+<p>Trade-off: Lower = more detailed loss curve but slightly slower. Higher = less noise and faster but may miss important trends.</p>
+<h3 id="related-parameters">Related Parameters<a class="headerlink" href="#related-parameters" title="Permanent link">&para;</a></h3>
+<h4 id="save_steps">save_steps<a class="headerlink" href="#save_steps" title="Permanent link">&para;</a></h4>
+<p>How often to save a checkpoint (model weights snapshot).</p>
+<div class="highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">save_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Save checkpoint every 100 steps</span>
+</span></code></pre></div>
+<p>Creates checkpoint-100/, checkpoint-200/, etc. in output_dir.</p>
+<h4 id="save_total_limit">save_total_limit<a class="headerlink" href="#save_total_limit" title="Permanent link">&para;</a></h4>
+<p>Maximum number of checkpoints to keep. Older ones are deleted.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">save_total_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">    </span><span class="c1"># Keep only 3 most recent checkpoints</span>
+</span></code></pre></div>
+<p>Prevents disk space from filling up during long training runs.</p>
+<h4 id="plot_loss">plot_loss<a class="headerlink" href="#plot_loss" title="Permanent link">&para;</a></h4>
+<p>Whether to generate a loss curve PNG image after training.</p>
+<div class="highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">plot_loss</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">    </span><span class="c1"># Generates training_loss.png in output_dir</span>
+</span></code></pre></div>
+<hr />
+<h2 id="6-training-loss-vs-eval-loss-curves">6. Training Loss vs Eval Loss Curves<a class="headerlink" href="#6-training-loss-vs-eval-loss-curves" title="Permanent link">&para;</a></h2>
+<h3 id="two-types-of-loss-charts">Two Types of Loss Charts<a class="headerlink" href="#two-types-of-loss-charts" title="Permanent link">&para;</a></h3>
+<p>When you set <code>plot_loss: true</code> and have validation enabled, LLaMA-Factory generates two PNG files:</p>
+<h4 id="1-training_losspng-training-loss">1. training_loss.png - Training Loss<a class="headerlink" href="#1-training_losspng-training-loss" title="Permanent link">&para;</a></h4>
+<p>Tracks loss on training data over all steps.</p>
+<ul>
+<li>Shows how well the model fits the data it has seen</li>
+<li>Y-axis: loss (training), X-axis: training step</li>
+<li>Generated for every training run</li>
+</ul>
+<h4 id="2-training_eval_losspng-eval-loss">2. training_eval_loss.png - Eval Loss<a class="headerlink" href="#2-training_eval_losspng-eval-loss" title="Permanent link">&para;</a></h4>
+<p>Tracks loss on validation data (held-out portion).</p>
+<ul>
+<li>Shows how well the model generalizes to unseen data</li>
+<li>Y-axis: eval_loss, X-axis: step</li>
+<li>Only generated when eval_strategy is set (steps or epoch)</li>
+<li>Number of data points depends on eval_steps</li>
+</ul>
+<hr />
+<h2 id="7-parameter-update-calculations">7. Parameter Update Calculations<a class="headerlink" href="#7-parameter-update-calculations" title="Permanent link">&para;</a></h2>
+<h3 id="formula">Formula<a class="headerlink" href="#formula" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>total_updates (steps) = (num_samples / effective_batch) × num_epochs
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>effective_batch = per_device_batch × grad_accum × num_GPUs
+</span></code></pre></div>
+<h3 id="experiment-results-qwen3-06b-with-ruozhiba">Experiment Results (Qwen3-0.6B with ruozhiba)<a class="headerlink" href="#experiment-results-qwen3-06b-with-ruozhiba" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Experiment</th>
+<th>Samples</th>
+<th>Eff. Batch</th>
+<th>Epochs</th>
+<th>Total Updates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>5,986</td>
+<td>32</td>
+<td>3</td>
+<td>141</td>
+</tr>
+<tr>
+<td>Exp1 (r=16)</td>
+<td>5,387</td>
+<td>32</td>
+<td>3</td>
+<td>129</td>
+</tr>
+<tr>
+<td>Exp2 (5 epochs)</td>
+<td>5,387</td>
+<td>32</td>
+<td>5</td>
+<td>215</td>
+</tr>
+<tr>
+<td>Exp3 (more reg)</td>
+<td>5,387</td>
+<td>32</td>
+<td>5</td>
+<td>215</td>
+</tr>
+<tr>
+<td>Exp4 (r=32)</td>
+<td>5,387</td>
+<td>32</td>
+<td>3</td>
+<td>129</td>
+</tr>
+</tbody>
+</table>
+<p>Note: Exp1-4 use 5,387 samples because val_size=0.1 holds out 10% (599 samples) for validation.</p>
+<h3 id="what-happens-in-each-update">What Happens in Each Update<a class="headerlink" href="#what-happens-in-each-update" title="Permanent link">&para;</a></h3>
+<p>1 update = 1 weight change = 1 "step"</p>
+<p>Each update:</p>
+<ol>
+<li>Forward: Feed effective_batch samples through model</li>
+<li>Loss: Calculate how wrong predictions are</li>
+<li>Backward: Compute gradients (direction to improve)</li>
+<li>Update: Adjust LoRA weights by (gradient × learning_rate)</li>
+</ol>
+<h3 id="total-samples-seen">Total Samples Seen<a class="headerlink" href="#total-samples-seen" title="Permanent link">&para;</a></h3>
+<p>Each sample is seen num_epochs times:</p>
+<table>
+<thead>
+<tr>
+<th>Experiment</th>
+<th>Samples × Epochs</th>
+<th>Total samples processed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>5,986 × 3</td>
+<td>17,958</td>
+</tr>
+<tr>
+<td>Exp1</td>
+<td>5,387 × 3</td>
+<td>16,161</td>
+</tr>
+<tr>
+<td>Exp2</td>
+<td>5,387 × 5</td>
+<td>26,935</td>
+</tr>
+<tr>
+<td>Exp3</td>
+<td>5,387 × 5</td>
+<td>26,935</td>
+</tr>
+<tr>
+<td>Exp4</td>
+<td>5,387 × 3</td>
+<td>16,161</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-insight">Key Insight<a class="headerlink" href="#key-insight" title="Permanent link">&para;</a></h3>
+<p>Exp4 won with only 129 updates and 16,161 samples seen. Exp2/Exp3 used 67% more updates (215) but didn't beat it. Model capacity (LoRA rank) mattered more than training duration.</p>
+<h3 id="effective-batch-size-trick">Effective Batch Size Trick<a class="headerlink" href="#effective-batch-size-trick" title="Permanent link">&para;</a></h3>
+<p>Different configs can produce the same effective batch:</p>
+<ul>
+<li>batch=4, accum=4, 2 GPUs = 32 (baseline)</li>
+<li>batch=2, accum=8, 2 GPUs = 32 (exp4, less GPU memory)</li>
+<li>batch=1, accum=16, 2 GPUs = 32 (minimum memory)</li>
+</ul>
+<p>All produce identical training behavior but different memory usage.</p>
+<hr />
+<h2 id="8-experiment-results">8. Experiment Results<a class="headerlink" href="#8-experiment-results" title="Permanent link">&para;</a></h2>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>Conducted fine-tuning experiments on Qwen3-0.6B model using LLaMA-Factory with ruozhiba dataset (5,986 Chinese Q&amp;A pairs). Tested different hyperparameters to optimize model performance.</p>
+<h3 id="base-configuration">Base Configuration<a class="headerlink" href="#base-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Model</strong>: Qwen3-0.6B (600M parameters)</li>
+<li><strong>Method</strong>: LoRA (Low-Rank Adaptation)</li>
+<li><strong>Dataset</strong>: ruozhiba (Chinese humor/QA)</li>
+<li><strong>Format</strong>: Alpaca (instruction → output)</li>
+<li><strong>Base Loss</strong>: 1.967 (original 3 epochs, rank 8)</li>
+</ul>
+<h3 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Experiment</th>
+<th>rank</th>
+<th>epochs</th>
+<th>lr</th>
+<th>dropout</th>
+<th>Train Loss</th>
+<th>Eval Loss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>8</td>
+<td>3</td>
+<td>5e-5</td>
+<td>0.05</td>
+<td>1.967</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Exp1</td>
+<td>16</td>
+<td>3</td>
+<td>5e-5</td>
+<td>0.05</td>
+<td>1.905</td>
+<td>1.866</td>
+</tr>
+<tr>
+<td>Exp2</td>
+<td>8</td>
+<td>5</td>
+<td>5e-5</td>
+<td>0.05</td>
+<td>1.885</td>
+<td>1.859</td>
+</tr>
+<tr>
+<td>Exp3</td>
+<td>8</td>
+<td>5</td>
+<td>3e-5</td>
+<td>0.10</td>
+<td>1.958</td>
+<td>1.883</td>
+</tr>
+<tr>
+<td>Exp4</td>
+<td>32</td>
+<td>3</td>
+<td>5e-5</td>
+<td>0.05</td>
+<td>1.827</td>
+<td>1.854</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-findings">Key Findings<a class="headerlink" href="#key-findings" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Higher LoRA rank significantly improves performance (r=32 best)</li>
+<li>More epochs help but only to a point</li>
+<li>Early stopping crucial (best models not at final step)</li>
+<li>Too much regularization (dropout 0.1) hurts performance</li>
+<li>Validation data essential for detecting overfitting</li>
+</ul>
+<h3 id="best-model-exp4-high-capacity-r32">Best Model: Exp4 High Capacity (r=32)<a class="headerlink" href="#best-model-exp4-high-capacity-r32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Eval Loss: 1.854 (5.7% improvement over baseline)</li>
+<li>Perplexity: 6.4</li>
+<li>Location: <code>saves/qwen3-0.6b/lora/exp4_high_capacity</code></li>
+</ul>
+<h3 id="technical-details">Technical Details<a class="headerlink" href="#technical-details" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Framework: LLaMA-Factory</li>
+<li>Batch size: 4 (effective 32 with grad accumulation)</li>
+<li>Learning rate: 5e-5 (cosine with 10% warmup)</li>
+<li>Precision: bfloat16</li>
+<li>Training time: ~90-150s per experiment</li>
+</ul>
+<h3 id="data-formats">Data Formats<a class="headerlink" href="#data-formats" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Alpaca</strong>: instruction/input/output fields (used in this project)</li>
+<li><strong>ShareGPT</strong>: messages array with roles (alternative for multi-turn chat)</li>
+</ul>
+<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Chat with best model</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>llamafactory-cli<span class="w"> </span>chat<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span>--model_name_or_path<span class="w"> </span>models/Qwen3-0.6B<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span>--adapter_name_or_path<span class="w"> </span>saves/qwen3-0.6b/lora/exp4_high_capacity<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span>--template<span class="w"> </span>qwen<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span>--finetuning_type<span class="w"> </span>lora<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">  </span>--no_enable_thinking
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

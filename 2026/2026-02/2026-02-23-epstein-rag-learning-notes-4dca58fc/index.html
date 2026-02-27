@@ -1,0 +1,2626 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-02/2026-02-23-epstein-rag-learning-notes-4dca58fc/">
+      
+      
+        <link rel="prev" href="../../..">
+      
+      
+        <link rel="next" href="../2026-02-24-lora-fine-tuning-complete-guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Epstein RAG 项目学习笔记 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#epstein-rag" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Epstein RAG 项目学习笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-asyncawait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. async/await 核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. async/await 核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asyncawait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是 async/await？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asyncawait_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要用 async/await？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 条记住的规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mcp-server-serverpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. MCP Server 架构（server.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MCP Server 架构（server.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键对象
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="关键对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app-serverconfigserver_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        app = Server(config.server_name)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rag-ragengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rag = RAGEngine()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        装饰器系统（MCP SDK 预定义的注册钩子）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        暴露的 MCP 工具（给 AI Agent 用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        暴露的 MCP 资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 执行流程解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 执行流程解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整的启动顺序（main() 函数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 核心概念解释
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 核心概念解释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stdio_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stdio_server 是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynciorunmain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        asyncio.run(main()) 的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apprun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么说 app.run 是一个循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据流向总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 数据流向总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query_documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        query_documents 请求举例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 关键文件导航
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-rag-engine-rag_enginepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. RAG Engine 深度解析（rag_engine.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. RAG Engine 深度解析（rag_engine.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件概览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计模式：Lazy Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 1：分块（Chunking）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 2：Embedding（向量化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3chromadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 3：ChromaDB（向量数据库）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        索引流程（建库）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查询流程（检索）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        距离 vs 相似度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文档管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键设计决策
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整数据流（从文件到答案）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-sentence-transformers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Sentence-Transformers（句向量模型）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Sentence-Transformers（句向量模型）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它在本项目里的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结构（Structure）：模块化流水线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bi-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么适合做向量检索（Bi-Encoder）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练（Training）：常见目标与 Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-hnsw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. HNSW（向量近邻检索索引）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. HNSW（向量近邻检索索引）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hnsw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW 是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直觉：多层图 + 贪心搜索
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么适合文本向量检索
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hnsw_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW 与“距离度量”的关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键参数（理解层面）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在本项目的具体落点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-logging_utilspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. logging_utils.py（数据库日志与统计工具层）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. logging_utils.py（数据库日志与统计工具层）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它的定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        写数据库：把运行事件落到 PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        读数据库：聚合统计（MCP stats:// 资源用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非数据库：即时系统状态与计时
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下一步学习方向
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-24-lora-fine-tuning-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-25-git-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-asyncawait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. async/await 核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. async/await 核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asyncawait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是 async/await？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asyncawait_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要用 async/await？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 条记住的规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mcp-server-serverpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. MCP Server 架构（server.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MCP Server 架构（server.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键对象
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="关键对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#app-serverconfigserver_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        app = Server(config.server_name)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rag-ragengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rag = RAGEngine()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        装饰器系统（MCP SDK 预定义的注册钩子）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        暴露的 MCP 工具（给 AI Agent 用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        暴露的 MCP 资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 执行流程解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 执行流程解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整的启动顺序（main() 函数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 核心概念解释
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 核心概念解释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stdio_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stdio_server 是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynciorunmain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        asyncio.run(main()) 的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apprun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么说 app.run 是一个循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据流向总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 数据流向总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query_documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        query_documents 请求举例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 关键文件导航
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-rag-engine-rag_enginepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. RAG Engine 深度解析（rag_engine.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. RAG Engine 深度解析（rag_engine.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件概览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计模式：Lazy Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 1：分块（Chunking）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 2：Embedding（向量化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3chromadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 3：ChromaDB（向量数据库）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        索引流程（建库）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查询流程（检索）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        距离 vs 相似度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文档管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键设计决策
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整数据流（从文件到答案）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-sentence-transformers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Sentence-Transformers（句向量模型）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Sentence-Transformers（句向量模型）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它在本项目里的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结构（Structure）：模块化流水线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bi-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么适合做向量检索（Bi-Encoder）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练（Training）：常见目标与 Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-hnsw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. HNSW（向量近邻检索索引）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. HNSW（向量近邻检索索引）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hnsw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW 是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直觉：多层图 + 贪心搜索
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么适合文本向量检索
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hnsw_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW 与“距离度量”的关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键参数（理解层面）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在本项目的具体落点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-logging_utilspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. logging_utils.py（数据库日志与统计工具层）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. logging_utils.py（数据库日志与统计工具层）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它的定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        写数据库：把运行事件落到 PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        读数据库：聚合统计（MCP stats:// 资源用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非数据库：即时系统状态与计时
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下一步学习方向
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="epstein-rag">Epstein RAG 项目学习笔记<a class="headerlink" href="#epstein-rag" title="Permanent link">&para;</a></h1>
+<h2 id="1-asyncawait">1. async/await 核心概念<a class="headerlink" href="#1-asyncawait" title="Permanent link">&para;</a></h2>
+<h3 id="asyncawait">什么是 async/await？<a class="headerlink" href="#asyncawait" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>async def</strong>：声明一个异步函数（协程），不会立刻执行，返回协程对象</li>
+<li><strong>await</strong>：在异步函数内部等待某个 I/O 操作完成</li>
+<li>同步等待：线程被卡住，什么都不能切换</li>
+<li>async 等待：当前协程暂停，控制权还给事件循环；其他任务可以继续跑</li>
+</ul>
+<h3 id="asyncawait_1">为什么要用 async/await？<a class="headerlink" href="#asyncawait_1" title="Permanent link">&para;</a></h3>
+<p>这个项目是 MCP 服务端，需要：
+- 持续处理多个并发请求（数据库查询、向量检索、日志写入）
+- 每个操作都涉及 I/O（数据库、网络、标准输入输出）
+- 异步模型让同一线程在等待 I/O 时处理其他任务，提高效率</p>
+<h3 id="3">3 条记住的规则<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>await</code> 只能写在 <code>async def</code> 里</li>
+<li>遇到 I/O（DB、网络、流）优先考虑异步接口</li>
+<li>最外层用 <code>asyncio.run(...)</code> 启动事件循环</li>
+</ol>
+<hr />
+<h2 id="2-mcp-server-serverpy">2. MCP Server 架构（server.py）<a class="headerlink" href="#2-mcp-server-serverpy" title="Permanent link">&para;</a></h2>
+<h3 id="_1">文件路径<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><code>mcp_server/server.py</code> - MCP 服务入口</p>
+<h3 id="_2">关键对象<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="app-serverconfigserver_name">app = Server(config.server_name)<a class="headerlink" href="#app-serverconfigserver_name" title="Permanent link">&para;</a></h4>
+<ul>
+<li>类型：<code>mcp.server.Server</code> 实例</li>
+<li>作用：MCP 服务本体，管理所有工具和资源</li>
+<li>不是 HTTP 应用，而是通过 stdio 通信的协议服务器</li>
+</ul>
+<h4 id="rag-ragengine">rag = RAGEngine()<a class="headerlink" href="#rag-ragengine" title="Permanent link">&para;</a></h4>
+<ul>
+<li>类型：<code>mcp_server.rag_engine.RAGEngine</code> 实例</li>
+<li>作用：向量检索、文档索引的核心引擎</li>
+<li>负责：chunk、embedding、ChromaDB 查询</li>
+</ul>
+<h3 id="mcp-sdk">装饰器系统（MCP SDK 预定义的注册钩子）<a class="headerlink" href="#mcp-sdk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>装饰器</th>
+<th>注册的函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@app.list_tools()</code></td>
+<td><code>list_tools()</code></td>
+<td>返回可用工具列表</td>
+</tr>
+<tr>
+<td><code>@app.call_tool()</code></td>
+<td><code>call_tool(name, arguments)</code></td>
+<td>执行指定工具</td>
+</tr>
+<tr>
+<td><code>@app.list_resources()</code></td>
+<td><code>list_resources()</code></td>
+<td>返回资源列表</td>
+</tr>
+<tr>
+<td><code>@app.read_resource()</code></td>
+<td><code>read_resource(uri)</code></td>
+<td>读取资源内容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mcp-ai-agent">暴露的 MCP 工具（给 AI Agent 用）<a class="headerlink" href="#mcp-ai-agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>TOOLS = [
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  - index_documents(folder_path)          # 索引文件夹
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  - query_documents(query, top_k=5)       # RAG 查询
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  - search_similar(query, top_k=5)        # 相似度搜索
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  - get_document_summary(source)          # 获取文档摘要
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  - list_indexed_documents()              # 列出已索引文档
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  - delete_document(source)               # 删除文档
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  - reset_index()                         # 重置索引
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  - check_status()                        # 检查系统状态
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>]
+</span></code></pre></div>
+<h3 id="mcp">暴露的 MCP 资源<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>RESOURCES = [
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  - stats://queries      # 查询统计
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  - stats://documents    # 文档统计
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  - stats://jobs         # 任务统计
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  - stats://system       # 系统健康
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>]
+</span></code></pre></div>
+<hr />
+<h2 id="3_1">3. 执行流程解析<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<h3 id="main">完整的启动顺序（main() 函数）<a class="headerlink" href="#main" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="c1"># 1. 初始化数据库表</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initialising database tables...&quot;</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">await</span> <span class="n">init_db</span><span class="p">()</span>  <span class="c1"># 等待数据库操作完成</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="c1"># 2. 启动 MCP 服务</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting MCP server &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">server_name</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="c1"># 3. 进入无限循环（等待客户端消息）</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">stdio_server</span><span class="p">()</span> <span class="k">as</span> <span class="p">(</span><span class="n">read_stream</span><span class="p">,</span> <span class="n">write_stream</span><span class="p">):</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">await</span> <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">read_stream</span><span class="p">,</span> <span class="n">write_stream</span><span class="p">,</span> <span class="n">app</span><span class="o">.</span><span class="n">create_initialization_options</span><span class="p">())</span>
+</span></code></pre></div>
+<h3 id="_3">时间线<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>启动阶段</strong>（顺序执行）</li>
+<li>Log 1: "Initialising database tables..."</li>
+<li>执行 <code>await init_db()</code>（DB 建表）</li>
+<li>
+<p>Log 2: "Starting MCP server..."</p>
+</li>
+<li>
+<p><strong>运行阶段</strong>（并发循环）</p>
+</li>
+<li>进入 <code>async with stdio_server()</code> 创建 stdin/stdout 流</li>
+<li><code>await app.run(...)</code> 启动事件循环</li>
+<li>持续等待 → 处理请求 → 回包 → 继续等待...</li>
+</ol>
+<h3 id="_4">关键点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>启动阶段是"先等 init_db 完成，再继续"（串行）</li>
+<li>运行阶段是"持续监听多个并发请求"（并行）</li>
+<li>真正体现异步优势的是 <code>app.run</code> 的无限循环里</li>
+</ul>
+<hr />
+<h2 id="4">4. 核心概念解释<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="stdio_server">stdio_server 是什么？<a class="headerlink" href="#stdio_server" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一个"异步上下文管理器"（async context manager）</li>
+<li>作用：把终端的标准输入/输出包装成可异步读写的流</li>
+<li>MCP 客户端通过 stdio 发送 JSON-RPC 消息，服务端通过 stdio 回复</li>
+<li>这不是 HTTP 端口服务，而是"进程间管道通信"</li>
+</ul>
+<h3 id="asynciorunmain">asyncio.run(main()) 的作用<a class="headerlink" href="#asynciorunmain" title="Permanent link">&para;</a></h3>
+<ol>
+<li>创建事件循环</li>
+<li>把 <code>main()</code> 协程放进去运行</li>
+<li>等 <code>main()</code> 完成（通常永不完成，因为 <code>app.run</code> 无限循环）</li>
+<li>退出时关闭事件循环和所有任务</li>
+</ol>
+<p>可以理解成异步程序的"总开关"，类似同步程序的 startup 函数。</p>
+<h3 id="apprun">为什么说 app.run 是一个循环？<a class="headerlink" href="#apprun" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>app.run(...) 内部持续做：
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  ↓
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>等待一个消息从 stdin 进来
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  ↓
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>识别消息类型（list_tools? call_tool? read_resource?）
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  ↓
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>路由到对应的装饰器函数（@app.call_tool() 等）
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  ↓
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>执行完毕，把结果 JSON 写到 stdout
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  ↓
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>回到&quot;等待一个消息&quot;
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  ↓
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>(循环直到进程被杀死)
+</span></code></pre></div>
+<hr />
+<h2 id="5">5. 数据流向总结<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="query_documents">query_documents 请求举例<a class="headerlink" href="#query_documents" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Claude Desktop (客户端)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  ↓
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>通过 MCP protocol 发送 JSON-RPC 请求到 stdio
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ↓
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>stdio_server 接收消息
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  ↓
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>app.run() 识别是 &quot;call_tool&quot; 请求，工具名 &quot;query_documents&quot;
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  ↓
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>@app.call_tool() 装饰器捕获
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  ↓
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>_dispatch_tool(name=&quot;query_documents&quot;, arguments={...})
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  ↓
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>_tool_query_documents(args)
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>  ↓
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>  1. 计时开始 QueryTimer()
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>  2. await rag.query() 向 ChromaDB 检索
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>  3. 组装响应文本
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>  4. await log_query() 写入 PostgreSQL
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>  ↓
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>把结果 JSON 写回 stdout
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>  ↓
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>Claude Desktop 收到响应
+</span></code></pre></div>
+<hr />
+<h2 id="6">6. 关键文件导航<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mcp_server/server.py</code></td>
+<td>MCP 服务入口、工具定义</td>
+</tr>
+<tr>
+<td><code>mcp_server/rag_engine.py</code></td>
+<td>向量检索、文档索引</td>
+</tr>
+<tr>
+<td><code>mcp_server/logging_utils.py</code></td>
+<td>日志写入 PostgreSQL</td>
+</tr>
+<tr>
+<td><code>mcp_server/models.py</code></td>
+<td>SQLAlchemy 数据模型</td>
+</tr>
+<tr>
+<td><code>mcp_server/config.py</code></td>
+<td>环境变量配置</td>
+</tr>
+<tr>
+<td><code>services/pipeline.py</code></td>
+<td>离线批处理建库</td>
+</tr>
+<tr>
+<td><code>dashboard_backend/main.py</code></td>
+<td>Dashboard API 入口</td>
+</tr>
+<tr>
+<td><code>dashboard_frontend/src/App.tsx</code></td>
+<td>前端路由</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-rag-engine-rag_enginepy">7. RAG Engine 深度解析（rag_engine.py）<a class="headerlink" href="#7-rag-engine-rag_enginepy" title="Permanent link">&para;</a></h2>
+<h3 id="_5">文件概览<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><code>mcp_server/rag_engine.py</code> - 向量存储、文档索引、语义检索核心</p>
+<h3 id="lazy-initialization">设计模式：Lazy Initialization<a class="headerlink" href="#lazy-initialization" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">RAGEngine</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># 不在 __init__ 时连接</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>        <span class="c1"># 延迟初始化</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">chromadb</span><span class="o">.</span><span class="n">HttpClient</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span>
+</span></code></pre></div>
+<p><strong>好处</strong>：
+- 加快启动速度（不需要等 ChromaDB 连接、加载模型）
+- 避免启动时因连接失败导致整个进程崩溃
+- 只在真正使用时才初始化资源</p>
+<h3 id="1chunking">核心概念 1：分块（Chunking）<a class="headerlink" href="#1chunking" title="Permanent link">&para;</a></h3>
+<p><strong>目的</strong>：把大文档分成可管理的小块，同时保留上下文</p>
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>原文本：长 100,000 字
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>分块逻辑：
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  chunk_size = 1000
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  chunk_overlap = 200
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  第 1 块：[0, 1000]
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  第 2 块：[800, 1800]    ← 重叠 200 字
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  第 3 块：[1600, 2600]   ← 重叠 200 字
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  ...
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>好处：
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  - &quot;岛上的访客&quot;不会被割成&quot;岛上的&quot;和&quot;访客&quot;
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  - 数据库不会因巨大向量而爆炸
+</span></code></pre></div>
+<p>结构（<a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L57-L88">mcp_server/rag_engine.py</a>）：
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">_chunk_text</span><span class="p">()</span> <span class="n">返回</span><span class="err">：</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">[</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  <span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;file.pdf_ae3f1&quot;</span><span class="p">,</span>                           <span class="c1"># 唯一标识（hash 生成）</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;The flight logs show...&quot;</span><span class="p">,</span>                 <span class="c1"># 文本内容</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>      <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;file.pdf&quot;</span><span class="p">,</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>      <span class="s2">&quot;chunk_index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>      <span class="s2">&quot;char_start&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>      <span class="s2">&quot;char_end&quot;</span><span class="p">:</span> <span class="mi">1000</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="p">}</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  <span class="p">},</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  <span class="o">...</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">]</span>
+</span></code></pre></div></p>
+<h3 id="2embedding">核心概念 2：Embedding（向量化）<a class="headerlink" href="#2embedding" title="Permanent link">&para;</a></h3>
+<p><strong>目的</strong>：把文本转成数学向量，在高维空间中表示语义</p>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>输入：文本 &quot;flight logs&quot;
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>           ↓
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>SentenceTransformer (all-MiniLM-L6-v2)
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>           ↓
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>输出：384 维浮点向量
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  [0.12, -0.03, 0.45, 0.33, ..., -0.15]
+</span></code></pre></div>
+<p><strong>关键点</strong>：
+- 同样含义的文本 → 相似的向量 → "距离"小
+- 384 维是平衡点：细节丰富，计算成本不过高
+- SentenceTransformer 是预训练模型，已学会语义映射</p>
+<h3 id="3chromadb">核心概念 3：ChromaDB（向量数据库）<a class="headerlink" href="#3chromadb" title="Permanent link">&para;</a></h3>
+<p><strong>是什么</strong>：存储向量 + 文本 + 元数据，支持快速相似度搜索</p>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Collection: &quot;epstein_documents&quot;
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>┌──────────────────────────────────────────────────┐
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>│ id          | text          | metadata | embedding│
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>├──────────────────────────────────────────────────┤
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>│file.pdf_ae3f1│&quot;The flight...&quot;│{source..}│[0.12...]│
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>│file.pdf_b2d7e│&quot;[continued]...&quot;│{source..}│[0.15...]│
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│file2.md_c5f3a│&quot;At the island&quot;│{source..}│[0.18...]│
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>└──────────────────────────────────────────────────┘
+</span></code></pre></div>
+<p><strong>HTTP 架构</strong>：
+<div class="highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>MCP Server (localhost:5001)
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    ↓ HTTP
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>ChromaDB (localhost:8000)
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    ↓ 磁盘
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>向量索引文件 + 元数据
+</span></code></pre></div></p>
+<h3 id="_6">索引流程（建库）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L91-L115">mcp_server/rag_engine.py</a>：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>index_folder()
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  ↓
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>遍历所有 .txt, .md, .pdf 文件
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  ↓
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>对每个文件：index_file()
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  ├─ 读文件内容
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  ├─ _chunk_text() 分块（带 200 字重叠）
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  ├─ model.encode() 生成 384 维向量
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>  ├─ collection.upsert(
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>  │    ids=[...],
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  │    documents=[...],
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>  │    metadatas=[...],
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  │    embeddings=[...]
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  └─ )
+</span></code></pre></div>
+<p><strong>upsert 特点</strong>：
+- id 存在 → 更新（覆盖）
+- id 不存在 → 插入
+- 重新索引同一文件无需手动删除</p>
+<h3 id="_7">查询流程（检索）<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L151-L188">mcp_server/rag_engine.py</a>：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>query(&quot;who visited the island?&quot;, top_k=5)
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  ↓
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>1. 把查询文本也转成 384 维向量
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>   model.encode([&quot;who visited...&quot;])
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>   ↓
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>2. ChromaDB 搜索（cosine 距离）
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>   collection.query(
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>     query_embeddings=[...],
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>     n_results=5,
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>     include=[&quot;documents&quot;, &quot;metadatas&quot;, &quot;distances&quot;]
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>   )
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>   ↓
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>3. 内部用 HNSW 索引找最近的 5 个向量
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>   ↓
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>4. 返回：
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>   {
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>     &quot;ids&quot;: [[&quot;file.pdf_ae3f1&quot;, &quot;file.pdf_b2d7e&quot;, ...]],
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>     &quot;documents&quot;: [[&quot;text1&quot;, &quot;text2&quot;, ...]],
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>     &quot;distances&quot;: [[0.05, 0.12, 0.18, ...]]
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>   }
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>   ↓
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>5. 转化距离为相似度
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>   similarity = 1 - distance
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>   [0.95, 0.88, 0.82, ...]
+</span></code></pre></div>
+<h3 id="vs">距离 vs 相似度<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说法</th>
+<th>范围</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>距离</strong> (ChromaDB)</td>
+<td>"cosine distance"</td>
+<td>[0, 2]</td>
+<td>越小越相似</td>
+</tr>
+<tr>
+<td><strong>相似度</strong> (应用层)</td>
+<td>"similarity score"</td>
+<td>[0, 1]</td>
+<td>越大越相似</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>distance = 0.05  →  similarity = 1 - 0.05 = 0.95 ⭐
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>distance = 0.50  →  similarity = 1 - 0.50 = 0.50 🤔
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>distance = 1.00  →  similarity = 1 - 1.00 = 0.00 ❌
+</span></code></pre></div>
+<h3 id="_8">文档管理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>代码</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列表</td>
+<td><code>collection.get(include=["metadatas"])</code></td>
+<td>遍历所有文档名</td>
+</tr>
+<tr>
+<td>删除</td>
+<td><code>collection.get(where={"source": "file.pdf"}); delete()</code></td>
+<td>删除单个文件的所有 chunk</td>
+</tr>
+<tr>
+<td>重置</td>
+<td><code>client.delete_collection()</code></td>
+<td>清空整个索引库</td>
+</tr>
+<tr>
+<td>状态</td>
+<td><code>collection.count()</code></td>
+<td>查看已索引 chunk 数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">关键设计决策<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>答案</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>为什么分块有重叠？</td>
+<td>避免语义断裂</td>
+<td>"岛上的访客"被分成"岛上的"+"访客"就丢意义了</td>
+</tr>
+<tr>
+<td>384 维而不是 10 维？</td>
+<td>平衡精度和效率</td>
+<td>维度越高越精细，但计算成本越高</td>
+</tr>
+<tr>
+<td>为什么用 HTTP ChromaDB？</td>
+<td>支持分布式 + 持久化</td>
+<td>Docker 容器可独立扩展，数据不随进程丢失</td>
+</tr>
+<tr>
+<td>为什么 cosine 距离？</td>
+<td>对文本最友好</td>
+<td>文本向量多数高维，cosine 适合高维空间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">完整数据流（从文件到答案）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>用户文件：/data/docs/flight_logs.pdf
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  ↓
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>index_documents(&quot;/data/docs&quot;)
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  ├─ 分块：[chunk1, chunk2, chunk3, ...]
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  ├─ 向量化：每个 chunk 生成 384 维向量
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  └─ ChromaDB 存储
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>       ↓
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    query_logs 表
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  ({file: &quot;flight_logs.pdf&quot;, chunks: 245, indexed_at: &quot;2026-02-23&quot;})
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>      ↓
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>用户提问：&quot;who visited the island?&quot;
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  ↓
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>query_documents(&quot;who visited...&quot;)
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>  ├─ 向量化查询：[0.10, -0.02, 0.47, ...]
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>  ├─ ChromaDB 搜索：top-5 相似 chunk
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>  ├─ 返回结果：[{text: &quot;...&quot;, similarity: 0.95, source: &quot;flight_logs.pdf&quot;}, ...]
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>  ├─ log_query() 写日志到 PostgreSQL
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>  └─ 返回给 Claude Desktop
+</span></code></pre></div>
+<hr />
+<h2 id="8-sentence-transformers">8. Sentence-Transformers（句向量模型）<a class="headerlink" href="#8-sentence-transformers" title="Permanent link">&para;</a></h2>
+<h3 id="_11">它在本项目里的角色<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>SentenceTransformer 负责把文本编码成向量（embedding），用于：
+- <strong>建库</strong>：对每个 chunk 调用 <code>model.encode(texts)</code> → 存入 ChromaDB
+- <strong>查询</strong>：对 query 调用 <code>model.encode([query_text])</code> → 用向量近邻搜索找到最相似 chunk</p>
+<p>对应代码：
+- 模型加载：<a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L42-L53">mcp_server/rag_engine.py</a>
+- 建库向量化：<a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L104-L105">mcp_server/rag_engine.py</a>
+- 查询向量化：<a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L155-L157">mcp_server/rag_engine.py</a></p>
+<h3 id="structure">结构（Structure）：模块化流水线<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h3>
+<p>一个典型 Sentence-Transformers 模型可以看作：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Text
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  ↓
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Tokenizer（分词成 token ids）
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  ↓
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Transformer Encoder（如 MiniLM/BERT，输出每个 token 的向量）
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>  ↓
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>Pooling（把 token-level 向量聚合成 sentence embedding）
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>  ↓
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>(可选) Dense/Projection（投影/降维）
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>  ↓
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>(常见) Normalize（向量归一化，便于 cosine 相似度）
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>  ↓
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>Sentence Embedding（固定维度，如 384 维）
+</span></code></pre></div>
+<p>记号化描述：
+- Encoder 输出：<span class="arithmatex">\(H \in \mathbb{R}^{L \times d}\)</span>（<span class="arithmatex">\(L\)</span> token 数，<span class="arithmatex">\(d\)</span> 隐藏维度）
+- Mean Pooling 常见形式：</p>
+<div class="arithmatex">\[
+s = \frac{\sum_{i=1}^{L} m_i H_i}{\sum_{i=1}^{L} m_i}
+\]</div>
+<p>其中 <span class="arithmatex">\(m_i\)</span> 是 mask（padding token 不计入）。</p>
+<h3 id="bi-encoder">为什么适合做向量检索（Bi-Encoder）<a class="headerlink" href="#bi-encoder" title="Permanent link">&para;</a></h3>
+<p>Sentence-Transformers 常用 <strong>Bi-Encoder（双塔）</strong>：
+- 文档块离线编码一次得到向量（可缓存/入库）
+- 查询时只编码 query 一次，再做近邻搜索</p>
+<p>这比 Cross-Encoder（把 query+doc 拼在一起逐个打分）在大规模检索里更快。</p>
+<h3 id="training-loss">训练（Training）：常见目标与 Loss<a class="headerlink" href="#training-loss" title="Permanent link">&para;</a></h3>
+<p>训练目标：让语义相近的句子向量更近、语义不相近的更远。常见数据形态：
+- 成对（pair）：(a, b, label)
+- 三元组（triplet）：(anchor, positive, negative)
+- 排序/检索：query 对应多个 relevant / irrelevant</p>
+<p>常见 loss（不同模型/训练阶段会混用）：</p>
+<ul>
+<li>CosineSimilarityLoss（拟合相似度标签）：</li>
+<li>目标：<span class="arithmatex">\(\cos(u,v)\)</span> 接近标注的相似度 <span class="arithmatex">\(y\)</span></li>
+<li>TripletLoss（三元组，拉近正样本、推远负样本）：</li>
+</ul>
+<div class="arithmatex">\[
+\max(0, \text{margin} - \text{sim}(a,p) + \text{sim}(a,n))
+\]</div>
+<ul>
+<li>MultipleNegativesRankingLoss（检索常用）：</li>
+<li>一个 batch 中 (a_i, p_i) 是正对，其他 p_j 自动当成负样本</li>
+<li>目标：让 a_i 最偏好自己的 p_i（softmax 归一化）</li>
+</ul>
+<p>说明：你项目里用到的 <code>all-MiniLM-L6-v2</code> 是常见的轻量句向量模型配置，但“精确到训练数据集/步骤”的细节需查该模型的 model card 才能完全确定。</p>
+<hr />
+<h2 id="9-hnsw">9. HNSW（向量近邻检索索引）<a class="headerlink" href="#9-hnsw" title="Permanent link">&para;</a></h2>
+<h3 id="hnsw">HNSW 是什么？<a class="headerlink" href="#hnsw" title="Permanent link">&para;</a></h3>
+<p>HNSW = <strong>Hierarchical Navigable Small World</strong>，一种用于近似最近邻（ANN）的图索引结构。
+- 向量库如果“暴力”算最近邻，需要对每个向量都算距离，复杂度约 <span class="arithmatex">\(O(N)\)</span>（N 很大时很慢）
+- HNSW 用图结构把搜索加速到“少量节点的距离计算”，实现高效 top-k 检索</p>
+<h3 id="_12">直觉：多层图 + 贪心搜索<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>可以把它想成“多层高速路/城市道路”：
+- <strong>高层</strong>：节点更稀疏，能快速跳远定位大致区域
+- <strong>低层</strong>：节点更密集，在局部做精细搜索</p>
+<p>典型查询过程：
+1. 从最高层入口点开始
+2. 在该层做贪心跳转：如果某个邻居更接近 query，就移动过去
+3. 一层层往下，逐渐精细化
+4. 在最底层维护候选集合，返回 top-k</p>
+<h3 id="_13">为什么适合文本向量检索<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>文本 embedding 维度高（如 384 维），精确最近邻代价大。
+HNSW 在高维空间里通常能提供很好的速度/召回折中。</p>
+<h3 id="hnsw_1">HNSW 与“距离度量”的关系<a class="headerlink" href="#hnsw_1" title="Permanent link">&para;</a></h3>
+<p>HNSW 本身是索引/搜索结构；“相似/距离怎么计算”由度量决定。
+本项目在创建 collection 时指定：</p>
+<ul>
+<li><code>metadata={"hnsw:space": "cosine"}</code>（见 <a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L35-L41">mcp_server/rag_engine.py</a>）</li>
+</ul>
+<p>这意味着 ChromaDB 在 HNSW 里用 cosine 空间进行距离计算。</p>
+<h3 id="_14">关键参数（理解层面）<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>不同实现/数据库命名略有差异，但 HNSW 常见有这些控制点：
+- <strong>M</strong>：每个节点保留的邻居数（图更密→召回更好但内存更大）
+- <strong>ef_construction</strong>：建图时的候选宽度（越大索引质量越好但构建更慢）
+- <strong>ef_search</strong>：查询时的候选宽度（越大召回越好但查询更慢）</p>
+<p>你在本仓库里没有显式设置这些参数（只设置了 <code>hnsw:space</code>），说明使用的是 ChromaDB 默认值。</p>
+<h3 id="_15">在本项目的具体落点<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>当你调用：</p>
+<ul>
+<li><code>collection.query(query_embeddings=[...], n_results=k, ...)</code></li>
+</ul>
+<p>ChromaDB 会：
+1. 使用 HNSW 索引快速找到近邻候选
+2. 计算 cosine 距离并排序
+3. 返回 <code>ids/documents/metadatas/distances</code></p>
+<p>然后应用层把 <code>distance</code> 转成 <code>similarity = 1 - distance</code>（见 <a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/rag_engine.py#L176-L183">mcp_server/rag_engine.py</a>）。</p>
+<hr />
+<h2 id="10-logging_utilspy">10. logging_utils.py（数据库日志与统计工具层）<a class="headerlink" href="#10-logging_utilspy" title="Permanent link">&para;</a></h2>
+<h3 id="_16">它的定位<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><code>mcp_server/logging_utils.py</code> 不是“只有查询数据库”，更准确是：
+- <strong>写数据库（logging）</strong>：记录 MCP Server 的运行事件（查询、索引任务、指标）
+- <strong>读数据库（stats 聚合）</strong>：提供一些汇总统计给 MCP 资源（<code>stats://...</code>）
+- <strong>非数据库</strong>：也包含即时采样的系统状态（psutil）和计时工具</p>
+<p>它依赖的表结构来自 <a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/models.py">mcp_server/models.py</a>。</p>
+<p>补充：<code>mcp_server/models.py</code> 本身就是 <strong>PostgreSQL schema 定义</strong>，在代码里定义了三张表：
+- <code>query_logs</code>
+- <code>indexing_jobs</code>
+- <code>system_metrics</code></p>
+<p>并通过 <code>init_db()</code> 在启动时创建这些表（不存在才创建）。</p>
+<h3 id="postgresql">写数据库：把运行事件落到 PostgreSQL<a class="headerlink" href="#postgresql" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>log_query(...)</code> → 插入一条 <code>query_logs</code></li>
+<li>由 MCP 工具 <code>query_documents</code> / <code>search_similar</code> 调用（见 <a href="https://github.com/linkeLi0421/Epstein_Rag/blob/main/mcp_server/server.py">mcp_server/server.py</a>）</li>
+<li>
+<p>保存：query_text、response_text、sources(JSONB)、response_time_ms、client_type、session_id</p>
+</li>
+<li>
+<p><code>create_indexing_job(...)</code> → 插入一条 <code>indexing_jobs</code></p>
+</li>
+<li>
+<p>索引开始前创建 job，初始 <code>status="pending"</code></p>
+</li>
+<li>
+<p><code>update_indexing_job(job_id, ...)</code> → 更新 <code>indexing_jobs</code></p>
+</li>
+<li><code>status="processing"</code> 且 started_at 为空时写入 started_at</li>
+<li><code>status in ("completed","failed")</code> 时写入 completed_at</li>
+<li>
+<p>同时更新 processed/failed/total/progress/current_file/error_message 等</p>
+</li>
+<li>
+<p><code>log_system_metrics()</code> → 插入多条 <code>system_metrics</code></p>
+</li>
+<li>使用 psutil 采样 CPU/内存/磁盘百分比</li>
+</ul>
+<p>统一模式：
+<div class="highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>async with async_session() as session:
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    session.add(...)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    await session.commit()
+</span></code></pre></div></p>
+<h3 id="mcp-stats">读数据库：聚合统计（MCP stats:// 资源用）<a class="headerlink" href="#mcp-stats" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>get_query_stats()</code></li>
+<li>total count（总查询数）</li>
+<li>avg response_time_ms（平均耗时）</li>
+<li>
+<p>最近 10 条 queries（用于快速展示）</p>
+</li>
+<li>
+<p><code>get_job_stats()</code></p>
+</li>
+<li>总 job 数</li>
+<li>按 status 计数（pending/processing/completed/failed）</li>
+<li>活跃 job 列表（pending + processing）</li>
+</ul>
+<h3 id="_17">非数据库：即时系统状态与计时<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>get_system_stats()</code>：不读 DB，直接 psutil 采样并返回 dict（更像即时健康快照）</li>
+<li><code>QueryTimer</code>：同步上下文管理器，计算耗时毫秒数</li>
+</ul>
+<hr />
+<h2 id="_18">下一步学习方向<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>推荐按以下顺序深入学习：</p>
+<ol>
+<li>✅ <strong>server.py</strong> - MCP 服务结构（已完成）</li>
+<li>✅ <strong>rag_engine.py</strong> - RAG 核心逻辑 + ChromaDB（已完成）</li>
+<li>⏭️ <strong>logging_utils.py &amp; models.py</strong> - 数据落库</li>
+<li><strong>dashboard_backend/api/queries.py</strong> - 统计接口</li>
+<li><strong>services/pipeline.py</strong> - 离线建库流程</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
