@@ -1,12 +1,14 @@
 ---
-id: 2026-02-23-epstein-rag-learning-notes-4dca58fc
+title: Epstein RAG 项目学习笔记
 date: 2026-02-23
 project: epstein_rag
 topic: learning-notes
+id: 2026-02-23-epstein-rag-learning-notes-4dca58fc
 tags: []
 source: chat
 confidence: n/a
 ---
+
 
 # Epstein RAG 项目学习笔记
 

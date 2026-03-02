@@ -1,13 +1,14 @@
 ---
-id: 2026-02-25-dashboard-backend-fastapi-04f77078
+title: Dashboard Backend (FastAPI) 笔记
 date: 2026-02-25
-title: "Dashboard Backend (FastAPI) 笔记"
 project: rag-backend
 topic: dashboard-backend-fastapi
+id: 2026-02-25-dashboard-backend-fastapi-04f77078
 tags: [backend, fastapi, dashboard, rag]
 source: chat
 confidence: n/a
 ---
+
 # Dashboard Backend (FastAPI) 笔记
 
 后端主要由 3 个 Python 服务 + 2 个数据存储组成，围绕索引检索观测闭环。下面按模块讲清楚，并给你读代码的入口路径。

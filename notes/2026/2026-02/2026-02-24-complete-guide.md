@@ -1,9 +1,10 @@
 ---
-title: "LoRA Fine-Tuning Complete Guide"
+title: LoRA Fine-Tuning Complete Guide
 date: 2026-02-24
 project: llm-fine-tuning
 topic: complete-guide
 ---
+
 # LoRA Fine-Tuning Complete Guide
 
 > Learned from fine-tuning Qwen3-0.6B with ruozhiba dataset using LLaMA-Factory.

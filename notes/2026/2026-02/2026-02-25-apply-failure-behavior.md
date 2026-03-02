@@ -1,12 +1,14 @@
 ---
-id: 2026-02-25-git-apply-failure-behavior-65e42d50
+title: Summary note (git apply failure behavior)
 date: 2026-02-25
 project: git
-topic: "apply failure behavior"
+topic: apply-failure-behavior
+id: 2026-02-25-git-apply-failure-behavior-65e42d50
 tags: [git, patch, diff, apply]
 source: chat
 confidence: n/a
 ---
+
 
 # Summary note (git apply failure behavior)
 
