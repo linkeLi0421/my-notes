@@ -240,3 +240,14 @@ mjx-container[display="true"] {
     border-radius: 18px;
   }
 }
+
+/* Widen the middle content column on desktop 3-column layout */
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 92rem;
+  }
+
+  .md-content {
+    max-width: 66rem;
+  }
+}
