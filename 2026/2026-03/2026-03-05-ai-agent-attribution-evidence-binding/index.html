@@ -1,0 +1,1263 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-03/2026-03-05-ai-agent-attribution-evidence-binding/">
+      
+      
+        <link rel="prev" href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+    
+    
+      
+        <title>AI Agent 归因与证据绑定面试笔记 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-agent" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI Agent 归因与证据绑定面试笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-23-learning-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-24-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试时间线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一面问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二面问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        埋点数据归因是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI Agent 架构设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证据绑定怎么做
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证据绑定和 RAG 引用的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-langchain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 和 LangChain 的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-metagpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 和 MetaGPT 的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 的底层原理和流式响应
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多轮上下文怎么管理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent 汇总结论不准怎么办
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human-in-the-loop 怎么形成闭环
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试时间线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一面问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二面问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        埋点数据归因是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI Agent 架构设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证据绑定怎么做
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证据绑定和 RAG 引用的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 是什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-langchain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 和 LangChain 的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph-metagpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 和 MetaGPT 的区别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#langgraph_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LangGraph 的底层原理和流式响应
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多轮上下文怎么管理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent 汇总结论不准怎么办
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human-in-the-loop 怎么形成闭环
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ai-agent">AI Agent 归因与证据绑定面试笔记<a class="headerlink" href="#ai-agent" title="Permanent link">&para;</a></h1>
+<h2 id="_1">面试时间线<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>2026-02-11 一面，半小时后通知二面。</li>
+<li>2026-02-27 二面，一小时后通知 offer。</li>
+</ul>
+<h2 id="_2">一面问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>拷打项目经历。</li>
+<li>官网重构和性能优化关键点。</li>
+<li>网络抖动、丢包时怎么做重试、降级和幂等。</li>
+<li>海量任务涌入线程池时如何做限流、背压和隔离。</li>
+<li>场景题：对埋点数据，用 AI Agent 配合固定脚本做定期归因分析和报告，要求极高准确率、接近 0 幻觉，并且只能使用内部模型。</li>
+</ul>
+<h2 id="_3">二面问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>详细追问 LangGraph 多智能体架构设计。</li>
+<li>流式响应怎么处理。</li>
+<li>多轮上下文怎么管理。</li>
+<li>Agent 汇总结论不准时怎么办。</li>
+<li>权重如何动态分配。</li>
+<li>Human-in-the-loop 怎么形成闭环。</li>
+<li>LangGraph 和动态逻辑链如 MetaGPT 的核心区别，以及底层原理。</li>
+<li>算法题：无序数组中找出不重复的最小值。</li>
+</ul>
+<h2 id="_4">埋点数据归因是什么<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>埋点数据归因，本质是把用户行为日志和最终业务结果做贡献关联。</p>
+<p>例如一个用户先看广告，再进官网，再看价格页，最后下单。归因要回答的是：这次转化到底主要算哪个触点的功劳，以及各触点分别贡献多少。</p>
+<h2 id="ai-agent_1">AI Agent 架构设计<a class="headerlink" href="#ai-agent_1" title="Permanent link">&para;</a></h2>
+<p>核心原则是：让模型做解释和编排，不做计算和拍结论。</p>
+<ul>
+<li>数据层：负责埋点采集、数仓分层、完整性和一致性校验。</li>
+<li>归因计算层：用版本化的 SQL 或 Python 脚本产出结构化结果。</li>
+<li>Agent 编排层：定时触发任务，按白名单调用内部工具和模型。</li>
+<li>校验与人工闭环层：做规则校验、交叉校验和低置信度人工审批。</li>
+<li>报告层：模板化生成报告，所有结论都必须绑定证据。</li>
+</ul>
+<h2 id="_5">证据绑定怎么做<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>证据绑定的目标是：每一条结论都必须能追到具体数据、具体计算和具体版本。</p>
+<p>先由归因脚本生成结构化 <code>evidence object</code>，例如：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;evidence_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ev_20260305_001&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;signup_rate&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.127</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;time_window&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-04&quot;</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;sample_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">182340</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&quot;table&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dws_signup_daily&quot;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">&quot;query_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ab12cd34&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">&quot;script_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;attr_v3.2.1&quot;</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">&quot;data_snapshot_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;snap_20260305_09&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>然后让模型只能引用 <code>evidence_id</code> 生成结构化 <code>claim</code>，而不是自由发挥：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;claim&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3 月 4 日注册转化率较前一日下降 12.7%&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;evidence_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ev_20260305_001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ev_20260305_002&quot;</span><span class="p">],</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.96</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>发布报告前要做强校验：</p>
+<ul>
+<li>每条结论必须带 <code>evidence_id</code>。</li>
+<li>结论中的数字必须和证据值一致。</li>
+<li>同比、环比、占比、排名等计算由脚本完成，不交给模型心算。</li>
+<li>保存 <code>run_id</code>、模型版本、prompt hash、脚本版本、数据快照 ID 和审批记录，保证审计与回放。</li>
+</ul>
+<h2 id="rag">证据绑定和 RAG 引用的区别<a class="headerlink" href="#rag" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>RAG 引用</code>回答的是模型参考了哪些材料，重点是检索来源。</li>
+<li><code>证据绑定</code>回答的是这条结论由哪份数据、哪次计算、哪个版本严格推出，重点是结论血缘。</li>
+<li><code>RAG</code> 更适合制度文档、FAQ、产品说明这类非结构化知识。</li>
+<li><code>证据绑定</code> 更适合报表、归因、风控、财务分析这类结构化场景。</li>
+<li>在高准确场景里，RAG 可以用来检索规则文档和指标口径，但业务结论必须绑定到结构化证据对象。</li>
+</ul>
+<h2 id="langgraph">LangGraph 是什么<a class="headerlink" href="#langgraph" title="Permanent link">&para;</a></h2>
+<p><code>LangGraph</code> 可以理解为一个面向生产的 Agent 编排框架。它把复杂任务抽象成共享状态、执行节点和路由边，让 Agent 不是靠一条长 prompt 硬跑，而是按图执行。</p>
+<ul>
+<li><code>State</code>：保存消息、工具结果、中间结论和任务进度。</li>
+<li><code>Node</code>：一个节点代表一步操作，比如调用模型、检索、执行工具或做校验。</li>
+<li><code>Edge</code>：定义节点之间的跳转关系，可以是固定跳转，也可以是条件路由。</li>
+<li><code>Runtime</code>：负责执行图、保存状态、恢复任务、流式输出和人工中断。</li>
+</ul>
+<p>面试里可以把它概括成：<code>LangGraph 本质上是一个状态机加图运行时，LLM 只是图里的一个节点。</code></p>
+<h2 id="langgraph-langchain">LangGraph 和 LangChain 的区别<a class="headerlink" href="#langgraph-langchain" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>LangChain</code> 偏高层，主要解决模型接入、工具封装、检索集成和快速搭应用。</li>
+<li><code>LangGraph</code> 偏底层，主要解决状态管理、节点路由、持久化、中断恢复和多智能体编排。</li>
+<li>简单场景优先用 <code>LangChain</code> 提速，复杂生产场景更适合直接用 <code>LangGraph</code> 做底层控制。</li>
+<li>两者不是对立关系，很多 <code>LangChain</code> 的 Agent 能力本身就构建在 <code>LangGraph</code> 之上。</li>
+</ul>
+<p>一句话总结：<code>LangChain</code> 偏易用，<code>LangGraph</code> 偏可控。</p>
+<h2 id="langgraph-metagpt">LangGraph 和 MetaGPT 的区别<a class="headerlink" href="#langgraph-metagpt" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>LangGraph</code> 是通用的 Agent 编排引擎，关注流程如何执行得可控、可恢复、可审计。</li>
+<li><code>MetaGPT</code> 是更强调角色分工和 SOP 的多智能体协作框架，关注多个角色如何像团队一样协作。</li>
+<li><code>LangGraph</code> 更适合生产级工作流、审批流和强治理场景。</li>
+<li><code>MetaGPT</code> 更适合多角色协作、研发流程模拟和任务拆解型场景。</li>
+</ul>
+<p>如果是上线系统，常见做法是借鉴 <code>MetaGPT</code> 的角色设计，但底层仍用 <code>LangGraph</code> 做运行时编排。</p>
+<h2 id="langgraph_1">LangGraph 的底层原理和流式响应<a class="headerlink" href="#langgraph_1" title="Permanent link">&para;</a></h2>
+<p><code>LangGraph</code> 的底层本质是状态机加图执行引擎。每个节点读取当前 <code>state</code>，输出状态增量，再由边或条件路由决定下一步。运行时会在节点边界做持久化和检查点，所以任务可以中断、恢复、重放和人工介入。</p>
+<p>流式响应不只是模型逐字输出，而是整个工作流的事件流：</p>
+<ul>
+<li><code>messages</code>：流模型 token，适合前端逐字展示回答。</li>
+<li><code>updates</code>：流节点级状态更新，适合展示当前执行到哪一步。</li>
+<li><code>values</code>：流完整状态，适合调试或强观测场景。</li>
+<li><code>custom</code>：流业务进度，例如检索进度、SQL 执行完成、归因分析完成。</li>
+</ul>
+<p>工程上一般会把这些事件封装成统一结构，通过 <code>SSE</code> 或 <code>WebSocket</code> 推给前端，让用户看到的不只是“模型在打字”，而是整个 Agent 在实时执行。</p>
+<h2 id="_6">多轮上下文怎么管理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>多轮上下文一般不直接把全部历史消息塞进 prompt，而是做分层管理。</p>
+<ul>
+<li>短期上下文：保留最近 <code>N</code> 轮原始消息，保证当前对话连贯。</li>
+<li>任务状态：把用户目标、约束、已完成步骤和中间结论放进结构化 <code>state</code>。</li>
+<li>历史摘要：对旧对话做压缩，只保留高价值信息，比如决策、事实和未解决问题。</li>
+<li>长期记忆：只存稳定、可复用的信息，例如用户偏好、业务规则和历史结论。</li>
+<li>检索式拼装：每次调用模型前，再动态组装系统提示词、最近消息、任务状态和检索出的长期记忆。</li>
+</ul>
+<p>在 <code>LangGraph</code> 里，通常会把 <code>messages</code>、<code>summary</code>、<code>facts</code>、<code>task_state</code>、<code>artifacts</code> 分开管理。这样可以同时控制 token 成本、保持语义连续，并降低无关历史对当前推理的干扰。</p>
+<h2 id="agent">Agent 汇总结论不准怎么办<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h2>
+<p>这个问题一般不能只靠调 prompt 解决，通常要从输入、汇总和校验三层一起处理。</p>
+<ul>
+<li>先约束输入：不要把大段原始上下文直接喂给汇总节点，而是先整理成结构化中间结果，例如 <code>finding</code>、<code>evidence_id</code>、<code>confidence</code>、<code>source</code>。</li>
+<li>先算后说：数值、排序、对比、归因结果由脚本或工具先算好，汇总 Agent 只负责组织语言，不负责自己推数字。</li>
+<li>增加 <code>verifier</code> 或 <code>reviewer</code> 节点：检查结论是否被证据支持、数字是否一致、是否遗漏冲突信息。</li>
+<li>做多路交叉验证：可以让两个 summarizer 独立汇总，再让 reviewer 比对，不一致就回退到重检索或重跑工具。</li>
+<li>允许输出不确定性：当证据不足时，不强行给确定结论，可以输出待确认项或建议人工复核。</li>
+<li>设计失败回退：一旦校验失败，就降级为证据列表、初步判断和待确认问题，而不是直接生成最终答案。</li>
+</ul>
+<p>面试里可以概括为：<code>结构化输入 + 先算后说 + verifier 校验 + 多路交叉 + 失败回退</code>。</p>
+<h2 id="human-in-the-loop">Human-in-the-loop 怎么形成闭环<a class="headerlink" href="#human-in-the-loop" title="Permanent link">&para;</a></h2>
+<p><code>Human-in-the-loop</code> 不只是中间插一个人工审批节点，而是要形成“触发、介入、记录、回写、优化”的完整闭环。</p>
+<ul>
+<li>先定义触发条件：例如低置信度、多 Agent 结论冲突、高风险任务、关键数据缺失、超出规则边界。</li>
+<li>给人工明确操作位：允许人工通过、驳回、修正结论、补充约束，或者指定更可信的数据源和工具。</li>
+<li>保留审计链：保存 <code>run_id</code>、原始输入、中间状态、模型输出、人工修改内容和最终结果。</li>
+<li>把反馈写回系统：沉淀到规则库、提示词模板、路由策略和评测集，避免同类错误反复出现。</li>
+<li>定期优化阈值和策略：观察人工介入率、驳回率、重跑率和最终正确率，持续调整系统。</li>
+</ul>
+<p>面试里可以概括为：<code>触发介入 + 审计留痕 + 反馈回写 + 持续优化</code>。</p>
+<h2 id="_7">算法题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>无序数组中找不重复的最小值，可以先统计每个元素出现次数，再找出现次数为 <code>1</code> 的最小值。</p>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">min_unique</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">answer</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">answer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">answer</span><span class="p">):</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>            <span class="n">answer</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">return</span> <span class="n">answer</span>
+</span></code></pre></div>
+<p>时间复杂度是 <code>O(n)</code>，空间复杂度是 <code>O(n)</code>。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
