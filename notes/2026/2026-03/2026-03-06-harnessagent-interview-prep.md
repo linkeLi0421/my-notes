@@ -407,31 +407,74 @@ confidence: medium
 
 **技术方案——SanitizerCoverage inline-8bit-counters**：
 
-1. **编译时插桩**：用 `-fsanitize-coverage=inline-8bit-counters` 编译被测项目。Clang 会在每个基本块（basic block）的入口插入一个计数器自增指令。所有计数器存储在一段**连续的内存区域**中，每个 byte 代表一个基本块的执行次数（0 = 未执行，>0 = 已执行）。
+1. **编译时插桩**：用 `-fsanitize-coverage=inline-8bit-counters` 编译被测项目。Clang 会在每个基本块（basic block）的入口插入一个计数器自增指令。所有计数器存储在 ELF 的 `__sancov_cntrs` section 中，是一段**连续的内存区域**，每个 byte 代表一个基本块的执行次数（0 = 未执行，>0 = 已执行）。
 
-2. **获取计数器区域的起止地址**：编译器会在链接时生成回调：
+2. **获取计数器区域的起止地址**：链接器会自动为每个 section 生成边界符号。我们直接用 **ELF linker section 符号**拿到计数器内存的起止位置：
    ```c
-   // 运行时自动调用，暴露计数器内存区域的边界
-   void __sanitizer_cov_8bit_counters_init(uint8_t *start, uint8_t *end);
+   // 链接器自动生成的 section 边界符号
+   extern uint8_t __start___sancov_cntrs;
+   extern uint8_t __stop___sancov_cntrs;
    ```
-   通过实现这个回调函数，你可以拿到整个计数器数组的 `[start, end)` 范围。
+   `[&__start___sancov_cntrs, &__stop___sancov_cntrs)` 就是整个计数器数组的范围。这比实现 `__sanitizer_cov_8bit_counters_init` 回调更直接——不需要自定义运行时回调，直接读 section 边界。
 
-3. **PC Table 映射**：同时还有一个 PC（Program Counter）表：
+   > **补充知识**：SanitizerCoverage 还提供了另一种方式——通过实现 `__sanitizer_cov_8bit_counters_init(start, end)` 回调来获取边界。但在我们的场景中，直接用 linker symbol 更简单，因为不需要改 fuzzer 的运行时初始化逻辑。
+
+3. **按 target 函数隔离覆盖率**：关键设计——不是读整个 section 的覆盖率，而是**只测量 target 函数的覆盖率**：
+   - 用 tree-sitter 解析 harness 代码，定位调用 target 函数的那一行。
+   - 在调用**前**插入 `reset_sancov_counters()`（memset 清零整个计数器区域）。
+   - 在调用**后**插入 `save_sancov_counters()`（把计数器 dump 到 `./bitmaps/*.bin` 文件）。
+   - 这样 `.bin` 文件里只包含**执行 target 函数期间**触发的计数器，排除了 harness 自身代码的干扰。
+
    ```c
-   void __sanitizer_cov_pcs_init(const uintptr_t *pcs_beg, const uintptr_t *pcs_end);
+   void reset_sancov_counters() {
+       memset(&__start___sancov_cntrs, 0,
+              &__stop___sancov_cntrs - &__start___sancov_cntrs);
+   }
+   void save_sancov_counters() {
+       // 把 [__start, __stop) 之间的 bytes 写入 ./bitmaps/N.bin
+   }
    ```
-   PC Table 和计数器数组**一一对应**——第 i 个计数器对应 PC Table 里第 i 个条目，每个条目包含该基本块的起始地址（PC）和一个 flag。
 
-4. **从 PC 到函数名**：拿到 PC 后，通过 DWARF 调试符号（`addr2line` 或直接读 `.debug_info` section）可以映射到源代码的函数名和行号。这样就能判断某个计数器属于哪个函数。
+4. **回放语料 + 合并分析**（`cov_c.py`）：
+   - 用 `-runs=0` 回放 fuzzing 产生的所有 corpus input。
+   - 读取每个 `.bin` 文件，byte != 0 表示"被覆盖"。
+   - 第一个非零的 bitmap 记为 `init_cov`（初始覆盖）。
+   - 所有 bitmap 做 bitwise OR 合并，得到 `final_cov`（最终覆盖）。
+   - 输出 `cov.json`: `{"init_cov": N, "final_cov": M}`。
 
-5. **目标函数覆盖率计算**：
-   - 找到 target 函数对应的所有计数器（通过 PC → 函数名映射）。
-   - 60 秒 fuzzing 后读取这些计数器的值。
-   - `覆盖率 = 计数器值 > 0 的数量 / target 函数的总基本块数量`。
-   - 如果覆盖率为 0，说明 harness 根本没有执行到 target 函数 → 判定为无效 harness。
+5. **覆盖率判定**（`cov_collecter.py`）：
+   - `init_cov == 0 && final_cov == 0` → harness 根本没执行到 target 函数 → **无效 harness**。
+   - `init_cov != 0 && final_cov > init_cov` → fuzzing 过程中发现了新的执行路径 → **有效 harness**。
+   - `init_cov == final_cov` → 覆盖率没增长 → harness 能执行到但 fuzzer 没探索到新路径。
 
 **你的话术**：
-> "导师要求评估 harness 能不能真的覆盖到 target 函数，我去调研了 LLVM 的 SanitizerCoverage 机制。它的 inline-8bit-counters 模式会在每个基本块插入一个 byte 计数器，所有计数器放在一块连续内存里。运行时通过 `__sanitizer_cov_8bit_counters_init` 回调拿到这块内存的起止地址，配合 PC Table 和 DWARF 符号就能知道每个计数器属于哪个函数。我的实现就是：fuzzing 之后读取 target 函数对应的那些计数器，统计有多少基本块被执行到了。"
+> "导师要求评估 harness 能不能真的覆盖到 target 函数。我去调研了 LLVM 的 SanitizerCoverage 机制，它的 inline-8bit-counters 模式会在每个基本块插入一个 byte 计数器，所有计数器放在 ELF 的 `__sancov_cntrs` section 里。我的做法是直接用链接器生成的 section 边界符号 `__start___sancov_cntrs` 和 `__stop___sancov_cntrs` 拿到这块内存的起止地址。然后在 harness 调用 target 函数前清零计数器、调用后 dump 出来，这样就能只看 target 函数执行期间的覆盖情况。最后回放所有 corpus input，合并 bitmap，比较初始覆盖和最终覆盖来判断 harness 是否有效。"
+
+### 29a. Java/JVM 项目的覆盖率方案有什么不同？
+
+C/C++ 用 SanitizerCoverage 是因为 LLVM 插桩天然支持，但 JVM 没有这套机制，所以用了完全不同的方案：
+
+**主方案——JaCoCo 运行时 agent**：
+- 通过反射获取 JaCoCo agent：`org.jacoco.agent.rt.RT.getAgent()`
+- `reset()` → 清零覆盖数据（对应 C 的 `reset_sancov_counters`）
+- `getExecutionData(false)` → 导出覆盖数据的二进制序列化（对应 C 的 `save_sancov_counters`）
+- JaCoCo 的插桩粒度是 **字节码指令级别**（probe 插在每个分支点），比 SanitizerCoverage 的基本块粒度更细
+
+**Fallback——手动 edge 计数器数组**：
+- 如果 JaCoCo agent 不可用（比如 Jazzer 的构建没带 JaCoCo），退化到手动维护 `int[] covEdgeCounters = new int[65536]`
+- 思路和 AFL 的 shared memory 类似：固定大小的计数器数组，由 harness 代码自己维护
+- 精度不如 JaCoCo，但保证有数据可读
+
+**后续流程一致**：dump 到 `./bitmaps/*.bin` → `cov_jvm.py` 回放语料、合并 bitmap → 输出 `cov.json`，判定逻辑和 C/C++ 完全相同。
+
+| | C/C++ | Java/JVM |
+|---|---|---|
+| 插桩机制 | LLVM SanitizerCoverage (编译时) | JaCoCo agent (运行时字节码改写) |
+| 计数器位置 | ELF `__sancov_cntrs` section | JaCoCo 内部数据结构 / `int[65536]` fallback |
+| 起止地址获取 | `__start___sancov_cntrs` / `__stop___sancov_cntrs` | `RT.getAgent().getExecutionData()` |
+| 清零方式 | `memset` section | `RT.getAgent().reset()` |
+
+**面试加分点**：如果被问"你这个方案能支持其他语言吗"，可以说"Java 我们已经做了——用 JaCoCo 替代 SanitizerCoverage，核心的'调用前清零 + 调用后 dump + 回放合并'框架是语言无关的，只需要替换插桩后端"。
 
 ### 30. 为什么用 inline-8bit-counters 而不是其他覆盖率方案？
 
@@ -442,7 +485,7 @@ confidence: medium
 | **`inline-8bit-counters`** | **每个基本块一个 byte 计数器，进程内存中直接可读，不依赖正常退出** | 计数器饱和后溢出（但对覆盖率判断够了） |
 | `AFL-style shared memory` | 和 AFL/AFL++ 兼容 | 是 edge coverage 而非 block coverage，且共享内存需要额外 IPC |
 
-关键优势：**libFuzzer 原生支持 inline-8bit-counters**，OSS-Fuzz 的标准编译流程默认就启用它，不需要额外改构建脚本。而且计数器在进程地址空间内，可以在 fuzzing 运行中实时读取，不需要等进程退出。
+关键优势：**libFuzzer 原生支持 inline-8bit-counters**，OSS-Fuzz 的标准编译流程默认就启用它，不需要额外改构建脚本。而且计数器在进程地址空间内，通过 linker section 符号可以直接读写，不需要等进程退出。配合"调用前清零 + 调用后 dump"的设计，可以精确隔离 target 函数的覆盖率，排除 harness 自身代码的噪音。
 
 ### 31. 面试官追问："你说每一位代表一个函数有没有被访问"——准确说应该是什么？
 
@@ -450,8 +493,8 @@ confidence: medium
 
 准确描述：**每个 byte（不是 bit）代表一个基本块（不是函数）的执行计数**。一个函数通常包含多个基本块（if/else 分支、循环体、异常处理各自是独立的基本块）。所以：
 - 一个函数 → 多个基本块 → 多个计数器 byte。
-- 要算函数级覆盖率，需要先通过 PC Table + DWARF 找出属于该函数的所有计数器，再统计其中有多少 > 0。
-- 如果只关心"函数有没有被调用"（call coverage），看任意一个计数器 > 0 即可；如果要算分支覆盖率（branch coverage），就要看所有计数器。
+- 我们的实现不需要区分"哪些 byte 属于哪个函数"——因为在调用 target 函数前清零了**整个** section，调用后 dump 出来的非零 byte 就是 target 函数（及其调用链）执行到的基本块。这比用 PC Table + DWARF 做映射更简单直接。
+- `init_cov` 是第一个 corpus input 的覆盖，`final_cov` 是所有 input 合并后的覆盖。`final_cov > init_cov` 说明 fuzzer 在探索新路径。
 
 ### 32. Fuzzing 运行和漏洞报告检查你是怎么做的？
 
