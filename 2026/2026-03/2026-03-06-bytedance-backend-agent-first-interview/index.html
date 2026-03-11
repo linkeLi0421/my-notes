@@ -1,0 +1,2276 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-03/2026-03-06-bytedance-backend-agent-first-interview/">
+      
+      
+        <link rel="prev" href="../2026-03-05-ai-agent-attribution-evidence-binding/">
+      
+      
+        <link rel="next" href="../2026-03-06-harnessagent-interview-prep/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Agent开发笔记-漏洞迁移 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agent-" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Agent开发笔记-漏洞迁移
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-23-learning-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-24-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-05-ai-agent-attribution-evidence-binding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent开发笔记-漏洞迁移
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent开发笔记-漏洞迁移
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent开发笔记-漏洞迁移使用方式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、自我介绍与项目拷打
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、自我介绍与项目拷打">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 自我介绍 + 实习拷打
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Agent 项目是实习项目还是个人项目
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、Agent 原理与工程落地
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Agent 原理与工程落地">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Agent 在学术上由哪些部分组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Agent 如何减少幻觉，在工业场景下怎么做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 多 Agent / 多异步任务下，如何防止上下文污染
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 讲一下 Agent 中的长短期记忆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 了解过 Agent 的设计范式吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、项目深挖追问（面试官高频追击）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、项目深挖追问（面试官高频追击）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 修复成功率是多少？跑了多少个项目？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-agent-llm-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 和不用 Agent、直接让 LLM 一次性生成 patch 相比，提升多少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 什么类型的错误你的 Agent 修不了？为什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Guardrail 误拦截过吗？怎么处理的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-auto-loop-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 模型在 auto-loop 里死循环（反复生成相同错误 patch）怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 为什么用 LangGraph 而不是自己写循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-make_error_patch_override-new_func_code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. make_error_patch_override 里 new_func_code 是怎么生成的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-effective-patch-bundle-hunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Effective patch bundle 是怎么维护 hunk 行号映射的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-kbindex-libclang-json-tree-sitter-lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. KbIndex 用 libclang JSON，为什么不直接用 tree-sitter 或 LSP？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 用的什么模型？为什么？试过不同模型的效果差异吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-14-prompt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 14 个 prompt 片段加起来多少 token？会不会挤占工具输出的上下文空间？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-agent-override-hunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19-追问. 多 Agent 之间的 override 有冲突怎么办？两个 hunk 改了同一个文件的相邻行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-rustjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20-追问. 如果要支持 Rust/Java 的编译错误，架构上需要改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、记忆、上下文与 ReAct
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、记忆、上下文与 ReAct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 如果要进行记忆压缩，通常有哪些方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 什么样的信息应该放在长期记忆，什么样的信息放在短期记忆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 当对话轮数很多、上下文窗口不足时，有哪些处理策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-agent-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 你设计的 Agent 是怎么实现 ReAct 模式的？详细讲讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. 你设计的 Agent 是怎么实现 ReAct 模式的？详细讲讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整体架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#react_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReAct 循环实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态 Prompt 组装（关键设计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14 个工具（按调用顺序分层）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15+ 条 Guardrail（模型输出校验）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态管理与记忆分层
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Agent 编排
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#react_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与通用 ReAct 的关键区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、算法题与反问
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、算法题与反问">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23-n-a-a-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 手撕：给定一个数 n 和一组数字 a，求 a 中元素组成的小于 n 的最大值
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-harnessagent-interview-prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarnessAgent 项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-10-auto-bug-migration-full-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    auto-bug-migration 全项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mock-interview-bytedance-2026-03-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模拟面试记录：字节跳动 AI代码分析安全研发实习生
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent开发笔记-漏洞迁移使用方式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、自我介绍与项目拷打
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、自我介绍与项目拷打">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 自我介绍 + 实习拷打
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Agent 项目是实习项目还是个人项目
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、Agent 原理与工程落地
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Agent 原理与工程落地">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Agent 在学术上由哪些部分组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Agent 如何减少幻觉，在工业场景下怎么做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 多 Agent / 多异步任务下，如何防止上下文污染
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 讲一下 Agent 中的长短期记忆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 了解过 Agent 的设计范式吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、项目深挖追问（面试官高频追击）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、项目深挖追问（面试官高频追击）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 修复成功率是多少？跑了多少个项目？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-agent-llm-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 和不用 Agent、直接让 LLM 一次性生成 patch 相比，提升多少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 什么类型的错误你的 Agent 修不了？为什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Guardrail 误拦截过吗？怎么处理的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-auto-loop-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 模型在 auto-loop 里死循环（反复生成相同错误 patch）怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 为什么用 LangGraph 而不是自己写循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-make_error_patch_override-new_func_code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. make_error_patch_override 里 new_func_code 是怎么生成的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-effective-patch-bundle-hunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Effective patch bundle 是怎么维护 hunk 行号映射的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-kbindex-libclang-json-tree-sitter-lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. KbIndex 用 libclang JSON，为什么不直接用 tree-sitter 或 LSP？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 用的什么模型？为什么？试过不同模型的效果差异吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-14-prompt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 14 个 prompt 片段加起来多少 token？会不会挤占工具输出的上下文空间？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-agent-override-hunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19-追问. 多 Agent 之间的 override 有冲突怎么办？两个 hunk 改了同一个文件的相邻行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-rustjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20-追问. 如果要支持 Rust/Java 的编译错误，架构上需要改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、记忆、上下文与 ReAct
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、记忆、上下文与 ReAct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 如果要进行记忆压缩，通常有哪些方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 什么样的信息应该放在长期记忆，什么样的信息放在短期记忆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 当对话轮数很多、上下文窗口不足时，有哪些处理策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-agent-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 你设计的 Agent 是怎么实现 ReAct 模式的？详细讲讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. 你设计的 Agent 是怎么实现 ReAct 模式的？详细讲讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整体架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#react_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReAct 循环实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态 Prompt 组装（关键设计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14 个工具（按调用顺序分层）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15+ 条 Guardrail（模型输出校验）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        状态管理与记忆分层
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Agent 编排
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#react_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与通用 ReAct 的关键区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、算法题与反问
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、算法题与反问">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23-n-a-a-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 手撕：给定一个数 n 和一组数字 a，求 a 中元素组成的小于 n 的最大值
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Agent开发笔记-漏洞迁移</h1>
+
+<h2 id="agent-">Agent开发笔记-漏洞迁移使用方式<a class="headerlink" href="#agent-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>这是一版整理稿，先覆盖题目脉络和面试速答，后续可以继续补充项目细节、追问展开和代码实现。</li>
+<li>回答时优先讲四层：<code>定义</code>、<code>为什么</code>、<code>工程实现</code>、<code>适用场景 / trade-off</code>。</li>
+<li>如果题目和你的项目有关，尽量从自己的项目设计、线上问题、指标和复盘切入，不要只背概念。</li>
+</ul>
+<h2 id="_1">回答总原则<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Agent 题目不要只讲学术定义，要补上工业落地中的约束、观测、评测和兜底。</li>
+<li>系统题不要只讲“是什么”，要讲到数据流、状态流、异常处理和一致性。</li>
+<li>并发题不要只背 API，要讲调度、锁竞争、吞吐和适用场景。</li>
+<li>搜索和微服务题容易被继续追问，回答时最好主动给出一个完整链路。</li>
+</ul>
+<h2 id="_2">一、自我介绍与项目拷打<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 自我介绍 + 实习拷打<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>我是 XX 大学 XX 专业的硕士，研究方向是利用 LLM Agent 自动化 C/C++ 大型项目的代码迁移和编译修复。我的核心项目是 <strong>auto-bug-migration</strong>：当一个 C/C++ 开源项目从 V1 升级到 V2 后，迁移过来的代码经常编译不过，我设计了一套基于 LangGraph 的 ReAct Agent 系统，能自动解析编译日志、定位出错的 patch hunk、调用静态分析 KB 和源码工具做根因分析，最后生成 override diff 并通过 OSS-Fuzz 做端到端验证。系统包含 14 个工具、15+ 条 guardrail 规则、动态 prompt 组装和多 Agent 并行修复能力。</p>
+</blockquote>
+<ul>
+<li><strong>追问”你做了什么”</strong>：从零设计了整个 Agent 的状态机（LangGraph 三节点图）、14 个工具集（KB 查询 / 源码读取 / patch 操作 / OSS-Fuzz 测试）、动态 prompt 组装策略（14 个错误类型片段按需拼接）和 15+ 条 guardrail 体系，以及 <code>multi_agent.py</code> 多 Agent 编排层。</li>
+<li><strong>追问”为什么这样设计”</strong>：编译错误类型多且修复流程差异大（比如”未声明标识符”和”struct 成员缺失”的修复策略完全不同），所以用动态 prompt 按错误类型注入专家规则片段，而不是一套通用 prompt；用 guardrail 拦截模型的高频错误模式，比如在函数体内插入 forward declaration。</li>
+<li><strong>追问”遇到什么问题”</strong>：早期模型经常生成无效 patch——比如在函数体内写 <code>__revert_*</code> 的 prototype 声明、对非 <code>__revert_*</code> 的普通未声明函数用 <code>make_extra_patch_override</code> 加声明而不是重写函数体、忘记先 <code>read_artifact</code> 读最新 BASE slice 就直接生成 patch 导致 diff 对不上。后来通过 15+ 条 guardrail 检测 + 自动注入修复 prompt 逐一解决。</li>
+<li><strong>追问”效果如何量化”</strong>：通过 OSS-Fuzz 端到端构建测试验证修复率，支持 <code>--auto-ossfuzz-loop</code> 迭代直到编译通过或达到最大轮次；用 <code>error_history</code> 对比修复前后的 target error 数量变化来判断是否真正修复而不是引入新错误。</li>
+</ul>
+<h3 id="2-agent">2. Agent 项目是实习项目还是个人项目<a class="headerlink" href="#2-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>这是我的<strong>个人研究项目</strong>（auto-bug-migration），核心目标是自动修复 C/C++ 开源项目跨版本迁移的编译错误。</li>
+<li>我自己设计并实现了所有模块：</li>
+<li><strong>LangGraph 状态图</strong>：三节点图（<code>llm_node → tool_node → llm_node</code>），路由函数控制走工具分支还是终止。</li>
+<li><strong>14 个工具</strong>：覆盖静态分析 KB 查询（<code>search_definition</code>）、源码读取（<code>read_file_context</code> / <code>read_artifact</code>）、patch 操作（<code>make_error_patch_override</code> / <code>make_extra_patch_override</code> / <code>revise_patch_hunk</code>）、OSS-Fuzz 构建测试（<code>ossfuzz_apply_patch_and_test</code>）等全链路。</li>
+<li><strong>动态 prompt 组装</strong>（<code>prompting.py</code>）：1 个 base prompt + 13 个错误类型片段，根据当前错误类型、patch 模式、merged hunk 状态动态拼接。</li>
+<li><strong>15+ 条 guardrail</strong>：检测并修复模型的常见错误模式。</li>
+<li><strong>Artifact 管理</strong>：大输出（patch 文本、源码片段）offload 到文件，通过路径引用 + <code>read_artifact</code> 按需读取。</li>
+<li><strong>Multi-agent 编排</strong>（<code>multi_agent.py</code>）：按 <code>patch_key</code> 分组错误，独立 spawn Agent，最后合并 override diff 做统一 OSS-Fuzz 验证。</li>
+<li><strong>验证方式</strong>：用 OSS-Fuzz 的真实开源项目（如 libxml2）做端到端测试，Agent 生成 override diff 后自动在 Docker 中构建，对比修复前后的编译错误数量。</li>
+<li><strong>局限</strong>：目前只处理编译期错误（compiler + linker），还没有覆盖运行时语义错误；对于需要深度理解业务语义的修复（如 API 行为变更），模型仍然可能生成编译通过但语义不正确的 patch。</li>
+</ul>
+<h2 id="agent">二、Agent 原理与工程落地<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h2>
+<h3 id="3-agent">3. Agent 在学术上由哪些部分组成<a class="headerlink" href="#3-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>学术上可以抽象成 <code>感知 Perception + 记忆 Memory + 规划 Planning + 行动 Action + 反馈 Reflection</code> 五大组件。</li>
+<li>在 LLM Agent 语境下一般落成：<code>LLM + Prompt / Policy + Tool Use + Memory + Planner + Verifier / Evaluator + Environment</code>。</li>
+<li><strong>结合我的项目来映射</strong>：</li>
+<li><strong>感知</strong>：<code>build_log.py</code> 解析编译日志，提取结构化错误信息（file、line、msg、kind=compiler|linker），再通过 <code>get_error_patch_context</code> 把错误行映射到 patch hunk 和 BASE slice——这是 Agent 的输入感知层。</li>
+<li><strong>记忆</strong>：<code>AgentState</code> 维护了 <code>steps</code>（近期步骤，受 max_steps 裁剪）、<code>error_history</code>（跨 OSS-Fuzz 轮次的历史错误记录，最多 20 条）、<code>function_error_history</code>（按 <code>old_signature</code> 聚合的所有历史错误行），兼顾短期和长期。</li>
+<li><strong>规划</strong>：LLM 每轮输出一个 JSON <code>Decision</code>（<code>type: “tool”</code> 或 <code>type: “final”</code>），决定调用哪个工具或输出最终结论——本质是单步规划，靠 ReAct 循环实现多步推理。</li>
+<li><strong>行动</strong>：14 个工具覆盖了 KB 查询、源码读取、patch 生成、OSS-Fuzz 端到端测试。</li>
+<li><strong>反馈 / 校验</strong>：15+ 条 guardrail 在模型输出后做校验——如果检测到无效模式（比如在函数体内写 forward declaration、对非 <code>__revert_*</code> 函数用 <code>make_extra_patch_override</code>），会注入修复 prompt 让模型重试。OSS-Fuzz 构建结果也是一种环境反馈。</li>
+</ul>
+<h3 id="4-agent">4. Agent 如何减少幻觉，在工业场景下怎么做<a class="headerlink" href="#4-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>核心思路是少让模型凭空生成，多让模型基于工具返回的<strong>确定性证据</strong>来决策。</li>
+<li><strong>我的项目里具体做了这几层</strong>：</li>
+<li><strong>结构化输出</strong>：强制 LLM 只输出 JSON（<code>{“type”:”tool”,”thought”:”...”,”tool”:”...”,”args”:{...}}</code>），不允许自由文本，JSON 解析失败就注入 repair prompt 重试。</li>
+<li><strong>工具链约束</strong>：patch 生成前必须先调用 <code>read_artifact</code> 读取最新 BASE slice，不能凭记忆写 patch。Guardrail 检查工具调用顺序：分析工具（<code>search_definition</code> / <code>read_file_context</code>）→ patch 工具（<code>make_error_patch_override</code>）→ 验证工具（<code>ossfuzz_apply_patch_and_test</code>）。</li>
+<li><strong>15+ 条 guardrail</strong>：针对模型的高频错误模式做拦截和自动修复，例如：<ul>
+<li>不要在函数体内写 <code>__revert_*</code> prototype → 强制用 <code>make_extra_patch_override</code> 在文件作用域插入。</li>
+<li>不要发明新的 <code>__revert_*</code> 函数调用 → 检测到后强制修复。</li>
+<li>不要对普通未声明函数用 <code>make_extra_patch_override</code> → 强制走函数体重写。</li>
+<li>不要发明 <code>#define</code> 宏的占位值 → 强制用 <code>make_extra_patch_override</code> 引入真实宏定义。</li>
+</ul>
+</li>
+<li><strong>端到端验证</strong>：每次生成 override diff 后强制调用 <code>ossfuzz_apply_patch_and_test</code>，在 Docker 里真实编译，用编译结果而不是模型自信度来判断是否成功。</li>
+<li><strong>Policy 硬约束</strong>：system prompt 里写死”不允许修改 V2 的类型定义（struct / typedef / enum / union），只能让 V1 代码适配 V2 语义”，避免模型走捷径去改上游头文件。</li>
+</ul>
+<h3 id="5-agent">5. 多 Agent / 多异步任务下，如何防止上下文污染<a class="headerlink" href="#5-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>我的项目里用了严格的隔离机制</strong>：</li>
+<li><strong>任务隔离</strong>：<code>multi_agent.py</code> 按 <code>patch_key</code>（文件路径 + 函数签名）把编译错误分组，每个 <code>patch_key</code> 独立 spawn 一个 Agent 实例，各自有独立的 <code>AgentState</code>、<code>steps</code>、<code>error_history</code>，不共享对话上下文。</li>
+<li><strong>Artifact 隔离</strong>：每个 Agent 的输出写到独立目录 <code>data/react_agent_artifacts/multi_&lt;run_id&gt;/&lt;patch_key&gt;/</code>，不会交叉覆盖。</li>
+<li><strong>结构化共享</strong>：Agent 之间不共享原始对话历史，只共享结构化结果——每个 Agent 产出 <code>patch_override_by_key[patch_key] = override_diff_path</code>，最后由编排层统一合并。</li>
+<li><strong>状态机约束</strong>：每个 Agent 内部通过 <code>active_patch_key</code> 和 <code>active_old_signature</code> 锁定当前工作范围，guardrail 会阻止跨 <code>patch_key</code> 的工具调用（patch key scope enforcement）。</li>
+<li><strong>合并与验证</strong>：所有 Agent 完成后，<code>multi_agent.py</code> 收集所有 <code>patch_override_paths</code>，合并到一个 unified patch bundle，再跑一次完整的 OSS-Fuzz 端到端测试，确保多个 Agent 的修复互不冲突。</li>
+</ul>
+<h3 id="6-agent">6. 讲一下 Agent 中的长短期记忆<a class="headerlink" href="#6-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>短期记忆</strong>（当前任务上下文，随步骤流转）：</li>
+<li><code>AgentState.steps</code>：最近几轮的 <code>decision + observation</code>，受 <code>max_steps</code> 限制，超出后旧步骤被裁剪，只保留最近的上下文。</li>
+<li><code>AgentState.grouped_errors</code>：当前 <code>patch_key</code> 下的结构化错误列表（file、line、msg、old_signature、kind）。</li>
+<li><code>AgentState.active_*</code> 字段：当前正在处理的文件路径、行号、函数签名、patch 类型等，就像”工作指针”。</li>
+<li><strong>Artifact 引用</strong>：大输出（patch 文本、源码片段、构建日志）不塞进上下文，而是 offload 到文件，通过 <code>artifact_path</code> 引用，Agent 用 <code>read_artifact</code> 按需读取指定行范围，节省 token。</li>
+<li><strong>长期记忆</strong>（跨轮次 / 跨 Agent 可复用，不受步骤裁剪影响）：</li>
+<li><code>AgentState.error_history</code>：记录每个 <code>patch_key</code> 的历史错误（最多 20 条），跨 OSS-Fuzz auto-loop 轮次保留，用于判断修复是否产生了新回归。</li>
+<li><code>AgentState.function_error_history</code>：按 <code>old_signature</code> 聚合所有历史错误行，跨函数组轮次保留，帮助模型理解”这个函数之前报过哪些错”。</li>
+<li><code>AgentState.step_history</code>：全量步骤历史（区别于被裁剪的 <code>steps</code>），用于审计和回放。</li>
+<li><strong>静态分析 KB</strong>（<code>KbIndex</code>）：V1/V2 的 libclang JSON 索引，按 USR 和 spelling 建立查找表，是持久化的确定性知识库，跨所有 Agent 共享。</li>
+<li><strong>设计取舍</strong>：短期记忆放在 LangGraph 的 state 里随步骤流转；长期记忆一部分放在 state 的不可裁剪字段里（<code>error_history</code>、<code>function_error_history</code>），一部分（KB、artifact 文件）放在磁盘上按需加载。这样既保证上下文窗口不被撑爆，又不丢失关键历史信息。</li>
+</ul>
+<h3 id="7-agent">7. 了解过 Agent 的设计范式吗<a class="headerlink" href="#7-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>常见范式：<code>ReAct</code>、<code>Plan-and-Execute</code>、<code>Reflexion</code>、<code>Toolformer</code>、<code>Multi-Agent</code>、<code>Workflow / State Machine</code>。</li>
+<li><strong>我的项目选择了 ReAct + State Machine + Multi-Agent 的组合</strong>：</li>
+<li><strong>ReAct</strong>（核心循环）：LLM 每轮输出 <code>Thought → Action（tool call）→ Observation</code>，直到输出 <code>type: “final”</code> 或达到 <code>max_steps</code>。选择 ReAct 是因为编译错误的修复是探索性过程——需要先查 KB、读源码、理解 patch 结构，然后才能决定修复策略，无法预先确定步骤。</li>
+<li><strong>State Machine</strong>（LangGraph 状态图）：三个节点 <code>llm_node → tool_node → llm_node</code>，路由函数决定走 tool 分支还是 END。状态图的好处是状态转移可控、可序列化、可回放，recursion limit 动态计算为 <code>max(25, max_steps * 8 + 25)</code> 来适应不同复杂度。</li>
+<li><strong>Multi-Agent</strong>（编排层）：<code>multi_agent.py</code> 按 <code>patch_key</code> 分组错误，每组 spawn 独立 Agent，最后合并 override diff 做统一 OSS-Fuzz 验证。比单 Agent 串行处理更高效，也更容易隔离失败——一个 hunk 修复失败不影响其他 hunk。</li>
+<li><strong>为什么不用 Plan-and-Execute</strong>：编译修复的步骤高度依赖中间结果（比如必须先看到 <code>get_error_patch_context</code> 返回的 BASE slice 才能决定是重写函数体还是插入 forward declaration），预先拆好完整计划反而不实际。ReAct 的逐步决策更适合这种”看一步走一步”的探索性场景。</li>
+<li><strong>动态 prompt 组装</strong>也是一个重要设计：不同于固定 system prompt，我的 <code>prompting.py</code> 根据当前错误类型（undeclared symbol / struct member / incomplete type / linker error 等）从 14 个 prompt 片段中选择性拼接，相当于给 ReAct 循环注入了错误类型专家规则，让模型在不同错误场景下有不同的决策指导。</li>
+</ul>
+<h2 id="_3">三、项目深挖追问（面试官高频追击）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="8">8. 修复成功率是多少？跑了多少个项目？<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>这是面试官判断你"是否真跑过"的核心问题，必须有数据。</p>
+</blockquote>
+<ul>
+<li>测试项目：<!-- TODO: 填入你实际跑过的项目列表，如 libxml2, libpng, ... --></li>
+<li>测试规模：<!-- TODO: 总共跑了多少个 patch bundle / 多少个 patch_key --></li>
+<li>修复成功率：<!-- TODO: 比如 "在 libxml2-e11519 上，XX 个 patch_key 中 XX 个一次修复通过，XX 个经过 auto-loop 2-3 轮后修复，XX 个最终失败" --></li>
+<li>平均轮次：<!-- TODO: 一个 patch_key 平均跑几轮 ReAct 步骤？auto-loop 平均迭代几次？ --></li>
+<li>Token 成本：<!-- TODO: 单次 patch_key 修复大约消耗多少 token？一个完整 multi-agent run 大约多少？ --></li>
+</ul>
+<h3 id="9-agent-llm-patch">9. 和不用 Agent、直接让 LLM 一次性生成 patch 相比，提升多少？<a class="headerlink" href="#9-agent-llm-patch" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>baseline 对比是论文 / 面试必问。</p>
+</blockquote>
+<ul>
+<li><strong>Baseline 1（one-shot）</strong>：把编译错误和源码直接丢给 LLM，让它一次性输出 patch。</li>
+<li>问题：<!-- TODO: one-shot 的修复率大概是多少？主要失败在哪？（猜测：缺乏 V1/V2 diff 信息、不知道 patch 语义、无法验证） --></li>
+<li><strong>Baseline 2（无 guardrail 的 ReAct）</strong>：有工具但没有 guardrail 和动态 prompt。</li>
+<li>问题：<!-- TODO: 去掉 guardrail 后修复率下降多少？最常见的失败模式是什么？ --></li>
+<li><strong>我的系统的提升</strong>：</li>
+<li>动态 prompt 让模型在不同错误类型下做出更精准的决策，而不是用一套通用 prompt 处理所有情况。</li>
+<li>Guardrail 拦截了模型的高频错误（如函数体内写 forward declaration），减少了无效 patch 生成。</li>
+<li>OSS-Fuzz 端到端验证 + auto-loop 允许模型在失败后根据新的编译日志迭代修复，而不是一锤子买卖。</li>
+</ul>
+<h3 id="10-agent">10. 什么类型的错误你的 Agent 修不了？为什么？<a class="headerlink" href="#10-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>语义级 API 变更</strong>：V2 改了某个函数的行为（比如参数含义变了），但函数签名没变，编译能过但运行时语义不对。Agent 只能看到编译错误，无法感知运行时语义差异。</li>
+<li><strong>大范围重构</strong>：如果 V2 把整个模块拆分或合并了，涉及几十个文件的联动修改，单个 patch_key 级别的 Agent 视野不够。</li>
+<li><strong>复杂的宏展开错误</strong>：C 预处理器的宏嵌套展开导致的错误，libclang JSON 可能没有完整捕获宏展开链路，KB 查不到。</li>
+<li><!-- TODO: 补充你实际遇到过的具体失败 case，比如"在 libxml2 的某个函数上，因为 XX 原因修复失败" --></li>
+</ul>
+<h3 id="11-guardrail">11. Guardrail 误拦截过吗？怎么处理的？<a class="headerlink" href="#11-guardrail" title="Permanent link">&para;</a></h3>
+<ul>
+<li><!-- TODO: 有没有遇到 guardrail 误判的情况？比如某个 case 里模型的做法其实是对的，但被 guardrail 拦截了？ --></li>
+<li>处理方式：guardrail 的设计原则是<strong>宁可误拦也不放过</strong>，因为模型重试的成本远低于生成一个无效 patch 再走 OSS-Fuzz 验证的成本。</li>
+<li>如果发现某条 guardrail 误拦率太高，可以通过环境变量（如 <code>REACT_AGENT_ENABLE_UNDECLARED_SYMBOL_GUARDRAIL</code>）关闭单条 guardrail 做 A/B 测试。</li>
+</ul>
+<h3 id="12-auto-loop-patch">12. 模型在 auto-loop 里死循环（反复生成相同错误 patch）怎么办？<a class="headerlink" href="#12-auto-loop-patch" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>检测机制</strong>：<code>error_history</code> 会记录每轮 OSS-Fuzz 后的 target error 列表。如果连续两轮的 target error 完全相同（数量和内容），说明 Agent 没有取得进展。</li>
+<li><strong>退出条件</strong>：<code>--max-agent-retries</code>（默认 6）限制最大重试次数；<code>ossfuzz_runs_attempted</code> 计数器防止无限 loop。</li>
+<li><strong>根因</strong>：死循环通常是因为模型对某种错误类型缺乏理解（比如不知道 <code>git apply --reverse</code> 的 diff 方向），或者 KB 里缺少关键符号的定义。</li>
+<li><!-- TODO: 你实际遇到过死循环吗？最后是怎么解决的？ --></li>
+</ul>
+<h3 id="13-langgraph">13. 为什么用 LangGraph 而不是自己写循环？<a class="headerlink" href="#13-langgraph" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>状态管理</strong>：LangGraph 的 <code>StateGraph</code> 提供了类型化的状态定义（<code>TypedDict</code>），状态在节点间自动传递，不需要手动管理全局变量。</li>
+<li><strong>可序列化</strong>：状态图可以序列化和恢复，方便调试和回放（虽然我主要用 <code>step_history</code> 做审计）。</li>
+<li><strong>路由清晰</strong>：<code>add_conditional_edges</code> 把路由逻辑和节点逻辑分开，比 <code>if/else</code> 嵌套更可读。</li>
+<li><strong>递归限制</strong>：LangGraph 内置 recursion limit，防止无限循环。</li>
+<li><strong>取舍</strong>：LangGraph 引入了框架依赖，但编译修复的状态转移比较复杂（100+ 个 state 字段），手写循环会更难维护。我也提供了 <code>langgraph_shim.py</code> 作为 fallback，在不安装 LangGraph 时用纯 Python 模拟基本的图执行。</li>
+</ul>
+<h3 id="14-make_error_patch_override-new_func_code">14. <code>make_error_patch_override</code> 里 <code>new_func_code</code> 是怎么生成的？<a class="headerlink" href="#14-make_error_patch_override-new_func_code" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>new_func_code</code> 是由 LLM 直接生成的——模型读完 BASE slice（通过 <code>read_artifact</code>）和 V1/V2 的符号定义（通过 <code>search_definition</code>）后，在 <code>thought</code> 中分析修复策略，然后在 <code>args.new_func_code</code> 里写出修改后的完整函数体。</li>
+<li><strong>关键约束</strong>：</li>
+<li><code>new_func_code</code> 必须基于最新 BASE slice 派生，不能凭记忆写——guardrail 检查 <code>read_artifact</code> 是否在 <code>make_error_patch_override</code> 之前调用过。</li>
+<li>在 merged/tail hunk 中，<code>new_func_code</code> 只能重写 active function 的 mapped slice，不能粘贴整个 hunk。</li>
+<li>不能包含 unified-diff headers（<code>diff --git</code>、<code>@@</code>、<code>---/+++</code>）。</li>
+<li>工具内部会把 <code>new_func_code</code> 嵌入原 patch hunk 的对应位置，生成一个完整的 applyable override diff。</li>
+</ul>
+<h3 id="15-effective-patch-bundle-hunk">15. Effective patch bundle 是怎么维护 hunk 行号映射的？<a class="headerlink" href="#15-effective-patch-bundle-hunk" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每次 <code>make_error_patch_override</code> 生成 override 后，工具会更新 patch bundle 里对应 hunk 的 <code>patch_text</code> 和行号范围，写成一个 <code>*.effective.patch2</code> 文件。</li>
+<li>后续工具调用（如第二次 <code>get_error_patch_context</code>）使用 effective bundle 而不是原始 bundle，这样错误行号映射始终是准确的。</li>
+<li>这解决了"override 改变了函数长度后，后续错误的行号会偏移"的问题。</li>
+</ul>
+<h3 id="16-kbindex-libclang-json-tree-sitter-lsp">16. KbIndex 用 libclang JSON，为什么不直接用 tree-sitter 或 LSP？<a class="headerlink" href="#16-kbindex-libclang-json-tree-sitter-lsp" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>libclang 的优势</strong>：它是 Clang 编译器的 API，能准确解析 C/C++ 的全部语法（包括宏展开、模板实例化、<code>#if</code> 条件编译），tree-sitter 只做 AST 解析，不做语义分析。</li>
+<li><strong>离线生成</strong>：libclang JSON 可以在构建环境里一次性生成，Agent 运行时只需要读 JSON 文件，不需要完整的编译环境。</li>
+<li><strong>USR（Unified Symbol Resolution）</strong>：libclang 给每个符号一个唯一标识符，可以跨文件精确匹配同一个函数/类型的 V1 和 V2 版本。tree-sitter 没有这个能力。</li>
+<li><strong>取舍</strong>：libclang JSON 不够轻量（生成和解析都比 tree-sitter 慢），而且需要 V1/V2 各跑一次完整分析。如果场景只需要简单的 AST 查询，tree-sitter 更合适。</li>
+</ul>
+<h3 id="17">17. 用的什么模型？为什么？试过不同模型的效果差异吗？<a class="headerlink" href="#17" title="Permanent link">&para;</a></h3>
+<ul>
+<li><!-- TODO: 填入你实际使用的模型，比如 GPT-4o / Claude 3.5 Sonnet / DeepSeek-V3 等 --></li>
+<li><strong>选择理由</strong>：<!-- TODO: 为什么选这个模型？代码生成能力？价格？上下文窗口长度？ --></li>
+<li><strong>模型对比</strong>：<!-- TODO: 有没有 A/B 测试过不同模型？比如 GPT-4o vs Claude 在修复率、轮次、幻觉率上的差异？ --></li>
+<li>代码里通过 <code>models.py</code> 的 <code>ChatModel</code> 抽象支持 OpenAI API compatible 接口，切换模型只需要改 endpoint 和 model name，方便做对比实验。</li>
+</ul>
+<h3 id="18-14-prompt-token">18. 14 个 prompt 片段加起来多少 token？会不会挤占工具输出的上下文空间？<a class="headerlink" href="#18-14-prompt-token" title="Permanent link">&para;</a></h3>
+<ul>
+<li>实际运行中，一次 LLM 调用的 system prompt 是动态拼接的子集，不是全部 14 个片段一起注入。典型的 patch-scope + undeclared_symbol 场景大约拼接 4-5 个片段。</li>
+<li><!-- TODO: 估算一下典型场景的 system prompt token 数，比如"base + tools + patch_scope + undeclared_symbol ≈ XXX tokens" --></li>
+<li>Artifact offload 机制是另一层保护：大的工具输出（patch 文本、源码）不进上下文，通过文件引用 + <code>read_artifact</code> 按需读取指定行范围（<code>start_line</code> + <code>max_lines</code>），只把需要的部分拉进来。</li>
+</ul>
+<h3 id="19-agent-override-hunk">19-追问. 多 Agent 之间的 override 有冲突怎么办？两个 hunk 改了同一个文件的相邻行？<a class="headerlink" href="#19-agent-override-hunk" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>当前设计</strong>：每个 Agent 只修改自己 <code>patch_key</code> 对应的 hunk，不同 hunk 在 patch bundle 里通过 <code>patch_key</code> 唯一标识，不会直接冲突。</li>
+<li><strong>间接冲突</strong>：两个 Agent 可能都通过 <code>make_extra_patch_override</code> 往同一个文件的 <code>_extra_*</code> hunk 追加声明。这种情况下 <code>multi_agent.py</code> 在合并 override 时按 patch_key 顺序拼接，最终由 <code>ossfuzz_apply_patch_and_test</code> 做全量验证——如果合并后编译失败，auto-loop 会重新解析错误继续修复。</li>
+<li><!-- TODO: 你实际遇到过这种冲突吗？ --></li>
+</ul>
+<h3 id="20-rustjava">20-追问. 如果要支持 Rust/Java 的编译错误，架构上需要改什么？<a class="headerlink" href="#20-rustjava" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>需要改的</strong>：</li>
+<li><strong>KbIndex</strong>：替换 libclang JSON 为对应语言的 AST/符号分析工具（Rust: rust-analyzer / syn，Java: JavaParser / Eclipse JDT）。</li>
+<li><strong>build_log.py</strong>：重写编译错误的解析正则（Rust 的错误格式和 GCC/Clang 完全不同）。</li>
+<li><strong>prompt 片段</strong>：错误类型分类和修复策略要重写（Rust 没有 forward declaration 的概念，Java 没有宏）。</li>
+<li><strong>OSS-Fuzz 测试</strong>：需要对应语言的构建环境。</li>
+<li><strong>不需要改的</strong>：</li>
+<li>LangGraph 状态图结构、ReAct 循环、guardrail 框架、artifact 管理、multi-agent 编排——这些都是语言无关的。</li>
+<li>这说明架构的分层是合理的：语言相关的知识被隔离在 KB、error parser 和 prompt 片段中，Agent 核心循环是通用的。</li>
+</ul>
+<h2 id="react">四、记忆、上下文与 ReAct<a class="headerlink" href="#react" title="Permanent link">&para;</a></h2>
+<h3 id="19">19. 如果要进行记忆压缩，通常有哪些方法<a class="headerlink" href="#19" title="Permanent link">&para;</a></h3>
+<ul>
+<li>摘要压缩：把长对话压成高密度摘要。</li>
+<li>结构化提取：只保留事实、约束、决策和未完成事项。</li>
+<li>分层记忆：近期原始消息保留，远期消息只保留摘要或索引。</li>
+<li>检索式记忆：把历史内容向量化或建立倒排索引，按需召回而不是全量塞进上下文。</li>
+<li>重要性打分和 TTL：高价值信息长期保留，低价值信息定期淘汰。</li>
+</ul>
+<h3 id="20">20. 什么样的信息应该放在长期记忆，什么样的信息放在短期记忆<a class="headerlink" href="#20" title="Permanent link">&para;</a></h3>
+<ul>
+<li>长期记忆适合放稳定、跨任务可复用的信息，比如用户偏好、身份资料、配置习惯、业务规则、历史结论。</li>
+<li>短期记忆适合放当前任务专属的信息，比如本轮目标、最近几轮对话、中间 observation、临时变量和当前计划。</li>
+<li>判断标准通常是两个：<strong>是否跨任务复用，是否相对稳定不容易过期。</strong></li>
+<li>如果把临时信息写进长期记忆，后面很容易造成误召回和上下文污染。</li>
+</ul>
+<h3 id="21">21. 当对话轮数很多、上下文窗口不足时，有哪些处理策略<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>直接截断：只保留系统提示词和最近几轮消息，简单但信息损失大。</li>
+<li>历史摘要：把旧对话压缩成摘要，只保留关键事实、决策和未解决问题。</li>
+<li>分层记忆：最近消息保留原文，历史内容保留摘要或向量索引。</li>
+<li>检索回填：需要时再从长期记忆中检索相关内容，而不是把全部历史带入。</li>
+<li>状态外置：把任务进度、工具结果、关键事实单独放到结构化状态里，减少对原始对话的依赖。</li>
+</ul>
+<h3 id="22-agent-react">22. 你设计的 Agent 是怎么实现 ReAct 模式的？详细讲讲<a class="headerlink" href="#22-agent-react" title="Permanent link">&para;</a></h3>
+<h4 id="_4">整体架构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  multi_agent.py（编排层）                                    │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  按 patch_key 分组错误 → spawn 独立 Agent → 合并 override    │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└────────────────────────┬────────────────────────────────────┘
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                         │ 每个 patch_key
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                         ▼
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  LangGraph StateGraph（三节点图）                             │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                                                             │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│  ┌──────────┐   tool   ┌───────────┐   always  ┌────────┐ │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│  │ llm_node ├─────────►│ tool_node ├──────────►│llm_node│ │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│  └────┬─────┘          └───────────┘           └────┬───┘ │
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│       │ final                                       │      │
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│       ▼                                             │      │
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│     [END]                                    (循环) │      │
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│                                                     │      │
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│  路由: llm_node 输出 Decision                        │      │
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│    type==&quot;tool&quot;  → tool_node                        │      │
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│    type==&quot;final&quot; → END                              │      │
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>│    达到 max_steps → 强制 END                         │      │
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>└─────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<h4 id="react_1">ReAct 循环实现<a class="headerlink" href="#react_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Thought → Action</strong>：LLM 每轮<strong>必须</strong>输出一个 JSON <code>Decision</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;thought&quot;</span><span class="p">:</span><span class="s2">&quot;需要查看 V2 的 struct 定义...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="s2">&quot;search_definition&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;args&quot;</span><span class="p">:{</span><span class="nt">&quot;symbol_name&quot;</span><span class="p">:</span><span class="s2">&quot;struct xmlParserCtxt&quot;</span><span class="p">,</span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">}}</span>
+</span></code></pre></div>
+<p>或终止：</p>
+<p><div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;final&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;thought&quot;</span><span class="p">:</span><span class="s2">&quot;所有 target error 已修复&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;next_step&quot;</span><span class="p">:</span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+2. <strong>Action → Observation</strong>：<code>tool_node</code> 调用 <code>ToolRunner.call()</code>，执行对应工具，返回 <code>ToolObservation(ok, tool, args, output, error)</code>。大输出自动 offload 到 artifact 文件，返回 <code>{artifact_path, sha256, bytes, lines}</code> 引用。
+3. <strong>Observation → Thought</strong>：observation 追加到 <code>AgentState.steps</code>，连同历史步骤、grouped_errors、active context 一起喂给 LLM 进入下一轮。
+4. <strong>终止条件</strong>：<code>type=="final"</code> / 达到 <code>max_steps</code> / 连续重试超限。</p>
+<h4 id="prompt">动态 Prompt 组装（关键设计）<a class="headerlink" href="#prompt" title="Permanent link">&para;</a></h4>
+<ul>
+<li>不是一套固定 system prompt，而是 <code>prompting.py</code> 根据当前错误上下文<strong>动态拼接</strong>：</li>
+<li><code>system_base.txt</code>（必选）：输出格式、policy 约束</li>
+<li><code>system_tools.txt</code>（必选）：注入当前可用工具的 schema</li>
+<li><code>system_patch_scope.txt</code>（if patch 模式）：解释 <code>git apply --reverse</code> 语义</li>
+<li><code>system_mapped_slice_rewrite.txt</code>（if patch + active_old_signature）：rewrite vs. extra_patch 决策树</li>
+<li><strong>按错误类型选择</strong>：<code>system_undeclared_symbol.txt</code> / <code>system_struct_members.txt</code> / <code>system_incomplete_type.txt</code> / <code>system_linker_error.txt</code> / <code>system_func_sig_change.txt</code> / <code>system_conflicting_types.txt</code> / <code>system_macro.txt</code> / <code>system_visibility.txt</code> / <code>system_missing_prototypes.txt</code></li>
+<li><code>system_merged_tail.txt</code>（if merged hunk）：只修改 active function 的切片</li>
+<li>这样不同错误类型拿到不同的专家指导，避免上下文被无关规则占满。</li>
+</ul>
+<h4 id="14">14 个工具（按调用顺序分层）<a class="headerlink" href="#14" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>工具</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分析层</td>
+<td><code>parse_build_errors</code></td>
+<td>解析编译日志为结构化错误</td>
+</tr>
+<tr>
+<td>分析层</td>
+<td><code>get_error_patch_context</code></td>
+<td>把 error line 映射到 patch hunk，返回 BASE slice</td>
+</tr>
+<tr>
+<td>分析层</td>
+<td><code>search_definition</code></td>
+<td>在 KB 中查询 V1/V2 的函数/struct/typedef 定义</td>
+</tr>
+<tr>
+<td>分析层</td>
+<td><code>read_file_context</code></td>
+<td>从源码 checkout 读取指定行范围</td>
+</tr>
+<tr>
+<td>分析层</td>
+<td><code>read_artifact</code></td>
+<td>读取 artifact 文件的指定行范围（bounded read）</td>
+</tr>
+<tr>
+<td>分析层</td>
+<td><code>list_patch_bundle</code> / <code>get_patch</code> / <code>search_patches</code></td>
+<td>浏览和搜索 patch bundle</td>
+</tr>
+<tr>
+<td>生成层</td>
+<td><code>make_error_patch_override</code></td>
+<td>重写 patch hunk 的 mapped slice（核心修复工具）</td>
+</tr>
+<tr>
+<td>生成层</td>
+<td><code>make_extra_patch_override</code></td>
+<td>扩展 <code>_extra_*</code> hunk（加 forward decl / typedef / macro）</td>
+</tr>
+<tr>
+<td>生成层</td>
+<td><code>revise_patch_hunk</code></td>
+<td>外科手术式编辑非 <code>__revert_*</code> hunk</td>
+</tr>
+<tr>
+<td>生成层</td>
+<td><code>make_link_error_patch_override</code></td>
+<td>处理 linker 的 undefined reference</td>
+</tr>
+<tr>
+<td>验证层</td>
+<td><code>ossfuzz_apply_patch_and_test</code></td>
+<td>合并所有 override → Docker 构建 → 解析新日志</td>
+</tr>
+</tbody>
+</table>
+<h4 id="15-guardrail">15+ 条 Guardrail（模型输出校验）<a class="headerlink" href="#15-guardrail" title="Permanent link">&para;</a></h4>
+<p>每次 LLM 输出 Decision 后、执行工具前，guardrail 函数链检查：</p>
+<ul>
+<li><strong>工具顺序约束</strong>：patch 生成前必须先 <code>read_artifact</code> 读 BASE slice</li>
+<li><strong>No local <code>__revert_*</code> prototypes</strong>：检测函数体内 forward declaration → 强制用 <code>make_extra_patch_override</code></li>
+<li><strong>No new <code>__revert_*</code> symbol invention</strong>：模型不能凭空创造新的 <code>__revert_*</code> 调用</li>
+<li><strong>Block <code>make_extra_patch_override</code> for non-<code>__revert_*</code></strong>：普通未声明函数必须走函数体重写</li>
+<li><strong>Macro define guardrail</strong>：不允许发明 <code>#define</code> 占位值</li>
+<li><strong>Struct member guardrail</strong>：<code>no member named</code> 错误必须先查 V1+V2 struct 定义</li>
+<li><strong>Step budget enforcement</strong>：剩余步数不足时阻止非关键工具调用</li>
+<li><strong>Patch key scope enforcement</strong>：阻止跨 <code>patch_key</code> 的工具调用</li>
+<li>检测到违规后，注入修复提示让 LLM 在下一轮修正。</li>
+</ul>
+<h4 id="_5">状态管理与记忆分层<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>AgentState
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├─ 短期（随 max_steps 裁剪）
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│  ├─ steps: 最近 N 轮 decision + observation
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│  ├─ grouped_errors: 当前 patch_key 的错误列表
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│  └─ active_*: 当前工作指针（file, line, signature, patch_type）
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├─ 长期（不裁剪，跨轮次保留）
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│  ├─ error_history: 每个 patch_key 的历史错误（max 20）
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│  ├─ function_error_history: 按 old_signature 聚合的错误
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│  └─ step_history: 全量步骤记录（审计用）
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>└─ 外部持久化
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>   ├─ KbIndex: libclang JSON → 按 USR/spelling 索引
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>   └─ Artifacts: patch 文本 / 源码片段 / 构建日志 → 磁盘文件
+</span></code></pre></div>
+<h4 id="multi-agent">Multi-Agent 编排<a class="headerlink" href="#multi-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>multi_agent.py</code> 解析 patch bundle，按 <code>patch_key</code>（文件 + 函数签名）分组错误。</li>
+<li>每个 <code>patch_key</code> spawn 独立 Agent（独立 state、独立 artifact 目录）。</li>
+<li>每个 Agent 产出 <code>patch_override_by_key[patch_key] = override_diff_path</code>。</li>
+<li>合并阶段收集所有 override，统一跑一次 OSS-Fuzz 全量验证。</li>
+<li>支持 <code>--auto-ossfuzz-loop</code>：如果全量验证仍有错误，重新解析日志，继续迭代。</li>
+</ul>
+<h4 id="react_2">与通用 ReAct 的关键区别<a class="headerlink" href="#react_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>通用 ReAct</th>
+<th>我的实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompt</td>
+<td>固定 system prompt</td>
+<td>14 个片段按错误类型动态拼接</td>
+</tr>
+<tr>
+<td>校验</td>
+<td>无或简单格式检查</td>
+<td>15+ 条 guardrail + 自动修复 prompt</td>
+</tr>
+<tr>
+<td>验证</td>
+<td>依赖模型自判断</td>
+<td>OSS-Fuzz Docker 真实编译验证</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>全量对话历史</td>
+<td>分层（steps 裁剪 + error_history 保留 + artifact 外置）</td>
+</tr>
+<tr>
+<td>多 Agent</td>
+<td>通常单 Agent</td>
+<td>按 patch_key 隔离 spawn + 结果合并</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>自由文本</td>
+<td>强制 JSON schema，解析失败自动 repair</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">五、算法题与反问<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="23-n-a-a-n">23. 手撕：给定一个数 n 和一组数字 a，求 a 中元素组成的小于 n 的最大值<a class="headerlink" href="#23-n-a-a-n" title="Permanent link">&para;</a></h3>
+<ul>
+<li>这题的核心思路是“数位贪心 + 回溯”，也可以理解成受限数位构造。</li>
+<li>从高位到低位尝试填数，当前位优先选择不超过 <code>n[i]</code> 的最大数字。</li>
+<li>如果某一位选到了严格更小的数字，后面的位全部填集合中的最大数字即可。</li>
+<li>如果当前位没有可选数字，就回退到前一位，把前一位降一档，再把后面补成最大数字。</li>
+<li>如果所有同长度方案都不行，就返回长度减一且每位都是集合最大数字的结果。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>以 n = 23121, a = {2, 4, 9} 为例：
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>第 1 位先放 2，和 n 相等，继续看下一位。
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>第 2 位 n 是 3，可选里 &lt;= 3 的只有 2，于是放 2。
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>这时已经严格小于 n，后面全部放最大值 9。
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>最终得到 22999。
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

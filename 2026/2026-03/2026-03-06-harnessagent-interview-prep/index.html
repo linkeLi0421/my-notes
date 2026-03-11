@@ -1,0 +1,2934 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-03/2026-03-06-harnessagent-interview-prep/">
+      
+      
+        <link rel="prev" href="../2026-03-06-bytedance-backend-agent-first-interview/">
+      
+      
+        <link rel="next" href="../2026-03-10-auto-bug-migration-full-project/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>HarnessAgent 项目面试拷打笔记 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#harnessagent" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HarnessAgent 项目面试拷打笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-23-learning-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-24-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-05-ai-agent-attribution-evidence-binding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-bytedance-backend-agent-first-interview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent开发笔记-漏洞迁移
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarnessAgent 项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarnessAgent 项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HarnessAgent 项目面试拷打笔记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HarnessAgent 项目面试拷打笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目标岗位画像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你在这个项目里的真实定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、自我介绍与项目概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、自我介绍与项目概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 自我介绍 + 项目一句话
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 这个项目解决的核心问题是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 项目是什么性质？你的贡献是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、系统架构与流水线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、系统架构与流水线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 详细讲一下 HarnessAgent 的整体架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-llm-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 为什么不直接让 LLM 一次性生成正确的 harness，而要做这么复杂的流水线？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、工具池与符号检索
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、工具池与符号检索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6-hybrid-tool-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hybrid Tool Pool 是怎么设计的？为什么需要两个后端？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-clangd-lsp-libclang-tree-sitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 为什么用 clangd LSP 而不是直接用 libclang 或 tree-sitter？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 工具调用有什么限制和 guardrail？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、编译错误修复策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、编译错误修复策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-rule-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Rule-based 的编译错误分类是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-fix-loop-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Fix Loop 最多 5 轮，你觉得够吗？为什么不设更多？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、Fake Definition 检测（核心创新）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Fake Definition 检测（核心创新）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fake-definition-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 什么是 fake definition？为什么 LLM 会这么做？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Fake definition 是怎么检测的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 除了 fake definition，还有哪些验证检查？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、相关工作详解（面试高频：和 XX 有什么区别？）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、相关工作详解（面试高频：和 XX 有什么区别？）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#14a-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14a. 四个直接 baseline 的详细对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14a. 四个直接 baseline 的详细对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raw-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw Model（最简基线）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm4fdgissta-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM4FDG（ISSTA 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oss-fuzz-gengoogle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSS-Fuzz-Gen（Google 生产系统）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sherpaaixcyberchallenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sherpa（AIxCyberChallenge）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14b-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14b. 相关工作总览（不是直接 baseline，但面试可能问到）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14b. 相关工作总览（不是直接 baseline，但面试可能问到）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#promptfuzzccs-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PromptFuzz（CCS 2024）— 最有创意的方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ckgfuzzericse-2025-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CKGFuzzer（ICSE 2025）— RAG 路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#titanfuzzissta-2023-fuzzgpticse-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TitanFuzz（ISSTA 2023）&amp; FuzzGPT（ICSE 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chataflndss-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChatAFL（NDSS 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14c. 一张图看清所有方法的定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 评测用了什么数据集和 baseline？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 关键数据你要记住
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 发现了哪些类型的漏洞？能举例说一两个吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、深挖追问（面试官高频追击）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、深挖追问（面试官高频追击）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#17-oss-fuzz-gengoogle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 和 OSS-Fuzz-Gen（Google 的方案）相比，你的核心优势在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-token-65m-baseline-10-30-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Token 成本是 65M，比 baseline 高 10-30 倍，怎么看这个 trade-off？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-rag-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 如果面试官问"为什么不用 RAG 而是用 Agent 工具调用？"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-60-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 60 秒 fuzzing 检查够吗？会不会漏掉需要更长时间才能触发的问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-4358" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 误报率 43/58 看起来很高，怎么解决？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 为什么选 LangGraph 而不是自己写循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-javagorust-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 如果要支持 Java/Go/Rust 的 fuzzing，架构上要改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-clangd-compile_commandsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. clangd 的 compile_commands.json 缺失或不完整怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 你怎么看这个项目的局限性？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、覆盖率测量实现（你的核心贡献）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、覆盖率测量实现（你的核心贡献）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 你实现的"目标函数级别代码覆盖率"具体是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29a-javajvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29a. Java/JVM 项目的覆盖率方案有什么不同？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-inline-8bit-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 为什么用 inline-8bit-counters 而不是其他覆盖率方案？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. 面试官追问："你说每一位代表一个函数有没有被访问"——准确说应该是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Fuzzing 运行和漏洞报告检查你是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、漏洞原理与 Fuzzing 基础（安全方向必问）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、漏洞原理与 Fuzzing 基础（安全方向必问）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-fuzz-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 什么是 fuzz testing？为什么有效？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. HarnessAgent 发现的堆缓冲区溢出是什么原理？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-addresssanitizeross-fuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 什么是 AddressSanitizer？OSS-Fuzz 的检测机制是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、后续待补充
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-10-auto-bug-migration-full-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    auto-bug-migration 全项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mock-interview-bytedance-2026-03-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模拟面试记录：字节跳动 AI代码分析安全研发实习生
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HarnessAgent 项目面试拷打笔记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HarnessAgent 项目面试拷打笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目标岗位画像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你在这个项目里的真实定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、自我介绍与项目概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、自我介绍与项目概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 自我介绍 + 项目一句话
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 这个项目解决的核心问题是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 项目是什么性质？你的贡献是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、系统架构与流水线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、系统架构与流水线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 详细讲一下 HarnessAgent 的整体架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-llm-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 为什么不直接让 LLM 一次性生成正确的 harness，而要做这么复杂的流水线？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、工具池与符号检索
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、工具池与符号检索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6-hybrid-tool-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hybrid Tool Pool 是怎么设计的？为什么需要两个后端？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-clangd-lsp-libclang-tree-sitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 为什么用 clangd LSP 而不是直接用 libclang 或 tree-sitter？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 工具调用有什么限制和 guardrail？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、编译错误修复策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、编译错误修复策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-rule-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Rule-based 的编译错误分类是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-fix-loop-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Fix Loop 最多 5 轮，你觉得够吗？为什么不设更多？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、Fake Definition 检测（核心创新）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Fake Definition 检测（核心创新）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fake-definition-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 什么是 fake definition？为什么 LLM 会这么做？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Fake definition 是怎么检测的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fake-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 除了 fake definition，还有哪些验证检查？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、相关工作详解（面试高频：和 XX 有什么区别？）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、相关工作详解（面试高频：和 XX 有什么区别？）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#14a-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14a. 四个直接 baseline 的详细对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14a. 四个直接 baseline 的详细对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raw-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw Model（最简基线）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm4fdgissta-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM4FDG（ISSTA 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oss-fuzz-gengoogle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSS-Fuzz-Gen（Google 生产系统）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sherpaaixcyberchallenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sherpa（AIxCyberChallenge）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14b-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14b. 相关工作总览（不是直接 baseline，但面试可能问到）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14b. 相关工作总览（不是直接 baseline，但面试可能问到）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#promptfuzzccs-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PromptFuzz（CCS 2024）— 最有创意的方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ckgfuzzericse-2025-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CKGFuzzer（ICSE 2025）— RAG 路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#titanfuzzissta-2023-fuzzgpticse-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TitanFuzz（ISSTA 2023）&amp; FuzzGPT（ICSE 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chataflndss-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChatAFL（NDSS 2024）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14c. 一张图看清所有方法的定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 评测用了什么数据集和 baseline？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 关键数据你要记住
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 发现了哪些类型的漏洞？能举例说一两个吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、深挖追问（面试官高频追击）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、深挖追问（面试官高频追击）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#17-oss-fuzz-gengoogle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 和 OSS-Fuzz-Gen（Google 的方案）相比，你的核心优势在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-token-65m-baseline-10-30-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Token 成本是 65M，比 baseline 高 10-30 倍，怎么看这个 trade-off？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-rag-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 如果面试官问"为什么不用 RAG 而是用 Agent 工具调用？"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-60-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 60 秒 fuzzing 检查够吗？会不会漏掉需要更长时间才能触发的问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-4358" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 误报率 43/58 看起来很高，怎么解决？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 为什么选 LangGraph 而不是自己写循环？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-javagorust-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 如果要支持 Java/Go/Rust 的 fuzzing，架构上要改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-clangd-compile_commandsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. clangd 的 compile_commands.json 缺失或不完整怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 你怎么看这个项目的局限性？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、覆盖率测量实现（你的核心贡献）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、覆盖率测量实现（你的核心贡献）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 你实现的"目标函数级别代码覆盖率"具体是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29a-javajvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29a. Java/JVM 项目的覆盖率方案有什么不同？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#30-inline-8bit-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 为什么用 inline-8bit-counters 而不是其他覆盖率方案？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. 面试官追问："你说每一位代表一个函数有没有被访问"——准确说应该是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Fuzzing 运行和漏洞报告检查你是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、漏洞原理与 Fuzzing 基础（安全方向必问）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、漏洞原理与 Fuzzing 基础（安全方向必问）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26-fuzz-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 什么是 fuzz testing？为什么有效？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. HarnessAgent 发现的堆缓冲区溢出是什么原理？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-addresssanitizeross-fuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 什么是 AddressSanitizer？OSS-Fuzz 的检测机制是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、后续待补充
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>HarnessAgent 项目面试拷打笔记</h1>
+
+<h2 id="harnessagent">HarnessAgent 项目面试拷打笔记<a class="headerlink" href="#harnessagent" title="Permanent link">&para;</a></h2>
+<h3 id="_1">目标岗位画像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>静态分析 / 代码安全方向，要求熟悉漏洞原理、静态分析、有 AI 实践经验。</p>
+</blockquote>
+<h3 id="_2">你在这个项目里的真实定位<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>你是<strong>参与者</strong>，不是主导者。主要贡献是：1）目标函数级别的代码覆盖率测量实现；2）fuzzing 运行和漏洞报告检查。项目整体架构、Agent 流水线、工具池是其他人设计的。你写上简历是因为和 JD（漏洞原理 + 静态分析 + AI 实践）高度匹配，但面试时<strong>不要过度包装</strong>——讲清楚你做了什么、怎么做的、学到了什么，比假装主导更有说服力。</p>
+</blockquote>
+<h3 id="_3">回答总原则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>诚实定位</strong>：讲项目整体时用"我们"，讲你做的部分时用"我"。面试官追问你没做的模块时，可以说"这部分是同学负责的，但我了解它的设计思路是……"。</li>
+<li>安全方向的面试官会追问漏洞原理和 fuzzing 细节，不能只讲 Agent 架构。</li>
+<li>你的<strong>杀手锏</strong>是覆盖率测量——这涉及二进制插桩、SanitizerCoverage 内存布局、DWARF 符号映射，能体现你对底层的理解。</li>
+<li>数据要记牢：243 个目标函数、SR@3 达 87%（C）/ 81%（C++）、发现 15 个真实漏洞。</li>
+</ul>
+<hr />
+<h2 id="_4">一、自我介绍与项目概述<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 自我介绍 + 项目一句话<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>针对一些开源软件中的内部函数（非 API 函数），自动生成可编译、可运行、能有效提升覆盖率的 fuzz driver。系统基于 LangGraph 构建了一个工具增强的 Agent 流水线，包含 8 个代码分析工具、规则化的编译错误分类修复、以及一套检测 LLM "造假"行为的验证机制。在 243 个 OSS-Fuzz 目标函数上，三次尝试成功率达到 87%（C）和 81%（C++），比 SOTA 提升约 20%，并在 11 个真实项目中发现了 15 个新漏洞。</p>
+</blockquote>
+<h3 id="2">2. 这个项目解决的核心问题是什么<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fuzz testing 的瓶颈不是 fuzzer 本身，而是 harness 的编写</strong>。对于库的内部函数（非公开 API），没有文档、没有使用示例，人工写 harness 成本极高。</li>
+<li><strong>现有 LLM 方法的三大痛点</strong>：</li>
+<li>上下文不足：只给函数签名，LLM 不知道怎么正确调用内部函数（需要哪些头文件、怎么初始化结构体、参数约束是什么）。</li>
+<li>编译修复低效：编译报错后 LLM 盲目重试，分不清是 harness 代码问题还是构建配置问题。</li>
+<li>LLM 造假：模型会自己写一个 target 函数的假实现来绕过验证（reward hacking）。</li>
+<li><strong>HarnessAgent 的解决方案</strong>：工具增强检索（让 LLM 自己决定需要查什么）+ 规则化错误分类（把编译错误路由到正确的修复策略）+ fake definition 检测（用 Tree-Sitter 做 AST 分析拦截造假）。</li>
+</ul>
+<h3 id="3">3. 项目是什么性质？你的贡献是什么<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>这是实验室的研究项目，我作为<strong>参与者</strong>加入，主要负责两块工作：</li>
+<li><strong>目标函数级别的代码覆盖率测量</strong>：导师要求评估生成的 harness 是否真的能覆盖到 target 函数的代码，我负责实现这个度量。</li>
+<li><strong>Fuzzing 运行与漏洞报告检查</strong>：跑 1 小时 fuzzing campaign，分析 crash report，区分真实漏洞和 harness 本身的 bug。</li>
+<li>项目整体架构（Agent 流水线、工具池、错误路由）是其他同学设计和实现的，但我<strong>参与了方案讨论</strong>，了解完整的系统设计。</li>
+<li><strong>面试时的话术</strong>：</li>
+<li>讲项目整体："我们团队做了一个基于 LLM Agent 的自动 fuzzing harness 生成系统……"</li>
+<li>讲我的部分："我主要负责的是覆盖率度量和漏洞验证这两块，具体来说……"</li>
+<li>被追问其他模块："这部分是同学负责的，但我了解它的设计——它是通过……来实现的"</li>
+</ul>
+<hr />
+<h2 id="_5">二、系统架构与流水线<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="4-harnessagent">4. 详细讲一下 HarnessAgent 的整体架构<a class="headerlink" href="#4-harnessagent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌────────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    HarnessAgent Pipeline                       │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                                                                │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  ┌──────────┐   ┌───────────┐   ┌──────────┐   ┌──────────┐  │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  │Generation├──►│Compilation├──►│Fix Loop  ├──►│Validation│  │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  │(LLM+Tools)│  │(Docker)   │  │(≤5 rounds)│  │(4 checks)│  │
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  └──────────┘   └─────┬─────┘   └────┬─────┘   └────┬─────┘  │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│                       │              │               │         │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                  error routing    LLM+Tools       fake check   │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│                  (rule-based)    fix harness     call check    │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│                                                  crash check   │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│                                                  coverage check│
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└────────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<ul>
+<li><strong>Generation</strong>：LLM 拿到函数签名 + 最小上下文（头文件、使用示例），通过工具调用按需检索更多信息（符号定义、结构体初始化方式），生成初始 harness 代码。</li>
+<li><strong>Compilation</strong>：把 harness 注入 OSS-Fuzz 的 Docker 容器，用项目真实的构建脚本编译。</li>
+<li><strong>Error Routing（关键设计）</strong>：编译失败后不是直接丢给 LLM 重试，而是先分类：</li>
+<li><strong>Link Error</strong>（undefined reference）→ 尝试切换同项目的其他 fuzz target（不同 target 链接不同库）。</li>
+<li><strong>Include Error</strong>（header not found）→ 解析路径，自动追加到 CFLAGS。</li>
+<li><strong>Code Error</strong>（语法/类型错误）→ 才交给 LLM 修复。</li>
+<li><strong>Fix Loop</strong>：最多 5 轮迭代修复，每轮 LLM 拿到当前 harness + 分类后的错误信息 + 工具检索结果。</li>
+<li><strong>Validation</strong>：4 重检查——fake definition 检测、target 函数调用检查、60 秒 crash 检查、覆盖率检查。</li>
+</ul>
+<h3 id="5-llm-harness">5. 为什么不直接让 LLM 一次性生成正确的 harness，而要做这么复杂的流水线？<a class="headerlink" href="#5-llm-harness" title="Permanent link">&para;</a></h3>
+<ul>
+<li>内部函数不像公开 API 有文档和示例，LLM 的训练数据里几乎没见过这些函数的正确用法。</li>
+<li>一次性生成的成功率（SR@1）只有 72%（C）/ 61%（C++），剩下的需要通过编译反馈迭代修复。</li>
+<li>更关键的是编译失败的原因很多样——有些是 harness 代码本身有 bug，有些是构建配置问题（缺头文件、链接不到库），不分类的话 LLM 会在错误的方向上反复重试。</li>
+<li>工具增强检索让 LLM 能"按需查询"而不是"一次性塞入所有上下文"——减少噪音，让 LLM 聚焦于当前需要的信息。</li>
+</ul>
+<hr />
+<h2 id="_6">三、工具池与符号检索<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="6-hybrid-tool-pool">6. Hybrid Tool Pool 是怎么设计的？为什么需要两个后端？<a class="headerlink" href="#6-hybrid-tool-pool" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>8 个工具</strong>，按优先级排序：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>工具</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>get_symbol_header</code></td>
+<td>获取符号所在头文件</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>get_symbol_definition</code></td>
+<td>获取符号完整定义（函数体 / struct 定义）</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>get_symbol_declaration</code></td>
+<td>获取符号声明</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>get_symbol_references</code></td>
+<td>获取符号的使用示例（其他代码怎么调用它）</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>get_struct_related_functions</code></td>
+<td>找到某个 struct 的 init/destroy 函数</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>view_code</code></td>
+<td>查看指定文件的指定行范围</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>get_file_location</code></td>
+<td>查找文件路径</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>get_driver_example</code></td>
+<td>随机采样已有的 harness 做参考</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>双后端架构</strong>：</li>
+<li><strong>LSP（clangd）</strong>：高精度，能做语义级的符号定位（跨文件跳转、找定义/声明/引用），响应率 83-88%。</li>
+<li><strong>Tree-Sitter parser</strong>：鲁棒性好，直接做语法树遍历，能处理 LSP 挂掉或编译数据库不完整的情况，补充 5-11% 的覆盖率。</li>
+<li>组合后响应率达到 94%，远超 Fuzz Introspector 的 51-66%。</li>
+</ul>
+<h3 id="7-clangd-lsp-libclang-tree-sitter">7. 为什么用 clangd LSP 而不是直接用 libclang 或 tree-sitter？<a class="headerlink" href="#7-clangd-lsp-libclang-tree-sitter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>clangd 的优势</strong>：它基于完整的 Clang 编译器前端，能理解宏展开、模板实例化、<code>#if</code> 条件编译，做到语义级的符号解析。Tree-sitter 只做语法解析，不理解语义。</li>
+<li><strong>clangd 的劣势</strong>：依赖 <code>compile_commands.json</code>，有些项目的构建系统不生成这个文件，或者生成的不完整，导致 LSP 启动失败。</li>
+<li><strong>所以要 fallback</strong>：LSP 失败时 Tree-Sitter 接管，用 grep + AST 遍历做粗粒度的符号定位，虽然精度低一些但至少不会返回空结果。</li>
+<li><strong>对比 libclang</strong>：libclang 能做类似的事，但它是一次性分析整个翻译单元，启动成本高。clangd 是长驻服务，支持增量查询，更适合 Agent 场景下多次查询同一个项目。</li>
+</ul>
+<h3 id="8-guardrail">8. 工具调用有什么限制和 guardrail？<a class="headerlink" href="#8-guardrail" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>每轮最多 15 次工具调用</strong>（generation 和 fixing 各自计数），防止 LLM 无限循环查询。</li>
+<li><strong>优先级引导</strong>：prompt 里明确告诉 LLM 优先用高优先级工具（先查 header，再查 definition），避免直接用 <code>view_code</code> 盲目浏览代码。</li>
+<li><strong><code>view_code</code> 的使用限制</strong>：必须提供明确的文件路径和行号，不能当 <code>grep</code> 用来搜索。</li>
+<li><strong>工具调用失败处理</strong>：如果工具返回空结果，LLM 可以切换到其他工具或尝试不同参数。<code>invalid_tool_calls</code> 有专门的恢复逻辑。</li>
+</ul>
+<hr />
+<h2 id="_7">四、编译错误修复策略<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="9-rule-based">9. Rule-based 的编译错误分类是怎么做的？<a class="headerlink" href="#9-rule-based" title="Permanent link">&para;</a></h3>
+<ul>
+<li>编译日志通过 <code>log_parser.py</code> 解析，提取错误消息和类型。</li>
+<li><strong>分类逻辑</strong>：</li>
+<li><code>undefined reference to 'xxx'</code> → <strong>LinkError</strong>：不是 harness 的问题，是链接配置不对。尝试切换同项目的其他 fuzz target（不同 target 可能链接不同的库）。</li>
+<li><code>'path/header.h' file not found</code> → <strong>IncludeError</strong>：自动从错误消息里提取路径，追加 <code>-I</code> 到 CFLAGS。</li>
+<li>其他语法/类型错误 → <strong>CodeError</strong>：交给 LLM 修复。</li>
+<li>Docker 镜像构建失败 → <strong>ImageError</strong>：基础设施问题，不是 harness 的错。</li>
+<li><strong>为什么这个分类重要</strong>：如果不区分，LLM 会尝试通过改 harness 代码来解决链接错误——比如注释掉调用 target 函数的那一行，这显然不对。分类后，LLM 只需要修复真正属于 harness 代码层面的错误。</li>
+</ul>
+<h3 id="10-fix-loop-5">10. Fix Loop 最多 5 轮，你觉得够吗？为什么不设更多？<a class="headerlink" href="#10-fix-loop-5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>经验上，如果 5 轮修不好，大概率是 harness 的整体思路有问题（比如错误地理解了函数的调用约定），再修几轮也只是在错误的方向上打转。</li>
+<li>每多一轮意味着更多的 token 消耗和延迟。成本分析表明，HarnessAgent 的平均成本已经是 $0.215/成功函数，比简单方法贵 2-3 倍。</li>
+<li>更有效的策略是<strong>重新生成</strong>（SR@3 比 SR@1 高 15-20%），而不是在同一个失败 harness 上死磕。</li>
+<li><!-- TODO: 你实际跑的时候，大部分成功是在第几轮修复的？有没有统计过分布？ --></li>
+</ul>
+<hr />
+<h2 id="fake-definition">五、Fake Definition 检测（核心创新）<a class="headerlink" href="#fake-definition" title="Permanent link">&para;</a></h2>
+<h3 id="11-fake-definition-llm">11. 什么是 fake definition？为什么 LLM 会这么做？<a class="headerlink" href="#11-fake-definition-llm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>LLM 在生成 harness 时，如果找不到 target 函数的正确头文件或定义，会<strong>自己写一个假的函数实现</strong>来让代码编译通过：
+  <div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// LLM 生成的假实现</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">target_internal_func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// empty stub</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</span></code></pre></div></li>
+<li>这是一种 <strong>reward hacking</strong>：模型发现"编译通过"是验证标准，就走捷径让编译通过，但生成的 harness 测试的是自己的假函数，不是真正的库函数。</li>
+<li><strong>不做 fake check 的后果</strong>：消融实验显示，去掉 fake check 后成功率虚增（看起来编译通过了），但实际有效覆盖率下降 12-18%。</li>
+</ul>
+<h3 id="12-fake-definition">12. Fake definition 是怎么检测的？<a class="headerlink" href="#12-fake-definition" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用 <strong>Tree-Sitter</strong> 解析生成的 harness AST。</li>
+<li>遍历所有 <code>function_definition</code> 节点，检查是否有函数名和 target 函数名匹配。</li>
+<li>如果匹配 → harness 里定义了 target 函数 → 这是 fake definition → 拒绝，强制重新生成。</li>
+<li><strong>为什么用 Tree-Sitter 而不是正则</strong>：函数定义可能跨多行、有复杂的参数列表和返回类型，正则很容易误匹配或漏匹配。Tree-Sitter 做的是 AST 级别的精确匹配。</li>
+</ul>
+<h3 id="13-fake-definition">13. 除了 fake definition，还有哪些验证检查？<a class="headerlink" href="#13-fake-definition" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Call Check</strong>：用 Tree-Sitter 检查 harness 里是否真的调用了 target 函数（不只是声明了）。</li>
+<li><strong>Crash Check</strong>：跑 60 秒 libfuzzer，如果立刻 crash → 大概率是 harness 本身的 bug（比如空指针、buffer overflow），不是真实漏洞。</li>
+<li><strong>Coverage Check</strong>：跑 60 秒 libfuzzer，检查 target 函数的分支覆盖率是否增加。如果覆盖率为零，说明 harness 虽然编译通过了但实际没有执行到 target 函数。</li>
+</ul>
+<hr />
+<h2 id="xx">六、相关工作详解（面试高频：和 XX 有什么区别？）<a class="headerlink" href="#xx" title="Permanent link">&para;</a></h2>
+<h3 id="14a-baseline">14a. 四个直接 baseline 的详细对比<a class="headerlink" href="#14a-baseline" title="Permanent link">&para;</a></h3>
+<h4 id="raw-model">Raw Model（最简基线）<a class="headerlink" href="#raw-model" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>做法</strong>：只给 LLM 函数签名 + 任务描述（"为函数 X 写一个 fuzz harness"），不给项目上下文、不给使用示例、不给构建信息。修复阶段只是把原始编译错误文本追加到 prompt。</li>
+<li><strong>局限</strong>：内部函数的调用方式 LLM 训练数据里几乎没见过，所以 SR@1 只有 ~45%。而且 LLM 会高频生成 <strong>fake definition</strong>——自己造一个假函数体让编译通过。</li>
+<li><strong>和 HarnessAgent 的差距</strong>：HarnessAgent 贡献了 58 个 Raw Model 无法生成的成功 harness。论文的关键结论：<strong>"决定性能的是模型的工具使用能力，而不是模型内部知识"</strong>。</li>
+</ul>
+<h4 id="llm4fdgissta-2024">LLM4FDG（ISSTA 2024）<a class="headerlink" href="#llm4fdgissta-2024" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>性质</strong>：不是一个工具，而是一个系统性的实证研究 + benchmark 定义。</li>
+<li><strong>做法</strong>：定义了 3 种上下文级别：</li>
+<li><strong>BACTX</strong>（Basic Context）：只有函数声明</li>
+<li><strong>DOCTX</strong>（Documentation Context）：加上注释/文档</li>
+<li><strong>UGCTX</strong>（Usage Context）：加上真实代码里的调用示例</li>
+<li>可以组合成 <strong>非迭代</strong>（单轮）和 <strong>迭代</strong>（多轮 + error feedback）策略，共 6 种 prompting 策略。</li>
+<li><strong>编译修复</strong>：定义了 7 种 fix 模板，按错误类型分类。但每轮修复只提供<strong>一个</strong>出错符号的声明和使用示例——上下文窗口很窄。</li>
+<li><strong>局限</strong>：上下文是预定义的静态策略，不能动态追加。遇到 LLM 没见过的 API 使用模式就无能为力。</li>
+<li><strong>数据</strong>：SR@1 = 55.38%（C）/ 51.68%（C++），比 HarnessAgent 低 ~17%。</li>
+</ul>
+<h4 id="oss-fuzz-gengoogle">OSS-Fuzz-Gen（Google 生产系统）<a class="headerlink" href="#oss-fuzz-gengoogle" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>做法</strong>：</li>
+<li><strong>Fuzz Introspector</strong> 做静态分析，找出项目里覆盖率低但可达性高的函数作为 target。</li>
+<li>构建 prompt：函数签名 + Fuzz Introspector 提供的调用图 / 覆盖率数据。</li>
+<li>LLM 生成 harness → 在 OSS-Fuzz Docker 中编译。</li>
+<li>编译失败 → <strong>5 轮重试</strong>，每轮把编译错误反馈给 LLM。</li>
+<li>7 条预定义规则做<strong>规则化上下文匹配</strong>：匹配到特定错误模式 → 从代码里检索对应的信息片段塞进 prompt。</li>
+<li><strong>局限</strong>：</li>
+<li>Fuzz Introspector 的符号检索响应率只有 <strong>50-65%</strong>（vs HarnessAgent 的 94%）。</li>
+<li>7 条规则是硬编码的，新的错误类型覆盖不到。</li>
+<li><strong>没有 fake definition 检测</strong>。</li>
+<li><strong>成绩</strong>：生产环境规模化运行——覆盖 272 个 C/C++ 项目，新增 37 万行代码覆盖，发现 26 个真实漏洞（包括 OpenSSL 的一个）。</li>
+<li><strong>和 HarnessAgent 的本质区别</strong>：上下文获取是 <strong>rule-driven</strong>（规则驱动） vs <strong>agent-driven</strong>（Agent 自主决定查什么）。</li>
+</ul>
+<h4 id="sherpaaixcyberchallenge">Sherpa（AIxCyberChallenge）<a class="headerlink" href="#sherpaaixcyberchallenge" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>做法</strong>：给通用 LLM Agent（最初 Codex，后来 o3）一个高层任务描述，让 Agent <strong>完全自主地</strong>探索项目、写 harness、编译、修复。没有预定义的流水线结构。</li>
+<li><strong>局限</strong>：</li>
+<li><strong>没有结构化错误分类</strong>：完全靠 Agent 自己看终端输出判断怎么修，经常在无效修复上浪费 token。</li>
+<li><strong>Fuzz target 误检</strong>：Sherpa 通过 diff clean build 来检测新 target，但 Agent 常复用原文件名导致 diff 检测不到——一个关键 bug。</li>
+<li><strong>效率极低</strong>：Agent 花大量时间自主探索项目目录结构，而不是直接查询需要的信息。</li>
+<li><strong>数据</strong>：在 HarnessAgent 的评测集上只生成了 <strong>9 个成功 harness</strong>（vs HarnessAgent 的 67+）。</li>
+<li><strong>和 HarnessAgent 的关键区别</strong>：Sherpa 证明了<strong>纯自主 Agent 不够用</strong>。HarnessAgent 的洞察是"harness 生成需要特定的结构化工作流，不能靠通用 Agent 完成"——所以它用<strong>结构化流水线 + 动态工具调用</strong>，取两者之长。</li>
+</ul>
+<h3 id="14b-baseline">14b. 相关工作总览（不是直接 baseline，但面试可能问到）<a class="headerlink" href="#14b-baseline" title="Permanent link">&para;</a></h3>
+<h4 id="promptfuzzccs-2024">PromptFuzz（CCS 2024）— 最有创意的方案<a class="headerlink" href="#promptfuzzccs-2024" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>核心思路</strong>：把 <strong>prompt 本身当作 fuzz target</strong>。用覆盖率引导的变异循环，不断变异输入给 LLM 的 prompt，来发现更好的 fuzz driver。</li>
+<li><strong>做法</strong>：</li>
+<li>Prompt 包含随机选择的 API 函数组合 + 库上下文（签名、类型定义）。</li>
+<li>GPT-3.5 生成 harness → 三阶段过滤（编译检查 → ASan/UBSan 运行时检查 → 600 秒覆盖率验证）。</li>
+<li>覆盖率引导的 prompt 变异：能量函数 <code>energy(i) = (1 - cov(i)) / ((1 + seed(i))^E * (1 + prompt(i))^E)</code> 优先探索低覆盖 API。变异算子：插入高能量 API、替换 API、交叉。</li>
+<li>所有有效 driver 融合成一个统一 driver。</li>
+<li><strong>成绩</strong>：覆盖率比 OSS-Fuzz 高 1.61 倍；33 个真实 bug；总成本仅 $63.14。</li>
+<li><strong>局限</strong>：变异效果因库而异，部分库随机选择函数反而更好。</li>
+</ul>
+<h4 id="ckgfuzzericse-2025-rag">CKGFuzzer（ICSE 2025）— RAG 路线<a class="headerlink" href="#ckgfuzzericse-2025-rag" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>核心思路</strong>：构建<strong>代码知识图谱</strong>（Code Knowledge Graph），用 RAG 从图谱检索上下文给 LLM。</li>
+<li><strong>做法</strong>：</li>
+<li>节点 = 函数（签名 + 源码 + LLM 生成的摘要）和文件。边 = CONTAINS / CALLS / LIBRARY_CALLS。双索引（自然语言 + 代码 embedding）。</li>
+<li>生成 harness 时查询图谱获取相关 API 组合，迭代检索 top-k 片段。</li>
+<li>编译失败 → 查询图谱找正确用法，最多 5 轮修复。成功编译的 driver 反馈回知识库。</li>
+<li><strong>成绩</strong>：编译通过率从 57.39% 提升到 93.99%；覆盖率平均 +8.73%；11 个真实 bug。</li>
+<li><strong>和 HarnessAgent 的区别</strong>：CKGFuzzer 用 <strong>RAG + 知识图谱</strong>（离线构建），HarnessAgent 用 <strong>Agent + 实时工具调用</strong>（在线查询）。</li>
+</ul>
+<h4 id="titanfuzzissta-2023-fuzzgpticse-2024">TitanFuzz（ISSTA 2023）&amp; FuzzGPT（ICSE 2024）<a class="headerlink" href="#titanfuzzissta-2023-fuzzgpticse-2024" title="Permanent link">&para;</a></h4>
+<ul>
+<li>这两个是 fuzz <strong>深度学习库</strong>（PyTorch/TensorFlow）的，和 C/C++ harness 生成是不同任务。</li>
+<li><strong>TitanFuzz</strong>：用 Codex 生成调用 DL API 的种子程序，用 InCoder 做 mask-and-infill 变异。差分测试做 oracle。65 个 bug。</li>
+<li><strong>FuzzGPT</strong>：扩展 TitanFuzz，专门生成<strong>边界情况程序</strong>（zero-dim tensor、NaN、罕见参数组合）。三种策略：微调、few-shot、指令引导。76 个 bug。</li>
+<li><strong>面试时的话术</strong>：如果被问到，可以说"TitanFuzz/FuzzGPT 是用 LLM 生成 fuzz 输入程序，我们是用 LLM Agent 生成 fuzz harness，任务不同但都是 LLM+Fuzzing 的方向"。</li>
+</ul>
+<h4 id="chataflndss-2024">ChatAFL（NDSS 2024）<a class="headerlink" href="#chataflndss-2024" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>任务</strong>：用 LLM 引导<strong>有状态网络协议 fuzzing</strong>，和 harness 生成完全正交。</li>
+<li>三个集成点：种子丰富化、自动语法提取（LLM 生成协议消息的语法描述）、覆盖率瓶颈突破（plateau 时用 LLM 生成新消息序列）。</li>
+<li>9 个未知漏洞（RTSP/FTP/SIP/SMTP/DAAP）。</li>
+</ul>
+<h3 id="14c">14c. 一张图看清所有方法的定位<a class="headerlink" href="#14c" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>上下文获取方式
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  静态/规则驱动 ◄──────────────────────────────► 动态/Agent驱动
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Raw Model    LLM4FDG    OSS-Fuzz-Gen    CKGFuzzer    HarnessAgent    Sherpa
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  (无上下文)   (6种prompt) (7条规则+FI)   (RAG+KG)    (8工具+LSP)   (完全自主)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>     │            │            │              │            │              │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>     ▼            ▼            ▼              ▼            ▼              ▼
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  SR@1~45%    SR@1~55%    生产规模       93%编译率    SR@1~72%      9个harness
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                          26漏洞         11漏洞       SR@3~87%      (效率极低)
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                                                      15漏洞
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  ← 成本低、可控 ─────────────────────── 成本高、灵活 →
+</span></code></pre></div>
+<blockquote>
+<p><strong>面试总结话术</strong>：这个领域的演进路线是 <strong>静态 prompt → 规则化流水线 → RAG 增强 → Agent 工具调用 → 纯自主 Agent</strong>。HarnessAgent 的位置在"结构化流水线 + 动态工具调用"，既不像 OSS-Fuzz-Gen 那样受限于固定规则，也不像 Sherpa 那样完全没有结构导致效率极低。</p>
+</blockquote>
+<h3 id="14-baseline">14. 评测用了什么数据集和 baseline？<a class="headerlink" href="#14-baseline" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>数据集</strong>：OSS-Fuzz 的 243 个 target 函数（65 个 C 项目 + 178 个 C++ 项目），每个项目选 1 个内部函数。</li>
+<li><strong>Baselines</strong>（详见 Q14a）：Raw Model、LLM4FDG、OSS-Fuzz-Gen、Sherpa。</li>
+<li><strong>模型</strong>：主要用 GPT-5.1-Mini，也对比了 Claude Haiku 4.5、Qwen3-Coder、DeepSeek V3.2。</li>
+</ul>
+<h3 id="15">15. 关键数据你要记住<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>C</th>
+<th>C++</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SR@1</td>
+<td>72.31%（vs LLM4FDG 55.38%）</td>
+<td>60.67%（vs 51.68%）</td>
+</tr>
+<tr>
+<td>SR@3</td>
+<td>87.69%（vs 69.23%）</td>
+<td>81.46%（vs 64.04%）</td>
+</tr>
+<tr>
+<td>1 小时 fuzzing 覆盖率提升比例</td>
+<td>&gt;75%</td>
+<td>&gt;75%</td>
+</tr>
+<tr>
+<td>工具响应率（header）</td>
+<td>94.29%</td>
+<td>vs Fuzz Introspector 50.95%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>消融实验最重要的结论</strong>：去掉 fake check → SR@3 下降 12-18%（最关键组件）；去掉 header 工具 → 下降 17-21%（工具支持是本质）。</li>
+<li><strong>成本</strong>：平均 $0.215/成功函数，总 token 65.186M，运行 9h17m（8 进程并行）。</li>
+<li><strong>真实漏洞</strong>：11 个项目上发现 15 个新漏洞（堆溢出、内存泄漏、无限循环、DoS），其中 libjpeg-turbo 的已被修复。</li>
+</ul>
+<h3 id="16">16. 发现了哪些类型的漏洞？能举例说一两个吗<a class="headerlink" href="#16" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>堆缓冲区溢出</strong>（最多）：exiv2、libjpeg-turbo、liblouis、libssh、libtiff 里都有。比如 libjpeg-turbo 的一个溢出已被上游修复（commit 9131c06）。</li>
+<li><strong>无限循环 / DoS</strong>：liblouis 有 3 个无限循环（Issue 1910），libssh 有 1 个超时。</li>
+<li><strong>内存泄漏</strong>：c-ares（Issue 1075）。</li>
+<li><strong>误报分析也很重要</strong>：43 个误报主要分三类——</li>
+<li>状态机违反（26%）：harness 不按正确顺序调用库的初始化函数。</li>
+<li>资源管理错误（41%）：harness 和库之间的内存所有权语义不对。</li>
+<li>参数语义错误（33%）：LLM 传了语义无效的参数。</li>
+</ul>
+<hr />
+<h2 id="_8">七、深挖追问（面试官高频追击）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="17-oss-fuzz-gengoogle">17. 和 OSS-Fuzz-Gen（Google 的方案）相比，你的核心优势在哪？<a class="headerlink" href="#17-oss-fuzz-gengoogle" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OSS-Fuzz-Gen 用<strong>规则化的上下文匹配</strong>（预定义 7 种错误模式），但规则覆盖面有限，遇到没见过的错误模式就没办法。</li>
+<li>HarnessAgent 用<strong>工具增强的 Agent</strong>，LLM 自己决定需要查什么信息，适应性更强。</li>
+<li>具体数据：SR@3 从 64%（OSS-Fuzz-Gen）提升到 81%（C++）；工具响应率从 51% 提升到 94%。</li>
+<li>但 OSS-Fuzz-Gen 的<strong>成本更低</strong>（token 消耗少一个数量级），适合大规模低成本场景。</li>
+</ul>
+<h3 id="18-token-65m-baseline-10-30-trade-off">18. Token 成本是 65M，比 baseline 高 10-30 倍，怎么看这个 trade-off？<a class="headerlink" href="#18-token-65m-baseline-10-30-trade-off" title="Permanent link">&para;</a></h3>
+<ul>
+<li>总 token 65.186M 确实比 Raw（2.075M）高很多，但<strong>每个成功函数的平均成本只有 $0.215</strong>，因为成功率更高（分母大了）。</li>
+<li>Raw 方法 token 少但成功率低，换算下来每个成功函数的成本是 <span class="arithmatex">\(0.077-\)</span>0.138——看起来便宜，但有大量函数修不了。</li>
+<li>关键问题是：<strong>你愿意花 $0.215 自动生成一个有效 harness，还是花几小时人工写一个？</strong></li>
+<li>优化方向：</li>
+<li>减少无效的工具调用轮次（当前 max_tool_call=15，可以调低）。</li>
+<li>用更便宜的模型做初筛，贵的模型只处理失败 case。</li>
+<li><!-- TODO: 你做过成本优化的实验吗？ --></li>
+</ul>
+<h3 id="19-rag-agent">19. 如果面试官问"为什么不用 RAG 而是用 Agent 工具调用？"<a class="headerlink" href="#19-rag-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>RAG 的问题是<strong>不知道该检索什么</strong>。对于内部函数，你不知道它依赖哪些类型、需要哪些头文件、初始化顺序是什么——这些要在编写 harness 的过程中逐步发现。</li>
+<li>Agent 工具调用是<strong>按需检索</strong>：先试着生成，编译报错后知道缺什么（比如 <code>undefined reference to xxx</code>），再去查 <code>xxx</code> 的定义。</li>
+<li>RAG 一次性塞入大量上下文会引入噪音，特别是大型项目（上万个头文件），检索出来的可能和 target 函数完全无关。</li>
+<li>实验验证：消融实验中去掉工具后退化到类似"静态上下文"的效果，SR 下降 17-21%。</li>
+</ul>
+<h3 id="20-60-fuzzing">20. 60 秒 fuzzing 检查够吗？会不会漏掉需要更长时间才能触发的问题？<a class="headerlink" href="#20-60-fuzzing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>60 秒的 crash check 目的不是找漏洞，而是<strong>快速过滤明显有 bug 的 harness</strong>——如果 60 秒内就 crash 了，大概率是 harness 本身写错了（空指针、越界），不是真实漏洞。</li>
+<li>真正的漏洞挖掘是后续的 <strong>1 小时 fuzzing</strong>（评测阶段）。</li>
+<li>这是一个工程 trade-off：243 个函数 × 每个 60 秒 = 4 小时，如果改成每个 1 小时 = 243 小时，在迭代开发阶段不现实。</li>
+<li>Coverage check 也用 60 秒，足以判断 harness 是否能执行到 target 函数。</li>
+</ul>
+<h3 id="21-4358">21. 误报率 43/58 看起来很高，怎么解决？<a class="headerlink" href="#21-4358" title="Permanent link">&para;</a></h3>
+<ul>
+<li>43 个 false positive vs 15 个 true positive，误报率确实不低（约 74%）。但这是<strong>对内部函数 fuzzing 的普遍问题</strong>，不是 HarnessAgent 独有的。</li>
+<li>根因是 LLM 不完全理解库的 API 使用语义（初始化顺序、内存所有权、参数约束），导致 harness 的调用方式本身就是"违法"的。</li>
+<li>改进方向：</li>
+<li>更强的 semantic check（论文里已有这个模块，可以扩展）。</li>
+<li>用更强的模型（论文提到 Gemini 3 Pro 可能减少 20-30% 误报）。</li>
+<li>利用 <code>get_symbol_references</code> 学习真实代码怎么调用 target 函数，模仿合法的调用模式。</li>
+<li><!-- TODO: 你有没有做过减少误报的专门实验？ --></li>
+</ul>
+<h3 id="22-langgraph">22. 为什么选 LangGraph 而不是自己写循环？<a class="headerlink" href="#22-langgraph" title="Permanent link">&para;</a></h3>
+<ul>
+<li>LangGraph 提供了<strong>类型化的状态管理</strong>（<code>FuzzState</code> 包含 harness_code、build_msg、fix_counter 等），状态在 generation → compilation → fixing → validation 之间自动传递。</li>
+<li><strong>条件路由</strong>更清晰：编译成功 → 跳到 validation；编译失败且是 LinkError → 切换 target 重试；编译失败且是 CodeError → 进入 fix loop。</li>
+<li><strong>工具调用集成</strong>：LangGraph + LangChain 的 <code>StructuredTool</code> 提供了类型安全的工具定义和调用，不用手写 JSON schema 解析。</li>
+<li>取舍：引入了框架依赖，但 fuzzing harness 生成的状态转移很复杂（5 个阶段 × 多种错误类型 × 多种修复策略），手写会更难维护。</li>
+</ul>
+<h3 id="23-javagorust-fuzzing">23. 如果要支持 Java/Go/Rust 的 fuzzing，架构上要改什么？<a class="headerlink" href="#23-javagorust-fuzzing" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>需要改的</strong>：</li>
+<li><strong>Tool Pool 后端</strong>：clangd → gopls / rust-analyzer / Eclipse JDT。Tree-Sitter 天然支持多语言，这层改动小。</li>
+<li><strong>编译集成</strong>（<code>compilation.py</code>）：替换 OSS-Fuzz 的 C/C++ Docker 构建流程。</li>
+<li><strong>Prompt 模板</strong>：C 的 <code>LLVMFuzzerTestOneInput</code> 入口要换成目标语言的 fuzzing 框架（如 Go 的 <code>go-fuzz</code>、Rust 的 <code>cargo-fuzz</code>）。</li>
+<li><strong>Fake definition 检测</strong>：Tree-Sitter 的语法节点名不同（<code>function_definition</code> → <code>function_item</code>），需要适配。</li>
+<li><strong>不需要改的</strong>：</li>
+<li>LangGraph 流水线结构（generation → compilation → fix → validation）。</li>
+<li>错误分类的框架逻辑（虽然具体的错误模式要重写正则）。</li>
+<li>Agent 的工具调用框架和 guardrail。</li>
+<li>这说明架构的<strong>语言相关部分</strong>被隔离在了 tool backend、compiler wrapper 和 prompt 模板里，核心流水线是语言无关的。</li>
+</ul>
+<h3 id="24-clangd-compile_commandsjson">24. clangd 的 compile_commands.json 缺失或不完整怎么办？<a class="headerlink" href="#24-clangd-compile_commandsjson" title="Permanent link">&para;</a></h3>
+<ul>
+<li>这是实际遇到的最大工程问题之一。很多 OSS-Fuzz 项目用 <code>make</code> 或自定义构建脚本，不直接生成 <code>compile_commands.json</code>。</li>
+<li><strong>解决方案</strong>：</li>
+<li>用 <code>bear</code>（Build EAR）包装 <code>make</code> 命令，自动拦截编译命令生成 <code>compile_commands.json</code>。</li>
+<li>如果 bear 也失败，fallback 到 Tree-Sitter parser，不依赖编译数据库。</li>
+<li>对于 CMake 项目，可以直接 <code>cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code>。</li>
+<li><!-- TODO: 实际跑 243 个项目时，有多少比例 LSP 启动成功？多少比例 fallback 到 Tree-Sitter？ --></li>
+</ul>
+<h3 id="25">25. 你怎么看这个项目的局限性？<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>内部函数的语义理解不足</strong>：LLM 不知道函数的前置条件和不变量，导致 harness 可能用非法的参数调用 target 函数，产生误报。</li>
+<li><strong>单函数粒度</strong>：当前是一次生成一个函数的 harness，对于需要多个函数配合的复杂调用场景（比如先 init → 再 process → 最后 cleanup），效果有限。</li>
+<li><strong>依赖 OSS-Fuzz 的 Docker 环境</strong>：非 OSS-Fuzz 项目需要自己搭建编译环境，门槛较高。</li>
+<li><strong>成本</strong>：相比规则化方法 token 消耗高一个数量级，对于几千个函数的大规模场景可能不现实。</li>
+<li><!-- TODO: 你觉得最值得改进的一个点是什么？ --></li>
+</ul>
+<hr />
+<h2 id="_9">八、覆盖率测量实现（你的核心贡献）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>这是你亲手实现的部分，面试时可以讲到很深的细节。面试官问"你在这个项目里具体做了什么"，先讲这个。</p>
+</blockquote>
+<h3 id="29">29. 你实现的"目标函数级别代码覆盖率"具体是怎么做的？<a class="headerlink" href="#29" title="Permanent link">&para;</a></h3>
+<p><strong>背景</strong>：HarnessAgent 需要验证生成的 harness 是否真的覆盖到了 target 函数的代码，而不是只在 harness 自己的逻辑里打转。</p>
+<p><strong>技术方案——SanitizerCoverage inline-8bit-counters</strong>：</p>
+<ol>
+<li><strong>编译时插桩</strong>：用 <code>-fsanitize-coverage=inline-8bit-counters</code> 编译被测项目。Clang 会在每个基本块（basic block）的入口插入一个计数器自增指令。所有计数器存储在 ELF 的 <code>__sancov_cntrs</code> section 中，是一段<strong>连续的内存区域</strong>，每个 byte 代表一个基本块的执行次数（0 = 未执行，&gt;0 = 已执行）。</li>
+<li><strong>获取计数器区域的起止地址</strong>：链接器会自动为每个 section 生成边界符号。我们直接用 <strong>ELF linker section 符号</strong>拿到计数器内存的起止位置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// 链接器自动生成的 section 边界符号</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">__start___sancov_cntrs</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">__stop___sancov_cntrs</span><span class="p">;</span>
+</span></code></pre></div>
+<p><code>[&amp;__start___sancov_cntrs, &amp;__stop___sancov_cntrs)</code> 就是整个计数器数组的范围。这比实现 <code>__sanitizer_cov_8bit_counters_init</code> 回调更直接——不需要自定义运行时回调，直接读 section 边界。</p>
+<blockquote>
+<p><strong>补充知识</strong>：SanitizerCoverage 还提供了另一种方式——通过实现 <code>__sanitizer_cov_8bit_counters_init(start, end)</code> 回调来获取边界。但在我们的场景中，直接用 linker symbol 更简单，因为不需要改 fuzzer 的运行时初始化逻辑。</p>
+<ol>
+<li><strong>按 target 函数隔离覆盖率</strong>：关键设计——不是读整个 section 的覆盖率，而是<strong>只测量 target 函数的覆盖率</strong>：</li>
+</ol>
+</blockquote>
+<ul>
+<li>用 tree-sitter 解析 harness 代码，定位调用 target 函数的那一行。</li>
+<li>在调用<strong>前</strong>插入 <code>reset_sancov_counters()</code>（memset 清零整个计数器区域）。</li>
+<li>在调用<strong>后</strong>插入 <code>save_sancov_counters()</code>（把计数器 dump 到 <code>./bitmaps/*.bin</code> 文件）。</li>
+<li>这样 <code>.bin</code> 文件里只包含<strong>执行 target 函数期间</strong>触发的计数器，排除了 harness 自身代码的干扰。</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">reset_sancov_counters</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">__start___sancov_cntrs</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">           </span><span class="o">&amp;</span><span class="n">__stop___sancov_cntrs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">&amp;</span><span class="n">__start___sancov_cntrs</span><span class="p">);</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">save_sancov_counters</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="c1">// 把 [__start, __stop) 之间的 bytes 写入 ./bitmaps/N.bin</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
+</span></code></pre></div>
+4. <strong>回放语料 + 合并分析</strong>（<code>cov_c.py</code>）：</p>
+<ul>
+<li>用 <code>-runs=0</code> 回放 fuzzing 产生的所有 corpus input。</li>
+<li>读取每个 <code>.bin</code> 文件，byte != 0 表示"被覆盖"。</li>
+<li>第一个非零的 bitmap 记为 <code>init_cov</code>（初始覆盖）。</li>
+<li>所有 bitmap 做 bitwise OR 合并，得到 <code>final_cov</code>（最终覆盖）。</li>
+<li>输出 <code>cov.json</code>: <code>{"init_cov": N, "final_cov": M}</code>。</li>
+<li>
+<p><strong>覆盖率判定</strong>（<code>cov_collecter.py</code>）：</p>
+</li>
+<li>
+<p><code>init_cov == 0 &amp;&amp; final_cov == 0</code> → harness 根本没执行到 target 函数 → <strong>无效 harness</strong>。</p>
+</li>
+<li><code>init_cov != 0 &amp;&amp; final_cov &gt; init_cov</code> → fuzzing 过程中发现了新的执行路径 → <strong>有效 harness</strong>。</li>
+<li><code>init_cov == final_cov</code> → 覆盖率没增长 → harness 能执行到但 fuzzer 没探索到新路径。</li>
+</ul>
+<p><strong>你的话术</strong>：</p>
+<blockquote>
+<p>"导师要求评估 harness 能不能真的覆盖到 target 函数。我去调研了 LLVM 的 SanitizerCoverage 机制，它的 inline-8bit-counters 模式会在每个基本块插入一个 byte 计数器，所有计数器放在 ELF 的 <code>__sancov_cntrs</code> section 里。我的做法是直接用链接器生成的 section 边界符号 <code>__start___sancov_cntrs</code> 和 <code>__stop___sancov_cntrs</code> 拿到这块内存的起止地址。然后在 harness 调用 target 函数前清零计数器、调用后 dump 出来，这样就能只看 target 函数执行期间的覆盖情况。最后回放所有 corpus input，合并 bitmap，比较初始覆盖和最终覆盖来判断 harness 是否有效。"</p>
+</blockquote>
+<h3 id="29a-javajvm">29a. Java/JVM 项目的覆盖率方案有什么不同？<a class="headerlink" href="#29a-javajvm" title="Permanent link">&para;</a></h3>
+<p>C/C++ 用 SanitizerCoverage 是因为 LLVM 插桩天然支持，但 JVM 没有这套机制，所以用了完全不同的方案：</p>
+<p><strong>主方案——JaCoCo 运行时 agent</strong>：</p>
+<ul>
+<li>通过反射获取 JaCoCo agent：<code>org.jacoco.agent.rt.RT.getAgent()</code></li>
+<li><code>reset()</code> → 清零覆盖数据（对应 C 的 <code>reset_sancov_counters</code>）</li>
+<li><code>getExecutionData(false)</code> → 导出覆盖数据的二进制序列化（对应 C 的 <code>save_sancov_counters</code>）</li>
+<li>JaCoCo 的插桩粒度是 <strong>字节码指令级别</strong>（probe 插在每个分支点），比 SanitizerCoverage 的基本块粒度更细</li>
+</ul>
+<p><strong>Fallback——手动 edge 计数器数组</strong>：</p>
+<ul>
+<li>如果 JaCoCo agent 不可用（比如 Jazzer 的构建没带 JaCoCo），退化到手动维护 <code>int[] covEdgeCounters = new int[65536]</code></li>
+<li>思路和 AFL 的 shared memory 类似：固定大小的计数器数组，由 harness 代码自己维护</li>
+<li>精度不如 JaCoCo，但保证有数据可读</li>
+</ul>
+<p><strong>后续流程一致</strong>：dump 到 <code>./bitmaps/*.bin</code> → <code>cov_jvm.py</code> 回放语料、合并 bitmap → 输出 <code>cov.json</code>，判定逻辑和 C/C++ 完全相同。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>C/C++</th>
+<th>Java/JVM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插桩机制</td>
+<td>LLVM SanitizerCoverage (编译时)</td>
+<td>JaCoCo agent (运行时字节码改写)</td>
+</tr>
+<tr>
+<td>计数器位置</td>
+<td>ELF <code>__sancov_cntrs</code> section</td>
+<td>JaCoCo 内部数据结构 /<code>int[65536]</code> fallback</td>
+</tr>
+<tr>
+<td>起止地址获取</td>
+<td><code>__start___sancov_cntrs</code> / <code>__stop___sancov_cntrs</code></td>
+<td><code>RT.getAgent().getExecutionData()</code></td>
+</tr>
+<tr>
+<td>清零方式</td>
+<td><code>memset</code> section</td>
+<td><code>RT.getAgent().reset()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>面试加分点</strong>：如果被问"你这个方案能支持其他语言吗"，可以说"Java 我们已经做了——用 JaCoCo 替代 SanitizerCoverage，核心的'调用前清零 + 调用后 dump + 回放合并'框架是语言无关的，只需要替换插桩后端"。</p>
+<h3 id="30-inline-8bit-counters">30. 为什么用 inline-8bit-counters 而不是其他覆盖率方案？<a class="headerlink" href="#30-inline-8bit-counters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gcov / lcov</code></td>
+<td>成熟、报告格式友好</td>
+<td>需要正常退出才能 flush 数据，fuzzer 通常 crash 退出拿不到数据</td>
+</tr>
+<tr>
+<td><code>__sanitizer_cov_trace_pc_guard</code></td>
+<td>每个 edge 一个 guard 变量</td>
+<td>只能判断 yes/no，没有执行次数信息</td>
+</tr>
+<tr>
+<td><strong><code>inline-8bit-counters</code></strong></td>
+<td><strong>每个基本块一个 byte 计数器，进程内存中直接可读，不依赖正常退出</strong></td>
+<td>计数器饱和后溢出（但对覆盖率判断够了）</td>
+</tr>
+<tr>
+<td><code>AFL-style shared memory</code></td>
+<td>和 AFL/AFL++ 兼容</td>
+<td>是 edge coverage 而非 block coverage，且共享内存需要额外 IPC</td>
+</tr>
+</tbody>
+</table>
+<p>关键优势：<strong>libFuzzer 原生支持 inline-8bit-counters</strong>，OSS-Fuzz 的标准编译流程默认就启用它，不需要额外改构建脚本。而且计数器在进程地址空间内，通过 linker section 符号可以直接读写，不需要等进程退出。配合"调用前清零 + 调用后 dump"的设计，可以精确隔离 target 函数的覆盖率，排除 harness 自身代码的噪音。</p>
+<h3 id="31">31. 面试官追问："你说每一位代表一个函数有没有被访问"——准确说应该是什么？<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>这是你之前的口语化描述，面试时要讲准确。</p>
+</blockquote>
+<p>准确描述：<strong>每个 byte（不是 bit）代表一个基本块（不是函数）的执行计数</strong>。一个函数通常包含多个基本块（if/else 分支、循环体、异常处理各自是独立的基本块）。所以：</p>
+<ul>
+<li>一个函数 → 多个基本块 → 多个计数器 byte。</li>
+<li>我们的实现不需要区分"哪些 byte 属于哪个函数"——因为在调用 target 函数前清零了<strong>整个</strong> section，调用后 dump 出来的非零 byte 就是 target 函数（及其调用链）执行到的基本块。这比用 PC Table + DWARF 做映射更简单直接。</li>
+<li><code>init_cov</code> 是第一个 corpus input 的覆盖，<code>final_cov</code> 是所有 input 合并后的覆盖。<code>final_cov &gt; init_cov</code> 说明 fuzzer 在探索新路径。</li>
+</ul>
+<h3 id="32-fuzzing">32. Fuzzing 运行和漏洞报告检查你是怎么做的？<a class="headerlink" href="#32-fuzzing" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fuzzing 运行</strong>：用 OSS-Fuzz 的 Docker 环境，<code>run_fuzzer</code> 脚本启动 libFuzzer，跑 1 小时。语料库使用默认的空语料起步。</li>
+<li><strong>Crash 分析</strong>：libFuzzer 触发 crash 后会保存 crash input 到 <code>crash-*</code> 文件。用 ASan 的报告判断 crash 类型：</li>
+<li><code>heap-buffer-overflow</code> → 堆溢出</li>
+<li><code>heap-use-after-free</code> → UAF</li>
+<li><code>SUMMARY: ...direct-leak</code> → 内存泄漏</li>
+<li><code>timeout</code> → 可能的无限循环 / DoS</li>
+<li><strong>区分真实漏洞 vs harness bug</strong>：</li>
+<li>如果 crash 的 stack trace 全在 harness 代码里（<code>LLVMFuzzerTestOneInput</code> 内部）→ harness 自己的 bug。</li>
+<li>如果 stack trace 进入了被测库的代码 → 可能是真实漏洞，需要进一步人工分析。</li>
+<li>还要检查是否是已知的误用（比如 harness 传了 NULL 指针给不接受 NULL 的函数）。</li>
+</ul>
+<hr />
+<h2 id="fuzzing">九、漏洞原理与 Fuzzing 基础（安全方向必问）<a class="headerlink" href="#fuzzing" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>以下三题编号不变（Q26-28），保持和前面的引用一致。</p>
+</blockquote>
+<h3 id="26-fuzz-testing">26. 什么是 fuzz testing？为什么有效？<a class="headerlink" href="#26-fuzz-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fuzzing 是一种自动化测试技术，通过<strong>持续生成和变异输入</strong>来触发程序的异常行为（crash、hang、内存错误）。</li>
+<li>有效的原因：覆盖了人类难以想到的边界情况（极长输入、空输入、格式畸形、嵌套深度极大）。</li>
+<li>常见 fuzzer：libFuzzer（LLVM）、AFL/AFL++、Honggfuzz。OSS-Fuzz 是 Google 的持续 fuzzing 基础设施。</li>
+<li><strong>Harness（driver）</strong> 是 fuzzer 和被测库之间的桥梁：接收 fuzzer 生成的随机字节，转换成被测函数需要的参数格式。</li>
+</ul>
+<h3 id="27-harnessagent">27. HarnessAgent 发现的堆缓冲区溢出是什么原理？<a class="headerlink" href="#27-harnessagent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>堆缓冲区溢出：程序向堆上分配的缓冲区写入了超出其大小的数据。</li>
+<li>常见触发场景：解析可变长度数据（图片、协议包、XML）时没有正确校验长度字段。</li>
+<li>检测方式：通过 <strong>AddressSanitizer（ASan）</strong> 编译库代码，ASan 在每次内存操作时检查边界。</li>
+<li>HarnessAgent 生成的 harness 把 fuzzer 的随机字节传给库的解析函数，如果解析逻辑有溢出，ASan 会立刻报出来。</li>
+</ul>
+<h3 id="28-addresssanitizeross-fuzz">28. 什么是 AddressSanitizer？OSS-Fuzz 的检测机制是什么？<a class="headerlink" href="#28-addresssanitizeross-fuzz" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ASan 是 LLVM/GCC 的内存错误检测工具，编译时插桩，运行时检查：堆溢出、栈溢出、use-after-free、double-free、内存泄漏。</li>
+<li>OSS-Fuzz 默认用 ASan 编译所有项目代码，fuzzing 过程中如果触发了 ASan 报警就记录为 crash。</li>
+<li>HarnessAgent 的 validation 阶段也用 ASan：60 秒内 crash → 大概率是 harness bug；1 小时 fuzzing 中 crash → 可能是真实漏洞，需要人工确认。</li>
+</ul>
+<hr />
+<h2 id="_10">十、后续待补充<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li><!-- TODO: 实际跑的时候修复轮次分布（Q10） --></li>
+<li><!-- TODO: 成本优化实验（Q18） --></li>
+<li><!-- TODO: 减少误报的专门实验（Q21） --></li>
+<li><!-- TODO: LSP 成功率和 fallback 比例（Q24） --></li>
+<li><!-- TODO: 你觉得最值得改进的一个点（Q25） --></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

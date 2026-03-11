@@ -1,0 +1,1790 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-03/mock-interview-bytedance-2026-03-10/">
+      
+      
+        <link rel="prev" href="../2026-03-10-auto-bug-migration-full-project/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>模拟面试记录：字节跳动 AI代码分析安全研发实习生 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              模拟面试记录：字节跳动 AI代码分析安全研发实习生
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-23-learning-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-24-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-05-ai-agent-attribution-evidence-binding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-bytedance-backend-agent-first-interview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent开发笔记-漏洞迁移
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-harnessagent-interview-prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarnessAgent 项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-10-auto-bug-migration-full-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    auto-bug-migration 全项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模拟面试记录：字节跳动 AI代码分析安全研发实习生
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模拟面试记录：字节跳动 AI代码分析安全研发实习生
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#q1-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: HarnessAgent 项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q1: HarnessAgent 项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 1：自动修复 loop 怎么设计的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 2：错误分类的边界？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 3：链接错误怎么处理？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: 开源软件漏洞的自动化跨版本迁移
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q2: 开源软件漏洞的自动化跨版本迁移">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patch-revert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：最大技术难点？patch revert 跨版本不适用怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：agent 怎么知道旧 API 在新版本对应什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#harnessagent-clangd-libclang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：为什么 HarnessAgent 用 clangd，这个项目用 libclang？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: 静态分析基础 + 系统设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q3: 静态分析基础 + 系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-uafdouble-freebuffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：给字节大型 C++ 仓库做安全检查工具（UAF/double free/buffer overflow），怎么设计？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: 行为题——推翻技术方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q4: 行为题——推翻技术方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：做了多久意识到走不通？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：如果再来一次怎么更早发现？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自评环节
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试官完整复盘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面试官完整复盘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-mixed-hire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overall: Mixed 偏 Hire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逐题评分（1-5）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试官内心独白
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top 3 改进建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Top 3 改进建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 练习结构化表达（最重要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 补静态分析知识
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 行为题给具体方法论，不要给感悟
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ---
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#q1-harnessagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: HarnessAgent 项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q1: HarnessAgent 项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 1：自动修复 loop 怎么设计的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 2：错误分类的边界？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问 3：链接错误怎么处理？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: 开源软件漏洞的自动化跨版本迁移
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q2: 开源软件漏洞的自动化跨版本迁移">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patch-revert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：最大技术难点？patch revert 跨版本不适用怎么办？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：agent 怎么知道旧 API 在新版本对应什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#harnessagent-clangd-libclang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：为什么 HarnessAgent 用 clangd，这个项目用 libclang？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: 静态分析基础 + 系统设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q3: 静态分析基础 + 系统设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-uafdouble-freebuffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：给字节大型 C++ 仓库做安全检查工具（UAF/double free/buffer overflow），怎么设计？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: 行为题——推翻技术方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q4: 行为题——推翻技术方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：做了多久意识到走不通？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        追问：如果再来一次怎么更早发现？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自评环节
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试官完整复盘
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面试官完整复盘">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-mixed-hire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overall: Mixed 偏 Hire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逐题评分（1-5）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试官内心独白
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top 3 改进建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Top 3 改进建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 练习结构化表达（最重要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 补静态分析知识
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 行为题给具体方法论，不要给感悟
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ---
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ai">模拟面试记录：字节跳动 AI代码分析安全研发实习生<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h1>
+<p><strong>日期</strong>：2026-03-10
+<strong>目标岗位</strong>：AI代码分析安全研发实习生 - 安全与风控（ByteIntern）
+<strong>面试形式</strong>：技术+行为混合
+<strong>拷打强度</strong>：5/5
+<strong>面试官设定</strong>：字节安全与风控部门 Tech Lead</p>
+<hr />
+<h2 id="q1-harnessagent">Q1: HarnessAgent 项目<a class="headerlink" href="#q1-harnessagent" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：你简历上写了 HarnessAgent——基于 LangGraph 构建 AI 代码漏洞分析与 harness 生成智能体。讲一下核心思路：它要解决什么问题，怎么设计的，你具体做了什么。</p>
+<p><strong>我的回答</strong>：这个 harness agent 是一个自动的针对开源软件项目自动生成可编译可运行、能有效提高测试覆盖率的 fuzz driver。使用了基于 LangGraph 框架的自动修复 agent，包含若干代码分析工具，对 11 个软件项目每个选择 300 个函数进行生成，最终发现了 15 个真实 bug。</p>
+<h3 id="1-loop">追问 1：自动修复 loop 怎么设计的？<a class="headerlink" href="#1-loop" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：给 agent 提供查看函数定义、查找 symbol 的工具，基于 clangd LSP，也用了 tree-sitter 补充。agent 拿到编译报错信息，修复成功就退出，最多尝试 6 轮。编译错误做了分类，简单的 rule-based 改，复杂的丢回 agent。</p>
+<h3 id="2">追问 2：错误分类的边界？<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>（自我纠正）：不对，其实分成了链接 error、include error、其他语法错误、docker 错误。链接 error 需要修改编译脚本，include 可以基于规则解析路径改编译参数，语法错误 agent 自己改。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：前后说法差距大，面试官能感觉到对项目记忆不牢。</p>
+</blockquote>
+<h3 id="3">追问 3：链接错误怎么处理？<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：我们没有解决得很好，采用了偷懒的方法——每个项目已有几个写好的编译脚本，就换着试。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：坦诚，比硬编答案强。</p>
+</blockquote>
+<hr />
+<h2 id="q2">Q2: 开源软件漏洞的自动化跨版本迁移<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：这个项目的动机是什么？为什么需要跨版本漏洞迁移？实际应用场景是什么？</p>
+<p><strong>我的第一次回答</strong>（答错题）：如果现在让我来做，我会让 agent 自己来改并修复，因为 model 越来越强了。</p>
+<blockquote>
+<p><strong>面试官</strong>：我问的不是 HarnessAgent 的链接错误。我问的是跨版本迁移的动机。</p>
+</blockquote>
+<p><strong>我的回答</strong>：我们想做的是一个版本的软件同时具备尽可能多的历史 bug，作为 fuzzing 的 benchmark。真实的 bug，真实的 PoC。</p>
+<h3 id="patch-revert">追问：最大技术难点？patch revert 跨版本不适用怎么办？<a class="headerlink" href="#patch-revert" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：拿到 bug 版本的函数执行 trace，把这些函数放在无 bug 版本中，进行 build error 修复。这个过程很困难——不同版本间 API、常量、结构体定义变化很大。最初用 rule-based 做效果不好，最近两个月改成 agent 做，好一些但还没完全解决。</p>
+<h3 id="agent-api">追问：agent 怎么知道旧 API 在新版本对应什么？<a class="headerlink" href="#agent-api" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：提供给 agent 两个版本的源码和一个代码数据库，用 libclang 分析两个版本的代码，得到所有 symbol 的准确行号。LLM 有了行号就可以去查源码得到定义。</p>
+<h3 id="harnessagent-clangd-libclang">追问：为什么 HarnessAgent 用 clangd，这个项目用 libclang？<a class="headerlink" href="#harnessagent-clangd-libclang" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：我自己做的时候先试了 tree-sitter 对 C 没法用，选了 libclang。同学选了 clangd。clangd 好处是可以增量查询每次耗时小，我的 libclang 是一次性全量解析，第一次运行会很久。</p>
+<hr />
+<h2 id="q3">Q3: 静态分析基础 + 系统设计<a class="headerlink" href="#q3" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：AST 层面分析和 IR 层面分析各自能做什么、不能做什么？做代码安全检查怎么选？</p>
+<p><strong>我的回答</strong>：AST 保留源码信息更多，可以获得行号，适合给 LLM 看（训练了更多源码而非 IR）。IR 经过优化，获得源码信息需要 debug info 有损失，但 IR 是 SSA 范式适合做各种静态分析和优化。</p>
+<blockquote>
+<p><strong>面试官纠正</strong>：说"IR 多少进行过优化"不够准确，-O0 和 -O2 的 IR 差别很大。</p>
+</blockquote>
+<h3 id="c-uafdouble-freebuffer-overflow">追问：给字节大型 C++ 仓库做安全检查工具（UAF/double free/buffer overflow），怎么设计？<a class="headerlink" href="#c-uafdouble-freebuffer-overflow" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：可以用 AI 辅助 fuzzing。我最近用 Claude Code 为已经被 fuzz 很久的开源软件生成 fuzz driver，发现了几个 bug 拿到一个 CVE。如果用静态方法的话肯定是在 IR 层面，会调研市面上最好的静态分析工具试试。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：fuzzing 方案有说服力，但静态分析"调研一下试试"不是答案。面试官听得出来。</p>
+</blockquote>
+<hr />
+<h2 id="q4">Q4: 行为题——推翻技术方案<a class="headerlink" href="#q4" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：有没有碰到技术方案走不通需要推翻重来的情况？</p>
+<p><strong>我的回答</strong>：跨版本迁移项目，最开始用 rule-based 修复编译 error，但 C 语言报错很复杂永远做不完，就把代码删了和导师说想用 agent 试试，现在看来有希望解决。</p>
+<h3 id="_1">追问：做了多久意识到走不通？<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：大概半年。第一个开源项目迁移成功，但第二个完全走不通，就知道坏了。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：半年不短，第一个项目上过拟合了。</p>
+</blockquote>
+<h3 id="_2">追问：如果再来一次怎么更早发现？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：项目初期就要和更多人讨论，同时敏锐观察市场上的新技术比如 agent，当时反应迟钝了。</p>
+<hr />
+<h2 id="_3">自评环节<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>我的自评</strong>：Hire</li>
+<li><strong>最好的回答</strong>：跨版本迁移项目讲得比较清楚</li>
+<li><strong>最差的回答</strong>：静态分析知识准备不充分</li>
+<li><strong>面试官评价</strong>：Mixed 偏 Hire</li>
+</ul>
+<hr />
+<h2 id="_4">面试官完整复盘<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="overall-mixed-hire">Overall: Mixed 偏 Hire<a class="headerlink" href="#overall-mixed-hire" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>项目经历真实、有深度，但表达混乱、知识面有明显盲区，面试官需要花很大力气才能从回答里提取有价值的信息。</p>
+</blockquote>
+<h3 id="1-5">逐题评分（1-5）<a class="headerlink" href="#1-5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>Substance</th>
+<th>Structure</th>
+<th>Credibility</th>
+<th>Differentiation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1 HarnessAgent</td>
+<td>2.5</td>
+<td>2</td>
+<td>3</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>Q2 跨版本迁移</td>
+<td>3.5</td>
+<td>2.5</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Q3 静态分析</td>
+<td>2</td>
+<td>2</td>
+<td>2.5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Q4 行为题</td>
+<td>3</td>
+<td>3</td>
+<td>3.5</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">面试官内心独白<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>简历很亮——USENIX Security、编译器安全、在读博，背景比大多数实习生强。但面试一开始讲 HarnessAgent，一分钟了我还不知道项目怎么工作的。</p>
+<p>错误分类前后矛盾让我怀疑他对项目的掌握程度。跨版本迁移答错题说明注意力不够集中或太紧张。libclang 那段是全场最技术的回答。</p>
+<p>静态分析是分水岭。fuzzing 有说服力有 CVE，但静态方案说"调研试试"——岗位叫 AI 代码分析，如果 CodeQL、Infer、Coverity 一个都讲不出来，会担心知识面。</p>
+<p>总体：技术底子有，项目真实，但表达是硬伤。只看简历 Strong Hire，面试完 Mixed 偏 Hire。实习生可以过，但得补静态分析。</p>
+</blockquote>
+<hr />
+<h2 id="top-3">Top 3 改进建议<a class="headerlink" href="#top-3" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 练习结构化表达（最重要）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>每个项目准备 2 分钟版本，结构固定：<strong>问题 → 方案 → 你的角色 → 关键技术决策 → 结果数字</strong>。先说框架再填细节。</p>
+<h3 id="2_1">2. 补静态分析知识<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>至少了解：
+- <strong>CodeQL</strong>（GitHub 在用）
+- <strong>Semgrep</strong>（规则型）
+- <strong>Infer</strong>（Facebook，过程间分析）
+- <strong>Coverity</strong></p>
+<p>能说出原理差异和适用场景。</p>
+<h3 id="3_1">3. 行为题给具体方法论，不要给感悟<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ "多和人讨论"</li>
+<li>✅ "现在每两周和导师做一次 milestone check，如果连续两周没有在新数据上验证，就强制停下来评估方案可行性。"</li>
+</ul>
+<h2 id="-">---<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<h1 id="_6">第二轮模拟面试记录<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<p><strong>时间</strong>：同日，第一轮结束后立即重来
+<strong>改进目标</strong>：结构化表达、静态分析知识、数字准确性</p>
+<hr />
+<h2 id="q1">Q1: 跨版本漏洞迁移（自选项目）<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：挑一个最能代表你技术能力的项目，两到三分钟讲清楚：解决什么问题、怎么做的、你负责什么、结果怎样。</p>
+<p><strong>我的回答</strong>：自动化漏洞迁移项目是将一个 C 项目的历史 bug 尽可能多的集中到同一个版本上，构造 bug 数据集作为 fuzzer 的 benchmark。做法是收集 bug 版本触发 bug 时走过的函数路径，找到在新版本里被修改过的函数——一个函数在 bug 触发时执行过且被修改了，结果 bug 在新版本不触发，我就认为它可能和 bug 触发有关系。所以选择把 bug 版本的函数直接复制到新版本里。这样的 patch 肯定编译不通过（API、结构体定义、常量都会变），用 LLM agent 做编译错误修复。修复后用原 PoC 测试复现，不能复现就用 target fuzz 以 bug 触发时的 stack 为目标 fuzz。随后做 patch 最小化，有利于多 bug 迁移到同一版本不冲突。项目都是我自己做的。目前在 opensc 中完成端到端验证，生成了一个最多 19/26 个 bug 的版本。</p>
+<blockquote>
+<p><strong>面试官评价</strong>：比第一轮好非常多。问题、方法、结果都一次性讲清了。</p>
+</blockquote>
+<h3 id="1_1">追问 1：怎么判断函数被修改过？<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：就是 diff。没有区分函数具体修改了什么，因为最后会做最小化来去噪。</p>
+<blockquote>
+<p><strong>面试官</strong>：先粗筛再最小化去噪，策略说得通。代价是编译修复工作量变大。最终最小化掉了多少比例？</p>
+</blockquote>
+<p><strong>我的回答</strong>：没有仔细统计。在 opensc 中许多 bug 最后只改一个函数就能触发，最初可能有十几个函数可能相关。</p>
+<blockquote>
+<p><strong>面试官建议</strong>：这个数据统计好了面试时直接说，很有说服力。</p>
+</blockquote>
+<h3 id="2agent">追问 2：agent 修复成功率？有没有手动介入？<a class="headerlink" href="#2agent" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：19 个成功迁移的 agent 都是成功的。开发过程中我希望 agent 都能修复，花了很多时间修改 prompt 和 tool。不会考虑手动介入。</p>
+<blockquote>
+<p><strong>面试官</strong>：通过迭代 prompt 和工具提升能力而不是自己兜底——做工具不做人力，思路对。</p>
+</blockquote>
+<h3 id="326-7">追问 3：26 个里没成功的 7 个卡在哪？<a class="headerlink" href="#326-7" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>（数字澄清）：26 个历史 bug 中 14 个是这个版本本来就能触发的。我尝试迁移了 12 个，其中 9 个成功触发，3 个无法触发。9 个之间存在冲突（依赖修改相同函数），合并时保留了 14+5=19 个。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：实际迁移贡献是 5 个，和"19/26"的第一印象差别很大。这个数字面试里要主动讲清楚。</p>
+</blockquote>
+<h3 id="43">追问 4：3 个无法触发的原因？<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：编译通过了但 PoC 跑不出来。做了 target fuzz 依然没触发。可能是有些 bug 依赖的东西不在函数范围里（比如结构体），agent 修复时会改变代码导致不能触发。</p>
+<blockquote>
+<p><strong>面试官点评</strong>：假设合理，但自己承认"没有去分析"。作为项目主导者，失败 case 的 root cause 分析应该做。</p>
+</blockquote>
+<hr />
+<h2 id="q2-harnessagent-sancov">Q2: HarnessAgent + SanCov 实现<a class="headerlink" href="#q2-harnessagent-sancov" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：HarnessAgent 和跨版本迁移都用了 LLM agent 修编译错误，两个项目的 agent 设计有什么不同？</p>
+<p><strong>我的回答</strong>：这个项目不是我主导的，我参与了讨论和一个代码覆盖率的实现。两个项目 agent 修复的复杂程度不一样，但结构基本相似——看编译错误报告、解析错误、agent 调用工具修复、再编译的循环。针对的问题不同，工具设计、错误解析、prompt 都不同。比如 bug 迁移需要同时提供两个版本的代码。</p>
+<h3 id="_7">追问：代码覆盖率实现具体是什么？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：项目为给定函数生成 fuzz driver，driver 里不仅有目标函数还有结构体初始化等。我们需要只统计从目标函数进去走过的基本块数量。实现基于 LLVM 的 sanitizer coverage——编译器维护一个小的内存区域，每个基本块对应一个 byte，值表示走过次数。我们在执行目标函数前清零，之后读取这个区域，就实现了只统计目标函数覆盖率。</p>
+<blockquote>
+<p><strong>面试官评价</strong>：SanCov inline 8-bit counters，入口清零出口读取——干净利落。说明对 LLVM sanitizer 底层机制有了解。<strong>全场最硬的技术回答。</strong></p>
+</blockquote>
+<hr />
+<h2 id="q3-ci">Q3: 系统设计——CI 自动安全扫描<a class="headerlink" href="#q3-ci" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：假设来字节实习，第一个任务是给几百万行 C/C++ 仓库加自动化安全检查，集成到 CI，怎么设计？重点考虑怎么让它实际用起来。</p>
+<p><strong>我的回答</strong>：用 CodeQL 来做。CodeQL 可以查询 code pattern，适合大型项目。让 AI 生成 query，每次添加新代码执行 query 扫描。速度快，不会像每个函数都给 AI 那么慢，也能有效发现常见问题。</p>
+<h3 id="1ai-query">追问 1：AI 生成的 query 怎么保证质量？误报怎么办？<a class="headerlink" href="#1ai-query" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：可以用多个模型生成多次，互相打分选出最优的。生成的结果也需要 AI 先看，再传给人工。</p>
+<blockquote>
+<p><strong>面试官挑战</strong>：AI 生成 query，AI 再审核——如果审核本身也不靠谱？除了 AI 查 AI，有没有更硬的验证手段？</p>
+</blockquote>
+<p><strong>我的回答</strong>：用项目历史上已知的 bug 进行测试，能找到真实 bug 并且误报率低的留下。</p>
+<blockquote>
+<p><strong>面试官评价</strong>：用已知 bug 做 ground truth 验证——本质上是测试集驱动的质量保障，比 AI 查 AI 靠谱得多。</p>
+</blockquote>
+<hr />
+<h2 id="q4_1">Q4: 动机题<a class="headerlink" href="#q4_1" title="Permanent link">&para;</a></h2>
+<p><strong>面试官</strong>：在犹他大学读博但投字节实习，怎么考虑的？</p>
+<p><strong>我的回答</strong>：现在每个人都要实习，比在学校学到更多。长期准备毕业回国工作，也是为以后做准备。</p>
+<h3 id="_8">追问：能实习多久？怎么保证投入度？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><strong>我的回答</strong>：可以线下实习 4 个月，和导师商量过。最近在给之前的事情收尾，暑假可以接着干。</p>
+<hr />
+<h2 id="_9">自评环节<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>我的自评</strong>：Hire</li>
+<li><strong>最好的回答</strong>：跨版本迁移项目讲得清楚</li>
+<li><strong>最差的回答</strong>：项目具体效果数字没准备好，不知道失败原因</li>
+<li><strong>面试官评价</strong>：<strong>Hire</strong></li>
+</ul>
+<hr />
+<h2 id="_10">第二轮面试官复盘<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="overall-hire">Overall: Hire<a class="headerlink" href="#overall-hire" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>项目讲述比第一轮有质的飞跃，技术理解扎实，但对自己项目的边界 case 缺乏闭环分析，系统设计题有思路但不够完整。</p>
+</blockquote>
+<h3 id="1-5_1">逐题评分（1-5）<a class="headerlink" href="#1-5_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>Substance</th>
+<th>Structure</th>
+<th>Credibility</th>
+<th>Differentiation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1 跨版本迁移</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td>Q2 HarnessAgent+SanCov</td>
+<td>4</td>
+<td>3.5</td>
+<td>4.5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Q3 系统设计</td>
+<td>3.5</td>
+<td>2.5</td>
+<td>3.5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Q4 动机题</td>
+<td>3</td>
+<td>-</td>
+<td>3.5</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">两轮对比<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>第一轮</th>
+<th>第二轮</th>
+<th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目表达</td>
+<td>混乱，需要反复纠正</td>
+<td>清晰有结构</td>
+<td>大幅提升</td>
+</tr>
+<tr>
+<td>技术深度</td>
+<td>有但挖不出来</td>
+<td>SanCov 是全场亮点</td>
+<td>提升</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>错误分类自相矛盾、答错题</td>
+<td>全程没有硬伤</td>
+<td>大幅提升</td>
+</tr>
+<tr>
+<td>系统设计</td>
+<td>"调研试试"</td>
+<td>CodeQL + 验证机制</td>
+<td>大幅提升</td>
+</tr>
+<tr>
+<td>失败分析</td>
+<td>没涉及</td>
+<td>被问到但没准备</td>
+<td>待改进</td>
+</tr>
+<tr>
+<td>Overall</td>
+<td>Mixed 偏 Hire</td>
+<td><strong>Hire</strong></td>
+<td>升一档</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">面试官内心独白<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>开场讲跨版本迁移，两分钟讲完我就知道这个人准备过了——问题清楚、pipeline 完整、有结果数字。比大多数实习生强。</p>
+<p>19/26 那个数字追问才发现实际是 14+5。没有故意夸大，但没有主动讲清楚。</p>
+<p>SanCov 那段是加分项。inline 8-bit counters、清零读取——不只是调 API，是真的理解编译器插桩的底层机制。这个能力在安全研发岗很值钱。</p>
+<p>系统设计给了 CodeQL + AI 生成 query 的方案，方向对但展开不够。想听到更完整的故事：query 生成 → 增量扫描 → 结果过滤 → 开发者看到什么 → 误报怎么反馈改进 query。不过对实习生，能想到 CodeQL 并用已知 bug 验证质量已经不错了。</p>
+<p>3 个失败 case 没分析是减分的。如果能说"我分析了，2 个因为 X，1 个因为 Y，方法在 Z 条件下有局限"——Credibility 直接拉满。</p>
+<p>总体 Hire。项目真实、技术底子好、表达清晰。主要短板是边界 case 和失败场景缺乏主动分析习惯。</p>
+</blockquote>
+<hr />
+<h2 id="top-3_1">Top 3 改进建议（第二轮）<a class="headerlink" href="#top-3_1" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">1. 数字讲准确、讲主动<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p>不要说"19/26"让面试官自己理解。直接说："14 个历史 bug 本来就能触发，我额外迁移成功了 5 个，总共 19 个。"</p>
+<h3 id="2-case">2. 分析失败 case，带到面试里<a class="headerlink" href="#2-case" title="Permanent link">&para;</a></h3>
+<p>3 个无法触发的 bug——回去花一两小时分析 root cause。面试时主动讲："有 3 个没成功，原因是 X。方法在 Y 场景下有局限，未来可以通过 Z 改进。"</p>
+<h3 id="3_2">3. 系统设计题先给框架再填细节<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<p>被问到"怎么设计"时，先花 15 秒给全景："分三步——第一步 X，第二步 Y，第三步 Z。"然后再展开。面试官知道你有全局思考。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

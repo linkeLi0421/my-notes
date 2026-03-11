@@ -1,0 +1,2907 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A growing, searchable notebook.">
+      
+      
+      
+        <link rel="canonical" href="https://linkeLi0421.github.io/my-notes/2026/2026-03/2026-03-10-auto-bug-migration-full-project/">
+      
+      
+        <link rel="prev" href="../2026-03-06-harnessagent-interview-prep/">
+      
+      
+        <link rel="next" href="../mock-interview-bytedance-2026-03-10/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>auto-bug-migration 全项目面试拷打笔记 - Linke's Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#auto-bug-migration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-header__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linke's Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              auto-bug-migration 全项目面试拷打笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Linke&#39;s Notes" class="md-nav__button md-logo" aria-label="Linke's Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linke's Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/linkeLi0421/my-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    linkeLi0421/my-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-23-learning-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epstein RAG 项目学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-24-complete-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoRA Fine-Tuning Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-apply-failure-behavior/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary note (git apply failure behavior)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-25-dashboard-backend-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Backend (FastAPI) 笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026-02/2026-02-27-multiplivault-echidna-fuzzing-rounding-a-c86fa4ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 02 27 multiplivault echidna fuzzing rounding a c86fa4ad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026 03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2026 03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-05-ai-agent-attribution-evidence-binding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 归因与证据绑定面试笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-bytedance-backend-agent-first-interview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent开发笔记-漏洞迁移
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-03-06-harnessagent-interview-prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarnessAgent 项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    auto-bug-migration 全项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    auto-bug-migration 全项目面试拷打笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto-bug-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auto-bug-migration 全项目面试拷打笔记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="auto-bug-migration 全项目面试拷打笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、项目全局
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、项目全局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 一句话介绍这个项目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 为什么需要这个项目？解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 整体架构是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#osv-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、数据采集层（OSV API）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、数据采集层（OSV API）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 漏洞数据从哪里来？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-oss-fuzz-clusterfuzz-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 面试官追问：为什么不直接用 OSS-Fuzz 的 ClusterFuzz API？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-revert_patch_testpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、Patch 生成层（revert_patch_test.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、Patch 生成层（revert_patch_test.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 初始 patch 是怎么生成的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-patchinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. PatchInfo 数据结构长什么样？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-__revert_-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 函数重命名（__revert_* prefix）的设计思路是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-libclang-ast-tree-sitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 面试官追问：为什么用 libclang 做 AST 解析而不是 tree-sitter？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、编译错误分类与路由
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、编译错误分类与路由">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 编译错误是怎么分类的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 错误路由策略是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 面试官追问：为什么不直接把所有编译错误丢给 LLM，让它自己判断？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、Multi-Agent 编排
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Multi-Agent 编排">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 多 Agent 是怎么并行的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Agent 之间有状态共享吗？如何避免冲突？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 面试官追问：为什么不用一个大 Agent 一次修所有错误？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#react-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、ReAct Agent 内部（已有笔记的核心内容，精简版）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、ReAct Agent 内部（已有笔记的核心内容，精简版）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Agent 状态机是怎么设计的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 14 个工具分哪几类？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 动态 Prompt 组装是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-15-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 15+ 条 Guardrail 是做什么的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oss-fuzz-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、OSS-Fuzz 集成与 Docker 构建
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、OSS-Fuzz 集成与 Docker 构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-oss-fuzz-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. OSS-Fuzz 的 Docker 环境是怎么管理的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 面试官追问：为什么要固定 Docker 镜像版本？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trace-target-fuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Trace 分析、Target Fuzz 与最小化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Trace 分析、Target Fuzz 与最小化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 怎么确定哪些函数需要迁移？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-target-fuzz-poc-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 为什么需要 target fuzz 生成新 PoC？旧 PoC 不能直接用吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 最小化是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24a. 面试官追问：最小化后还有误报吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-patch_mergepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Patch 合并层（patch_merge.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Patch 合并层（patch_merge.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-bug-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 多 bug 的 patch 怎么合并？（项目的终极目标）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-bron-kerbosch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 面试官追问：为什么用 Bron-Kerbosch 而不是贪心？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Patch 兼容性具体怎么判断？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、静态分析工具链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、静态分析工具链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#28-libclang-_analysisjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. libclang 分析结果（*_analysis.json）的结构是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-gumtree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. GumTree 做了什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、工程细节（加分项）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、工程细节（加分项）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 数据缓存和增量处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-artifact-offloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Artifact offloading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-patch-q24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Patch 最小化（详见 Q24）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、面试高频追问
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、面试高频追问">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#33-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. 整个系统跑一个 bug 需要多长时间？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. 修复成功率是多少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-google-oss-fuzz-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. 这个项目和 Google 的 OSS-Fuzz-Gen 有什么区别？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-fuzzing-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. 为什么现有的 fuzzing benchmark 不够用？你的方案比它们好在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. 项目最大的技术挑战是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. 如果从头重新设计，你会改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. 代码量有多大？你一个人写的吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、数据流速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、后续待补充
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mock-interview-bytedance-2026-03-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模拟面试记录：字节跳动 AI代码分析安全研发实习生
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto-bug-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auto-bug-migration 全项目面试拷打笔记
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="auto-bug-migration 全项目面试拷打笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        回答总原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、项目全局
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、项目全局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 一句话介绍这个项目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 为什么需要这个项目？解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 整体架构是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#osv-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、数据采集层（OSV API）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、数据采集层（OSV API）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 漏洞数据从哪里来？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-oss-fuzz-clusterfuzz-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 面试官追问：为什么不直接用 OSS-Fuzz 的 ClusterFuzz API？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-revert_patch_testpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、Patch 生成层（revert_patch_test.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、Patch 生成层（revert_patch_test.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 初始 patch 是怎么生成的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-patchinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. PatchInfo 数据结构长什么样？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-__revert_-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 函数重命名（__revert_* prefix）的设计思路是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-libclang-ast-tree-sitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 面试官追问：为什么用 libclang 做 AST 解析而不是 tree-sitter？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、编译错误分类与路由
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、编译错误分类与路由">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 编译错误是怎么分类的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 错误路由策略是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 面试官追问：为什么不直接把所有编译错误丢给 LLM，让它自己判断？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、Multi-Agent 编排
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Multi-Agent 编排">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 多 Agent 是怎么并行的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Agent 之间有状态共享吗？如何避免冲突？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 面试官追问：为什么不用一个大 Agent 一次修所有错误？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#react-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、ReAct Agent 内部（已有笔记的核心内容，精简版）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、ReAct Agent 内部（已有笔记的核心内容，精简版）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Agent 状态机是怎么设计的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 14 个工具分哪几类？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 动态 Prompt 组装是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-15-guardrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 15+ 条 Guardrail 是做什么的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oss-fuzz-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、OSS-Fuzz 集成与 Docker 构建
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、OSS-Fuzz 集成与 Docker 构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#20-oss-fuzz-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. OSS-Fuzz 的 Docker 环境是怎么管理的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 面试官追问：为什么要固定 Docker 镜像版本？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trace-target-fuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Trace 分析、Target Fuzz 与最小化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Trace 分析、Target Fuzz 与最小化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 怎么确定哪些函数需要迁移？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-target-fuzz-poc-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 为什么需要 target fuzz 生成新 PoC？旧 PoC 不能直接用吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 最小化是怎么做的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24a. 面试官追问：最小化后还有误报吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-patch_mergepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Patch 合并层（patch_merge.py）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Patch 合并层（patch_merge.py）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25-bug-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 多 bug 的 patch 怎么合并？（项目的终极目标）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-bron-kerbosch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 面试官追问：为什么用 Bron-Kerbosch 而不是贪心？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Patch 兼容性具体怎么判断？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、静态分析工具链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、静态分析工具链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#28-libclang-_analysisjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. libclang 分析结果（*_analysis.json）的结构是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-gumtree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. GumTree 做了什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、工程细节（加分项）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、工程细节（加分项）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 数据缓存和增量处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-artifact-offloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Artifact offloading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-patch-q24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Patch 最小化（详见 Q24）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、面试高频追问
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、面试高频追问">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#33-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. 整个系统跑一个 bug 需要多长时间？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. 修复成功率是多少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-google-oss-fuzz-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. 这个项目和 Google 的 OSS-Fuzz-Gen 有什么区别？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-fuzzing-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. 为什么现有的 fuzzing benchmark 不够用？你的方案比它们好在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. 项目最大的技术挑战是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. 如果从头重新设计，你会改什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. 代码量有多大？你一个人写的吗？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、数据流速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、后续待补充
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>auto-bug-migration 全项目面试拷打笔记</h1>
+
+<h2 id="auto-bug-migration">auto-bug-migration 全项目面试拷打笔记<a class="headerlink" href="#auto-bug-migration" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>之前的笔记（2026-03-06）只分析了 react_agent 部分。这份笔记覆盖<strong>完整项目</strong>：数据采集 → patch 生成 → Agent 修复 → 合并验证的端到端流水线。</p>
+</blockquote>
+<h3 id="_1">回答总原则<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>这个项目的核心卖点不只是"LLM Agent 修 bug"，而是一套<strong>完整的自动化漏洞迁移流水线</strong>——最终目标是构建一个<strong>包含尽可能多历史 bug 的单一版本</strong>，作为 fuzzing benchmark。</li>
+<li>关键约束：每个 bug 的迁移必须<strong>最小化对源码的修改</strong>，这样不同 bug 的 patch 才能兼容共存在同一个版本上。</li>
+<li>面试时先讲目标（"构建多 bug 共存的 fuzzing benchmark"），再讲手段（"Agent 自动修复迁移编译错误"），最后讲工程（"patch 合并 + 兼容性分析"）。</li>
+<li>数据流要能画出来：<code>OSV API → bug trace → diff 找被改函数 → 注入旧函数 → Agent 修编译错误 → target fuzz 出新 PoC → 最小化 → 合并 → multi-bug benchmark</code>。</li>
+</ul>
+<hr />
+<h2 id="_2">一、项目全局<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 一句话介绍这个项目<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>auto-bug-migration 是一个端到端的自动化系统，<strong>最终目标是为 C/C++ 开源项目构建一个高质量的 fuzzing benchmark——在同一个（新）版本上聚合尽可能多的已知历史漏洞</strong>。核心做法：拿到 bug 版本的执行 trace，找出哪些函数在新版本中被修改了，把<strong>旧版本的函数注入到新版本</strong>中。这必然导致编译错误（版本间 API 变化、结构体重构、头文件变更），系统用 LLM Agent 自动修复这些错误。编译通过后做 <strong>target fuzz 生成新的 PoC</strong>（因为新版本的输入格式可能变了），验证 bug 可触发后<strong>最小化 patch</strong>（去掉不必要的修改），最后尝试<strong>合并多个 bug 的 patch</strong> 到同一版本。</p>
+</blockquote>
+<h3 id="2">2. 为什么需要这个项目？解决什么问题？<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fuzzing benchmark 的痛点</strong>：现有的 fuzzing 评测通常只能在某个 commit 上测试当时存在的 bug，但不同 bug 分布在不同的 commit 范围内。如果想评估 fuzzer 在一个版本上能发现多少已知漏洞（作为 ground truth），需要把这些 bug 聚合到同一个版本——但手动操作极其困难。</li>
+<li><strong>为什么不能直接 cherry-pick</strong>：bug 的修复代码依赖所在 commit 的 API，跨版本迁移时函数签名变了、结构体成员改了、头文件移了，直接 <code>git revert</code> / <code>cherry-pick</code> 大概率编译失败。</li>
+<li><strong>手动迁移成本极高</strong>：一个 C/C++ 大项目（如 libxml2、opensc）的函数签名、结构体定义、宏可能跨版本变了几十处，手动修复一个 bug 的 revert patch 需要数小时，N 个 bug 就是 N 倍。</li>
+<li><strong>最小化修改的必要性</strong>：如果迁移一个 bug 时对源码改动太大，就会和另一个 bug 的 patch 冲突，导致无法共存。所以系统需要找到<strong>最小的编译修复方案</strong>——只改必须改的，不动其他代码。</li>
+</ul>
+<h3 id="3">3. 整体架构是什么？<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌────────────────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    auto-bug-migration Pipeline                          │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                                                                         │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌──────────┐  ┌────────┐ │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  │ 1. Data  ├─►│ 2. Trace  ├─►│ 3. Inject├─►│ 4. Agent ├─►│5. Fuzz │ │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  │ (OSV API)│  │ + Diff    │  │ old func │  │ fix      │  │NewPoC  │ │
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  └──────────┘  └───────────┘  └──────────┘  └──────────┘  └───┬────┘ │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│                                                                │      │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                                              ┌─────────┐  ┌───▼────┐ │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│                                              │ 7.Merge │◄─┤6.Mini- │ │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│                                              │         │  │ mize   │ │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│                                              └─────────┘  └────────┘ │
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└────────────────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<p><strong>七大阶段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>做什么</th>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 数据采集</td>
+<td>OSV API 拉取 bug 元数据 + PoC</td>
+<td>OSV ID</td>
+<td>bug metadata + PoC testcase</td>
+</tr>
+<tr>
+<td>2. Trace + Diff</td>
+<td>在 bug 版本跑 PoC 拿执行 trace，找出 trace 中哪些函数在新版本被修改</td>
+<td>bug commit + target commit + PoC</td>
+<td>被修改函数列表</td>
+</tr>
+<tr>
+<td>3. 注入旧函数</td>
+<td>把旧版本的函数代码注入新版本，生成初始 patch</td>
+<td>被修改函数列表 + V1/V2 源码</td>
+<td>patch bundle (<code>.patch2</code>)</td>
+</tr>
+<tr>
+<td>4. Agent 修复</td>
+<td>LLM Agent 修复注入导致的编译错误</td>
+<td>patch bundle + build errors</td>
+<td>编译通过的 patched binary</td>
+</tr>
+<tr>
+<td>5. Target Fuzz</td>
+<td>对 patched binary 做定向 fuzz，生成新 PoC（旧 PoC 输入格式可能不适用）</td>
+<td>patched binary</td>
+<td>新 PoC（触发 bug）</td>
+</tr>
+<tr>
+<td>6. 最小化</td>
+<td>去掉不必要的 patch hunk，保留最小的触发 bug 所需修改</td>
+<td>完整 patch + PoC</td>
+<td>最小化 patch</td>
+</tr>
+<tr>
+<td>7. 合并</td>
+<td>多 bug 的最小化 patch 合并到同一版本</td>
+<td>N 个最小化 patch</td>
+<td>merged benchmark</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="osv-api">二、数据采集层（OSV API）<a class="headerlink" href="#osv-api" title="Permanent link">&para;</a></h2>
+<h3 id="4">4. 漏洞数据从哪里来？<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>OSV.dev API</strong>（<code>get_bugs.py</code>）：批量查询 OSS-Fuzz 项目的漏洞 ID，支持分批 100 个、指数退避重试、429 限速处理。</li>
+<li><strong>OSV 详情提取</strong>（<code>osv_helper.py</code>，638 行）：</li>
+<li><code>api.osv.dev/v1/vulns/{osv_id}</code> 获取漏洞记录（introduced commit、fixed commit）。</li>
+<li>从 references 里找 <code>bugs.chromium.org</code> 链接 → 跟踪 JS 重定向到 <code>issues.oss-fuzz.com</code>。</li>
+<li>解析 HTML 提取 Detailed Report（project、fuzz_target、sanitizer、crash type）。</li>
+<li>下载 PoC testcase 文件。</li>
+<li><strong>输出格式</strong>：
+  <div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;OSV-2020-525&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;introduced&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;fixed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;def456&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&quot;reproduce&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;opensc&quot;</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">&quot;fuzz_target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pkcs15init_fuzzer&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">&quot;sanitizer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;address (ASAN)&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">&quot;reproducer_testcase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://oss-fuzz.com/download?testcase_id=...&quot;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="5-oss-fuzz-clusterfuzz-api">5. 面试官追问：为什么不直接用 OSS-Fuzz 的 ClusterFuzz API？<a class="headerlink" href="#5-oss-fuzz-clusterfuzz-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ClusterFuzz API 是 Google 内部的，外部只能通过 OSV.dev 和 oss-fuzz.com 的 Web 页面获取数据。</li>
+<li>OSV.dev 提供的是标准化的漏洞元数据（introduced/fixed commit），但不直接提供 PoC 下载链接——需要从 bugs.chromium.org 的 issue 页面里抓取。</li>
+<li>这就是为什么 <code>osv_helper.py</code> 需要处理 JS 重定向和 HTML 解析。</li>
+</ul>
+<hr />
+<h2 id="patch-revert_patch_testpy">三、Patch 生成层（revert_patch_test.py）<a class="headerlink" href="#patch-revert_patch_testpy" title="Permanent link">&para;</a></h2>
+<h3 id="6-patch">6. 初始 patch 是怎么生成的？<a class="headerlink" href="#6-patch" title="Permanent link">&para;</a></h3>
+<p>这是项目最复杂的模块（4,344 行），核心逻辑：</p>
+<ol>
+<li><strong>跑 trace</strong>：在 bug 版本（V1）上用 PoC 跑执行 trace，记录经过了哪些函数。</li>
+<li><strong>Diff V1 vs V2</strong>：对比 bug 版本和目标版本的源码，找出被修改的函数。</li>
+<li><strong>取交集</strong>：trace 中的函数 ∩ 被修改的函数 = 需要迁移的函数列表。</li>
+<li><strong>提取旧函数</strong>：把 V1 中这些函数的代码提取出来，生成"注入到 V2"的 patch。</li>
+<li><strong>函数级拆分</strong>：用 libclang 解析源码 AST，把大 patch 拆分成<strong>函数粒度的 PatchInfo</strong>——每个 hunk 对应一个函数的修改。</li>
+<li><strong>依赖分析</strong>：识别函数之间的调用关系，标记 <code>dependent_func</code>（哪些函数调用了这个被修改的函数）。</li>
+<li><strong>符号重命名</strong>：迁移的函数统一加前缀 <code>__revert_&lt;commit&gt;_&lt;original_name&gt;</code>，让新旧版本的函数可以共存，避免重定义冲突。</li>
+<li><strong>序列化</strong>：所有 PatchInfo 打包成 <code>.patch2</code> 文件（gzip 压缩的 pickle），支持增量缓存和恢复。</li>
+</ol>
+<h3 id="7-patchinfo">7. PatchInfo 数据结构长什么样？<a class="headerlink" href="#7-patchinfo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@dataclass</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">PatchInfo</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">file_path_old</span><span class="p">:</span> <span class="nb">str</span>              <span class="c1"># V1 文件路径</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">file_path_new</span><span class="p">:</span> <span class="nb">str</span>              <span class="c1"># V2 文件路径</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">patch_text</span><span class="p">:</span> <span class="nb">str</span>                 <span class="c1"># 统一 diff 文本</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">old_start_line</span> <span class="o">/</span> <span class="n">old_end_line</span>   <span class="c1"># V1 中的行范围</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">new_start_line</span> <span class="o">/</span> <span class="n">new_end_line</span>   <span class="c1"># V2 中的行范围</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">patch_type</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>            <span class="c1"># {&quot;Function signature change&quot;, &quot;Function added&quot;, ...}</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">old_signature</span> <span class="o">/</span> <span class="n">new_signature</span>   <span class="c1"># 函数签名（修改前/后）</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">dependent_func</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>        <span class="c1"># 调用了此函数的其他函数</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">hiden_func_dict</span><span class="p">:</span> <span class="n">Dict</span>           <span class="c1"># 隐式依赖</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">recreated_function_locations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FunctionLocation</span><span class="p">]</span>
+</span></code></pre></div>
+<p><strong>面试关键点</strong>：patch 不是简单的 diff 文本，而是<strong>结构化的、函数粒度的、带依赖关系的</strong>数据对象。</p>
+<h3 id="8-__revert_-prefix">8. 函数重命名（<code>__revert_*</code> prefix）的设计思路是什么？<a class="headerlink" href="#8-__revert_-prefix" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>问题</strong>：把 V1 的旧函数注入到 V2 中，会和 V2 已有的同名新函数冲突（redefinition error）。</li>
+<li><strong>方案</strong>：迁移过来的旧函数加前缀 <code>__revert_&lt;commit_hash&gt;_&lt;original_name&gt;</code>。</li>
+<li><strong>好处</strong>：</li>
+<li>新旧版本的函数可以共存——V2 的 <code>parse_config()</code>（新版）和注入的 <code>__revert_abc123_parse_config()</code>（旧版）不冲突。</li>
+<li>调用点也做自动替换——触发 bug 的调用链改为调用重命名后的旧函数。</li>
+<li>crash 验证时通过 <code>signature_change_list.json</code> 记录新旧名映射，stack trace 匹配时自动适配。</li>
+<li><strong>对 benchmark 目标的意义</strong>：重命名让不同 bug 的迁移代码互不干扰——bug1 迁移的 <code>__revert_aaa_parse_config</code> 和 bug2 迁移的 <code>__revert_bbb_parse_config</code> 可以共存。这是多 bug patch 能合并的前提。</li>
+<li><strong>trade-off</strong>：增加了 patch 复杂度（每个调用点都要改），但避免了最棘手的命名冲突问题。</li>
+</ul>
+<h3 id="9-libclang-ast-tree-sitter">9. 面试官追问：为什么用 libclang 做 AST 解析而不是 tree-sitter？<a class="headerlink" href="#9-libclang-ast-tree-sitter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>libclang 的优势</strong>：理解完整的 C/C++ 语义——宏展开、模板实例化、<code>#if</code> 条件编译、类型推导。能准确定位函数定义的起止行（包括复杂的多行宏定义函数）。</li>
+<li><strong>libclang 的劣势</strong>：依赖编译环境，有些项目编译配置不完整时 parse 会失败。</li>
+<li><strong>实际做法</strong>：多 fallback 策略——先试带 <code>-resource-dir</code> 的完整解析，失败后退化到无 resource-dir 的粗粒度解析。头文件用 <code>-fsyntax-only</code> 模式。</li>
+<li><strong>为什么不用 tree-sitter</strong>：tree-sitter 只做语法解析，不理解 C 语义。比如一个被 <code>#ifdef</code> 包裹的函数定义，tree-sitter 会当作普通代码块，不知道在当前编译配置下是否存在。</li>
+</ul>
+<hr />
+<h2 id="_3">四、编译错误分类与路由<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="10">10. 编译错误是怎么分类的？<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
+<p><code>build_errors.py</code> 用正则从编译日志中提取结构化错误信息：</p>
+<table>
+<thead>
+<tr>
+<th>错误类型</th>
+<th>正则匹配模式</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>undeclared_identifiers</code></td>
+<td><code>use of undeclared identifier 'X'</code></td>
+<td>变量/类型未定义</td>
+</tr>
+<tr>
+<td><code>undeclared_functions</code></td>
+<td><code>implicit declaration of function 'X'</code></td>
+<td>函数未声明</td>
+</tr>
+<tr>
+<td><code>missing_struct_members</code></td>
+<td><code>no member named 'X' in 'struct Y'</code></td>
+<td>结构体成员不存在</td>
+</tr>
+<tr>
+<td><code>function_call_issues</code></td>
+<td><code>too few/many arguments to function call</code></td>
+<td>函数签名变化</td>
+</tr>
+<tr>
+<td><code>incomplete_types</code></td>
+<td><code>incomplete type 'struct X'</code></td>
+<td>只有 forward declaration</td>
+</tr>
+<tr>
+<td><code>redefinition_of_enumerator</code></td>
+<td><code>redefinition of enumerator 'X'</code></td>
+<td>枚举重复定义</td>
+</tr>
+<tr>
+<td><code>duplicate_case_values</code></td>
+<td><code>duplicate case value</code></td>
+<td>switch case 重复</td>
+</tr>
+</tbody>
+</table>
+<p>每种错误类型对应一个<strong>动态 prompt 片段</strong>（<code>prompts/system_*.txt</code>），注入到 Agent 的 system prompt 中。</p>
+<h3 id="11">11. 错误路由策略是什么？<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>不同错误类型走不同的修复路径：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>undeclared identifier
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  ├─ 是 __revert_* 符号？→ make_extra_patch_override（加 prototype/extern 声明）
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  └─ 是普通符号？→ 搜索 KB 找定义 → 重写函数体
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>missing struct member
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  → 先搜索 V1/V2 的 struct 定义 → 确认字段变更 → 适配访问方式
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>function call issues
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  → 比较 V1/V2 的函数签名 → 适配参数列表
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>incomplete type
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  → 搜索完整类型定义 → 加 #include 或前置声明
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>linker error (undefined reference)
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  → 不是代码问题，是链接配置问题 → 映射到正确的依赖函数
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>macro error
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  → 隔离到 _extra_* hunk（不修改原函数体，额外添加宏定义）
+</span></code></pre></div>
+<h3 id="12-llm">12. 面试官追问：为什么不直接把所有编译错误丢给 LLM，让它自己判断？<a class="headerlink" href="#12-llm" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>实测结果</strong>：不做分类时，LLM 会对 linker error 尝试修改源码（比如注释掉调用），对 struct member 错误直接删掉访问语句——都是"编译通过但语义错误"的假修复。</li>
+<li><strong>分类的价值</strong>：</li>
+<li>过滤掉 LLM 不应该处理的错误（linker error、image error）。</li>
+<li>为 LLM 提供正确的修复策略（通过 prompt 片段注入），而不是让它自由发挥。</li>
+<li>确保 LLM 在修复之前先查询必要信息（比如强制先搜索 struct 定义再修复 missing member）。</li>
+</ul>
+<hr />
+<h2 id="multi-agent">五、Multi-Agent 编排<a class="headerlink" href="#multi-agent" title="Permanent link">&para;</a></h2>
+<h3 id="13-agent">13. 多 Agent 是怎么并行的？<a class="headerlink" href="#13-agent" title="Permanent link">&para;</a></h3>
+<p><code>multi_agent.py</code>（~1,260 行）的编排逻辑：</p>
+<ol>
+<li><strong>按 patch_key 分组</strong>：一个 patch bundle 可能包含几十个 hunk（每个 hunk 对应一个函数），编译错误按出错位置映射到对应的 patch_key。</li>
+<li><strong>独立 spawn Agent</strong>：每个 patch_key 启动一个独立的 <code>agent_langgraph.py</code> 进程，并行度由 <code>REACT_AGENT_JOBS</code> 控制（默认 4-10）。</li>
+<li><strong>Agent 独立修复</strong>：每个 Agent 只负责自己 patch_key 对应的函数，生成 override diff。</li>
+<li><strong>合并 + 统一验证</strong>：所有 Agent 完成后，合并所有 override diff 到一个 patch bundle，做一次统一的 OSS-Fuzz 构建测试。</li>
+<li><strong>迭代</strong>：如果统一构建仍有错误（可能是 Agent 之间的修改互相影响），回到步骤 1 重新分组。</li>
+</ol>
+<h3 id="14-agent">14. Agent 之间有状态共享吗？如何避免冲突？<a class="headerlink" href="#14-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>无共享状态</strong>：每个 Agent 进程独立运行，有自己的 <code>AgentState</code>、工具实例和 artifact 目录。</li>
+<li><strong>冲突避免</strong>：</li>
+<li>每个 Agent 只修改自己 patch_key 对应的 hunk，不会碰其他 hunk。</li>
+<li><code>make_error_patch_override</code> 工具有 guardrail——生成的 override diff 必须在 mapped slice（当前 hunk 的行范围）内，不能越界修改相邻代码。</li>
+<li>如果两个 hunk 在同一个文件的相邻行——极端情况下可能有行号漂移问题，但 effective patch bundle 会在合并时重新计算行号映射。</li>
+<li><strong>最终一致性</strong>：统一验证阶段会捕获所有遗漏的冲突。</li>
+</ul>
+<h3 id="15-agent">15. 面试官追问：为什么不用一个大 Agent 一次修所有错误？<a class="headerlink" href="#15-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>上下文窗口限制</strong>：一个项目可能有 20-50 个 hunk，每个 hunk 的上下文（patch 文本 + 错误信息 + KB 查询结果）可能占 2-5K token，全部塞入一个 Agent 会挤爆上下文。</li>
+<li><strong>错误类型差异大</strong>：undeclared identifier 的修复策略和 struct member missing 完全不同，一个 Agent 同时处理多种错误容易混淆。</li>
+<li><strong>并行加速</strong>：10 个 Agent 并行，比 1 个 Agent 串行快 5-8 倍。</li>
+<li><strong>故障隔离</strong>：一个 Agent 修复失败不影响其他 Agent 的结果。</li>
+</ul>
+<hr />
+<h2 id="react-agent">六、ReAct Agent 内部（已有笔记的核心内容，精简版）<a class="headerlink" href="#react-agent" title="Permanent link">&para;</a></h2>
+<h3 id="16-agent">16. Agent 状态机是怎么设计的？<a class="headerlink" href="#16-agent" title="Permanent link">&para;</a></h3>
+<p>LangGraph 三节点图：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>START → llm_node ──(has tool_calls)──→ tool_node ──→ llm_node
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                  └─(no tool_calls)──→ END
+</span></code></pre></div>
+<ul>
+<li><code>llm_node</code>：调用 LLM，根据当前 state（错误信息 + 历史 + prompt）生成文本或工具调用。</li>
+<li><code>tool_node</code>：执行工具调用，结果写回 state。</li>
+<li>路由函数：检查 LLM 输出是否包含 <code>tool_calls</code>，有则继续循环，无则终止。</li>
+<li><strong>终止条件</strong>：无 tool_calls、达到 <code>max_steps</code>、或达到 <code>recursion_limit</code>。</li>
+</ul>
+<h3 id="17-14">17. 14 个工具分哪几类？<a class="headerlink" href="#17-14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>工具</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KB 查询</td>
+<td><code>search_definition</code></td>
+<td>在 V1/V2 的 libclang 分析结果中查找符号定义</td>
+</tr>
+<tr>
+<td>源码读取</td>
+<td><code>read_file_context</code>, <code>read_artifact</code></td>
+<td>读取源文件片段或 Agent 生成的 artifact</td>
+</tr>
+<tr>
+<td>Patch 操作</td>
+<td><code>make_error_patch_override</code>, <code>make_extra_patch_override</code>, <code>revise_patch_hunk</code></td>
+<td>生成/修改 override diff</td>
+</tr>
+<tr>
+<td>构建测试</td>
+<td><code>ossfuzz_apply_patch_and_test</code></td>
+<td>在 OSS-Fuzz Docker 中应用 patch 并编译</td>
+</tr>
+<tr>
+<td>错误解析</td>
+<td><code>parse_build_errors</code></td>
+<td>结构化解析编译日志</td>
+</tr>
+<tr>
+<td>迁移工具</td>
+<td><code>get_error_patch_context</code>, <code>list_patch_bundle</code>, <code>search_patches</code></td>
+<td>Patch bundle 查询和上下文获取</td>
+</tr>
+</tbody>
+</table>
+<h3 id="18-prompt">18. 动态 Prompt 组装是怎么做的？<a class="headerlink" href="#18-prompt" title="Permanent link">&para;</a></h3>
+<p><code>prompting.py</code> 维护 1 个 base prompt + 13 个错误类型片段：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>system_base.txt                    ← 始终包含
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>+ system_undeclared_symbol.txt     ← 如果有 undeclared identifier 错误
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>+ system_struct_members.txt        ← 如果有 missing struct member 错误
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>+ system_func_sig_change.txt       ← 如果有 function signature change
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>+ system_macro.txt                 ← 如果有 macro 相关错误
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>+ system_incomplete_type.txt       ← 如果有 incomplete type
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>+ system_visibility.txt            ← 如果有 visibility warning
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>+ system_linker_error.txt          ← 如果有 linker error
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>+ ...
+</span></code></pre></div>
+<p>每个片段包含该错误类型的<strong>修复策略、工具使用指南和常见陷阱</strong>。按当前编译错误类型动态拼接，避免无关信息占用 token。</p>
+<h3 id="19-15-guardrail">19. 15+ 条 Guardrail 是做什么的？<a class="headerlink" href="#19-15-guardrail" title="Permanent link">&para;</a></h3>
+<p>拦截 LLM 的高频错误模式，<strong>核心目的是确保修改最小化</strong>（改多了会和其他 bug 的 patch 冲突）：</p>
+<ul>
+<li>生成的 override diff <strong>超出 mapped slice 范围</strong> → 拒绝并要求重新生成（最关键的最小化约束）</li>
+<li>修改了函数签名 → 拒绝（签名由 patch bundle 决定，Agent 不能改）</li>
+<li>在函数体内插入 forward declaration → 强制移到函数外</li>
+<li>对非 <code>__revert_*</code> 函数用 <code>make_extra_patch_override</code> → 应该用 <code>make_error_patch_override</code> 重写函数体</li>
+<li>没先 <code>read_artifact</code> 读最新 BASE slice 就生成 patch → 注入提醒</li>
+<li>丢失 <code>__revert_*</code> 前缀 → 强制保留</li>
+</ul>
+<hr />
+<h2 id="oss-fuzz-docker">七、OSS-Fuzz 集成与 Docker 构建<a class="headerlink" href="#oss-fuzz-docker" title="Permanent link">&para;</a></h2>
+<h3 id="20-oss-fuzz-docker">20. OSS-Fuzz 的 Docker 环境是怎么管理的？<a class="headerlink" href="#20-oss-fuzz-docker" title="Permanent link">&para;</a></h3>
+<p><code>fuzz_helper.py</code>（2,954 行）管理所有 Docker 操作：</p>
+<ol>
+<li><strong>镜像版本固定</strong>：硬编码了 2019-2022 年的 base-builder 和 base-runner 镜像 SHA256 digest。根据目标 commit 的时间戳选择对应年代的镜像，确保构建环境和当时一致。
+   <div class="highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">BASE_BUILDER_IMAGES</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">(</span><span class="s1">&#39;2019-05-13&#39;</span><span class="p">,</span> <span class="s1">&#39;sha256:bd7e28...&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">),</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">(</span><span class="s1">&#39;2021-08-23&#39;</span><span class="p">,</span> <span class="s1">&#39;sha256:859b69...&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">),</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="p">(</span><span class="s1">&#39;2022-07-30&#39;</span><span class="p">,</span> <span class="s1">&#39;sha256:5b714b...&#39;</span><span class="p">,</span> <span class="s1">&#39;1.1&#39;</span><span class="p">),</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="o">...</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">]</span>
+</span></code></pre></div></li>
+<li><strong>构建流程</strong>：<code>build_image_impl()</code> → <code>build_fuzzers_impl()</code> → 编译产物在容器内的 <code>/out</code> 目录。</li>
+<li><strong>Patch 注入</strong>：通过 Docker volume 或 Dockerfile 模板把 patch 文件注入容器，在编译前 <code>git apply</code>。</li>
+</ol>
+<h3 id="21-docker">21. 面试官追问：为什么要固定 Docker 镜像版本？<a class="headerlink" href="#21-docker" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OSS-Fuzz 的 base-builder 会持续更新（新 Clang 版本、新 sanitizer 选项）。如果用 latest 镜像编译 2019 年的代码，可能因为新编译器的 breaking change 编译失败——这不是 patch 的问题，而是环境不匹配。</li>
+<li>固定镜像确保<strong>可复现性</strong>：同一个 commit + 同一个镜像 = 相同的编译结果。</li>
+<li>同时也固定了 OpenSSL 版本（1.0.0 / 1.1），避免 TLS 依赖问题。</li>
+</ul>
+<hr />
+<h2 id="trace-target-fuzz">八、Trace 分析、Target Fuzz 与最小化<a class="headerlink" href="#trace-target-fuzz" title="Permanent link">&para;</a></h2>
+<h3 id="22">22. 怎么确定哪些函数需要迁移？<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p><strong>不再对比两个版本的 trace</strong>。实际做法更直接：</p>
+<ol>
+<li><strong>在 bug 版本上跑 PoC</strong>：用函数级插桩收集执行 trace（经过了哪些函数）。</li>
+<li><strong>Diff V1 和 V2</strong>：对比 bug 版本（V1）和目标版本（V2）的源码，找出哪些函数被修改了。</li>
+<li><strong>取交集</strong>：trace 中出现的函数 ∩ 被修改的函数 = <strong>需要迁移的函数</strong>。</li>
+<li>把这些函数的 <strong>V1（旧）版本代码注入到 V2（新）版本</strong>中 → 必然产生编译错误 → 交给 Agent 修复。</li>
+</ol>
+<p><strong>为什么只看 trace 中的函数</strong>：不在 trace 中的函数即使被改了也不影响 bug 的触发，不需要迁移。这天然就是一种最小化——只动必须动的。</p>
+<h3 id="23-target-fuzz-poc-poc">23. 为什么需要 target fuzz 生成新 PoC？旧 PoC 不能直接用吗？<a class="headerlink" href="#23-target-fuzz-poc-poc" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>旧 PoC 可能不适用</strong>：新版本的输入解析逻辑可能变了（比如新增了格式校验、改了 header 字段长度、换了编码方式），旧 PoC 的输入在新版本上可能在到达漏洞函数之前就被拒绝了。</li>
+<li><strong>做法</strong>：编译通过后，以旧 PoC 为种子做定向 fuzzing（target fuzz），让 fuzzer 自动变异输入来适应新版本的格式，生成能在新版本上触发同一个 bug 的新 PoC。</li>
+<li><strong>判定标准</strong>：fuzzer 触发了 crash，且 crash 类型和原始 bug 一致（同类型的 ASan 报告 + stack trace 经过了被迁移的旧函数）。</li>
+</ul>
+<h3 id="24">24. 最小化是怎么做的？<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<p>bug 触发后，当前的 patch 可能包含不必要的修改（比如迁移了一些 trace 里有但实际不影响 bug 触发的函数）。最小化就是找到<strong>触发 bug 所需的最小 patch 子集</strong>：</p>
+<ul>
+<li><strong>贪心最小化</strong>（<code>minimize_greedy</code>）：逐一移除 patch hunk，每次移除后重新编译 + 跑 PoC。如果仍然能触发 bug → 说明这个 hunk 不是必须的，可以去掉。</li>
+<li><strong>函数依赖感知</strong>（<code>minimize_func_list_greedy</code>）：考虑函数调用关系——如果函数 A 调用了函数 B，那 B 的 hunk 不能在 A 之前被移除。</li>
+<li><strong>Trace 过滤</strong>（<code>filter_patches_by_trace</code>）：先用 trace 粗筛，只保留 trace 中出现的函数对应的 hunk + 传递闭包的依赖。</li>
+<li><strong>最小化的意义</strong>：patch 越小，和其他 bug 的 patch 冲突概率越低，后续合并成功率越高。</li>
+</ul>
+<h3 id="24a">24a. 面试官追问：最小化后还有误报吗？<a class="headerlink" href="#24a" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>可能有</strong>：最小化保证的是"移除某个 hunk 后 bug 不触发"，但不保证触发的 bug 和原始 bug 完全一致——可能是迁移引入的新 bug 而不是原始 bug。</li>
+<li><strong>缓解措施</strong>：检查 crash 的 stack trace 是否经过了被迁移的旧函数（<code>__revert_*</code>），如果 stack 完全在新版本的代码里，说明不是原始 bug。</li>
+<li><strong>终极验证</strong>：人工审核 crash report，确认 crash 类型和触发路径和原始 bug 一致。</li>
+</ul>
+<hr />
+<h2 id="patch-patch_mergepy">九、Patch 合并层（patch_merge.py）<a class="headerlink" href="#patch-patch_mergepy" title="Permanent link">&para;</a></h2>
+<h3 id="25-bug-patch">25. 多 bug 的 patch 怎么合并？（项目的终极目标）<a class="headerlink" href="#25-bug-patch" title="Permanent link">&para;</a></h3>
+<p>项目的最终目标是<strong>在同一个版本上聚合最多的 bug</strong>，所以 patch 合并是整条流水线的终点。难点在于不同 bug 的 patch 可能冲突：</p>
+<ol>
+<li><strong>构建兼容性图</strong>：</li>
+<li>节点 = 每个 bug 的 patch bundle。</li>
+<li>边 = 两个 patch 是否兼容。</li>
+<li><strong>兼容条件</strong>：两个 patch 修改的函数完全不重叠，或者两个 bug 在同一个 commit 上都能触发（共享 commit）。</li>
+<li><strong>求最大团（maximal clique）</strong>：用 <strong>Bron-Kerbosch 算法</strong> 找所有完全兼容的 patch 子集。</li>
+<li><strong>选最大团</strong>：选包含最多 bug 的兼容组，合并成一个 unified diff。</li>
+<li><strong>Patch 刷新</strong>：如果某些 patch 是在不同 commit 上生成的，需要"刷新"——在共享 commit 上重新运行 <code>revert_patch_test</code> 生成新 patch。</li>
+<li><strong>输出</strong>：<code>patch/group_&lt;commit&gt;_final.diff</code> + <code>merged_&lt;commit&gt;.json</code>（函数名映射）。</li>
+</ol>
+<h3 id="26-bron-kerbosch">26. 面试官追问：为什么用 Bron-Kerbosch 而不是贪心？<a class="headerlink" href="#26-bron-kerbosch" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>问题本质是最大团问题</strong>（NP-hard），但实际图很小（通常 &lt;50 个 bug），Bron-Kerbosch 完全可行。</li>
+<li><strong>贪心的问题</strong>：贪心选择局部最优的兼容对，可能错过全局最大的兼容组。比如 A-B 兼容、A-C 兼容、B-C 不兼容——贪心可能先选 A-B，错过了 A-C 组合（如果 C 还兼容更多其他 patch）。</li>
+<li><strong>实际性能</strong>：几十个 bug 的兼容性图，Bron-Kerbosch 在毫秒内完成。</li>
+</ul>
+<h3 id="27-patch">27. Patch 兼容性具体怎么判断？<a class="headerlink" href="#27-patch" title="Permanent link">&para;</a></h3>
+<p>两个 patch P1（修复 bug1）和 P2（修复 bug2）兼容的条件：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>if P1 和 P2 修改的函数集合没有交集:
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    → 一定兼容（互不影响）
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>elif P1 和 P2 修改了相同函数:
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    if bug1 和 bug2 都在某个 commit C 上能触发:
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        → 在 commit C 上两个 patch 可以共存 → 兼容（需要刷新到 commit C）
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    else:
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        → 不兼容
+</span></code></pre></div>
+<hr />
+<h2 id="_4">十、静态分析工具链<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="28-libclang-_analysisjson">28. libclang 分析结果（<code>*_analysis.json</code>）的结构是什么？<a class="headerlink" href="#28-libclang-_analysisjson" title="Permanent link">&para;</a></h3>
+<p>Agent 的知识库（KB）是通过 libclang 预先解析 V1/V2 源码生成的 JSON 文件：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">[</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FUNCTION_DEFI&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">&quot;spelling&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parse_config&quot;</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">&quot;usr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c:@F@parse_config&quot;</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/src/config.c&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;line&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;column&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="nt">&quot;extent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;line&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;line&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">85</span><span class="p">}},</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="nt">&quot;is_definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">]</span>
+</span></code></pre></div>
+<p><code>KbIndex</code>（<code>core/kb_index.py</code>）加载这些 JSON，支持按符号名、USR、文件路径查询。Agent 调用 <code>search_definition("parse_config", version="v2")</code> 时，KbIndex 查找 V2 的分析结果，返回函数的完整定义位置，然后 <code>SourceManager</code> 从源码中读取对应的代码片段。</p>
+<h3 id="29-gumtree">29. GumTree 做了什么？<a class="headerlink" href="#29-gumtree" title="Permanent link">&para;</a></h3>
+<p><code>gumtree.py</code>（293 行）：当函数在版本间被<strong>移动或重构</strong>时，简单的行号对比无法定位对应关系。GumTree 做 AST 级别的 diff：</p>
+<ul>
+<li>输入：V1 和 V2 的同一个函数的源码。</li>
+<li>输出：AST 节点的对应关系（哪些旧节点匹配哪些新节点）。</li>
+<li>用途：确定"V1 的第 42 行"对应"V2 的第 67 行"，即使中间插入/删除了很多代码。</li>
+</ul>
+<hr />
+<h2 id="_5">十一、工程细节（加分项）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="30">30. 数据缓存和增量处理<a class="headerlink" href="#30" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Pickle 缓存</strong>（<code>utils.py</code>）：每个项目的 patch bundle 缓存到 <code>data/patches/&lt;target&gt;_patches.pkl.gz</code>。下次运行时加载缓存，只处理新的 bug。</li>
+<li><strong>安全反序列化</strong>（<code>patch_bundle.py</code>）：用 <code>RestrictedUnpickler</code> 白名单只允许反序列化 <code>PatchInfo</code> 和 <code>FunctionLocation</code>，防止 pickle 反序列化攻击。</li>
+<li><strong>路径验证</strong>：<code>ensure_allowed_path()</code> 限制 patch bundle 只能从 <code>data/tmp_patch</code> 和 <code>data/react_agent_artifacts</code> 目录读取。</li>
+</ul>
+<h3 id="31-artifact-offloading">31. Artifact offloading<a class="headerlink" href="#31-artifact-offloading" title="Permanent link">&para;</a></h3>
+<ul>
+<li>LLM 工具调用的输出（patch 文本、源码片段、错误日志）可能很长（几千 token），直接放在对话历史中会挤爆上下文。</li>
+<li>解决方案：大输出 offload 到文件（<code>data/react_agent_artifacts/multi_&lt;run_id&gt;/&lt;patch_key&gt;/</code>），对话中只保留文件路径引用。Agent 需要时通过 <code>read_artifact</code> 工具按需读取。</li>
+</ul>
+<h3 id="32-patch-q24">32. Patch 最小化（详见 Q24）<a class="headerlink" href="#32-patch-q24" title="Permanent link">&para;</a></h3>
+<p>最小化的详细策略已在 Q24 中描述。这里补充实现层面：<code>utils.py</code> 的 <code>minimize_greedy</code> / <code>minimize_func_list_greedy</code> / <code>filter_patches_by_trace</code> 三个函数配合使用。最小化的判定标准不是"编译通过"，而是"bug 仍可触发"——需要跑 target fuzz 验证。</p>
+<hr />
+<h2 id="_6">十二、面试高频追问<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="33-bug">33. 整个系统跑一个 bug 需要多长时间？<a class="headerlink" href="#33-bug" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>数据采集 + Trace</strong>：几分钟（OSV API + 在 bug 版本跑 PoC 收集 trace）。</li>
+<li><strong>Patch 生成</strong>：1-5 分钟（diff + libclang 解析 + 注入旧函数 + 依赖分析）。</li>
+<li><strong>Agent 修复</strong>：5-30 分钟（取决于错误数量和复杂度）。每个 Agent 超时 <code>REACT_AGENT_TIMEOUT=1800s</code>。</li>
+<li><strong>Target Fuzz</strong>：取决于 fuzzer 效率。可能几分钟就触发，也可能跑几个小时。</li>
+<li><strong>最小化</strong>：每次移除一个 hunk 都要重编 + 重跑 fuzz，O(N) 次迭代，可能 10-30 分钟。</li>
+<li><strong>总计</strong>：简单 bug 约 30 分钟，复杂 bug（编译错误多 + fuzz 难触发）可能几小时。</li>
+<li><!-- TODO: 你实际跑过的项目数量和平均时间？ --></li>
+</ul>
+<h3 id="34">34. 修复成功率是多少？<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<ul>
+<li><!-- TODO: 你的实际成功率数据。按项目/按错误类型的统计。 --></li>
+<li><strong>影响因素</strong>：</li>
+<li>简单错误（undeclared identifier、missing include）→ 修复率高。</li>
+<li>复杂错误（struct 重构、API 行为变更）→ 修复率低。</li>
+<li>错误数量越多（&gt;10 个 hunk），整体成功率越低（需要所有 hunk 都修复才算成功）。</li>
+</ul>
+<h3 id="35-google-oss-fuzz-gen">35. 这个项目和 Google 的 OSS-Fuzz-Gen 有什么区别？<a class="headerlink" href="#35-google-oss-fuzz-gen" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>auto-bug-migration</th>
+<th>OSS-Fuzz-Gen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>最终目标</strong></td>
+<td>构建多 bug 共存的 fuzzing benchmark</td>
+<td>提升 fuzzing 覆盖率</td>
+</tr>
+<tr>
+<td><strong>任务</strong></td>
+<td>跨版本 patch 迁移的编译修复</td>
+<td>自动生成 fuzz harness</td>
+</tr>
+<tr>
+<td><strong>输入</strong></td>
+<td>已有的 revert patch + 编译错误</td>
+<td>目标函数签名</td>
+</tr>
+<tr>
+<td><strong>LLM 的角色</strong></td>
+<td>修复编译错误（受 patch 结构约束，最小化修改）</td>
+<td>从零生成代码</td>
+</tr>
+<tr>
+<td><strong>上下文来源</strong></td>
+<td>libclang KB + V1/V2 源码对比</td>
+<td>Fuzz Introspector</td>
+</tr>
+<tr>
+<td><strong>验证标准</strong></td>
+<td>编译通过 + crash 复现 + 多 patch 兼容</td>
+<td>编译通过 + 覆盖率</td>
+</tr>
+<tr>
+<td><strong>最大挑战</strong></td>
+<td>多 bug patch 兼容共存 + 最小化修改</td>
+<td>LLM 的 fake definition</td>
+</tr>
+</tbody>
+</table>
+<h3 id="36-fuzzing-benchmark">36. 为什么现有的 fuzzing benchmark 不够用？你的方案比它们好在哪？<a class="headerlink" href="#36-fuzzing-benchmark" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>现有 benchmark 的问题</strong>：</li>
+<li><strong>Magma / LAVA</strong>：人工注入 bug 或用静态插桩注入，bug 不够真实，fuzzer 可能"学会"这些人工模式。</li>
+<li><strong>按 commit 选取</strong>：每个 commit 上只有当时存在的 bug，数量有限（可能只有 1-3 个），统计显著性不够。</li>
+<li><strong>FuzzBench</strong>：评估 fuzzer 的覆盖率效率，但不直接评估 bug 发现能力。</li>
+<li><strong>auto-bug-migration 的优势</strong>：</li>
+<li>使用 <strong>OSS-Fuzz 的真实历史漏洞</strong>（有 CVE、有 PoC、有修复 commit），不是人工注入的。</li>
+<li>在同一个版本上聚合 N 个 bug，可以直接统计 fuzzer 在固定时间内发现了几个——<strong>比覆盖率更直接的评测指标</strong>。</li>
+<li>每个 bug 都有 PoC testcase 作为 ground truth，可以自动判定是否触发。</li>
+<li>最小化修改确保 bug 的触发路径和原始版本尽量一致，不会因为迁移引入 artifact。</li>
+</ul>
+<h3 id="37">37. 项目最大的技术挑战是什么？<a class="headerlink" href="#37" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>最小化修改 vs 编译通过的矛盾</strong>：LLM 倾向于"大刀阔斧改代码让编译通过"，但改多了会破坏和其他 bug 的 patch 兼容性。Guardrail 的 mapped slice 约束就是为了强制最小化。</li>
+<li><strong>多 bug patch 兼容性</strong>：每个 bug 独立迁移后，合并到同一版本时可能冲突——两个 bug 的 patch 改了同一个函数。需要兼容性图 + 最大团算法来选择最大兼容子集。</li>
+<li><strong>多 hunk 依赖管理</strong>：一个 bug 的 revert patch 可能涉及 20+ 个函数，它们之间有调用依赖。修复 hunk A 可能引入新的编译错误，影响 hunk B。</li>
+<li><strong>版本间语义差异</strong>：相同的函数名在 V1 和 V2 可能有不同的签名、不同的结构体成员、不同的宏定义。Agent 需要同时理解两个版本的代码。</li>
+<li><strong>Docker 环境的历史兼容性</strong>：2019 年的代码需要 2019 年的编译器和依赖，Docker 镜像的版本选择是关键。</li>
+</ol>
+<h3 id="38">38. 如果从头重新设计，你会改什么？<a class="headerlink" href="#38" title="Permanent link">&para;</a></h3>
+<ul>
+<li><!-- TODO: 你自己的反思。可以考虑以下方向：--></li>
+<li>可能的改进方向：</li>
+<li><strong>修改量度量</strong>：引入一个显式的"patch 最小化 score"（如 diff 行数），作为 Agent 的优化目标而不仅仅是编译通过——修改越少，和其他 bug 兼容的概率越高。</li>
+<li><strong>更细粒度的错误路由</strong>：当前是按错误类型分类，未来可以按"错误 + 上下文"做更精细的路由。</li>
+<li><strong>增量编译</strong>：当前每次 Agent 修改都要完整重编，增量编译可以大幅减少验证时间。</li>
+<li><strong>语义验证</strong>：编译通过不代表语义正确，可以加运行时 test 或 differential testing。</li>
+<li><strong>更好的 Agent 间协调</strong>：当前 Agent 完全独立，未来可以让 Agent 共享"已发现的类型映射"信息。</li>
+</ul>
+<h3 id="39">39. 代码量有多大？你一个人写的吗？<a class="headerlink" href="#39" title="Permanent link">&para;</a></h3>
+<ul>
+<li>整个项目约 <strong>~38,000 行 Python</strong>（<code>react_agent/</code> 约 20,000 行 + 其余约 18,000 行）。</li>
+<li>核心模块（Agent、multi-agent、prompt 系统、guardrail）是我设计和实现的。</li>
+<li>数据采集（OSV API）、Docker 管理（fuzz_helper）、patch 合并（patch_merge）也是项目的一部分。</li>
+<li><!-- TODO: 根据你的实际情况调整——哪些是你写的，哪些是复用/参考的。 --></li>
+</ul>
+<hr />
+<h2 id="_7">十三、数据流速查表<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>OSV.dev API
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    │ osv_helper.py
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    ▼
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>bug metadata + PoC ──────────────────────────┐
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    │                                         │
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    │ 在 bug 版本跑 PoC → trace              │
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    │ diff V1/V2 → 找被修改的函数             │
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    │ trace ∩ 修改函数 → 注入旧函数到新版本   │
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    ▼                                         │
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>PatchInfo (.patch2) ← 编译必然报错            │
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    │                                         │
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    │ multi_agent.py (N 个并行 Agent 修复)    │
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    ▼                                         │
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>patched binary (编译通过)                     │
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    │                                         │
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    │ target fuzz (以旧 PoC 为种子) ◄────────┘
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    ▼
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>bug 触发? ──(no)──→ 失败，换策略
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    │
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>   (yes)
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    │
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    │ minimize (贪心去 hunk，保持 bug 可触发)
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    ▼
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>最小化 patch ──→ data/patches/*.pkl.gz
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>                    │  (repeat for each bug)
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>                    │
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>                    │ patch_merge.py (Bron-Kerbosch 求最大兼容集)
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>                    ▼
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>                group_*_final.diff
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>                    │
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>                    ▼
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>           ┌─────────────────────┐
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>           │  Fuzzing Benchmark   │
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>           │  同一版本，N 个 bug  │
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>           │  共存且均可触发      │
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>           └─────────────────────┘
+</span></code></pre></div>
+<hr />
+<h2 id="_8">十四、后续待补充<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><!-- TODO: 你实际跑过的项目列表和成功率数据（Q33/Q34） --></li>
+<li><!-- TODO: 你的个人贡献范围（Q38） --></li>
+<li><!-- TODO: 从头重新设计的反思（Q37） --></li>
+<li><!-- TODO: 和直接 LLM 生成 patch 的 baseline 对比数据（如果有的话） --></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
